@@ -9,21 +9,47 @@ import {
   StyleSheet,
   TouchableHighlight,
 } from 'react-native';
+import WordsContainer from './WordsContainer';
+import SentenceContainer from './SentenceContainer';
+import NewWordModal from './NewWordModal';
 
 export default class NewSentence extends Component {
+  constructor() {
+    super();
+    this.state = {
+      modalVisible: false,
+      modalType: 'noun',
+      sentence: [],
+    };
+  }
+
+  _setModal(visible, wordType='') {
+    this.setState({
+      modalVisible: visible,
+      modalType: wordType,
+    })
+  }
+
+  _addWord(word, type) {
+    this.setState({
+      sentence: this.state.sentence.concat([{word: word, type: type}]),
+    })
+  }
+
   render() {
     return (
       <View style={styles.container}>
+        <NewWordModal
+          modalVisible={this.state.modalVisible}
+          addWord={this._addWord.bind(this)}
+          modalType={this.state.modalType}
+          setModal={this._setModal.bind(this)} />
         <Image
           source={{uri: this.props.uri}}
           style={styles.image}
           resize='contain' />
-        <View style={styles.sentenceContainer}>
-          <Text>Sentence formation goes here.</Text>
-        </View>
-        <View style={styles.wordsContainer}>
-          <Text>Word options go here.</Text>
-        </View>
+        <SentenceContainer sentence={this.state.sentence} />
+        <WordsContainer setModal={this._setModal.bind(this)} />
       </View>
     )
   }
@@ -32,16 +58,6 @@ export default class NewSentence extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  wordsContainer: {
-    height: 300,
-    margin: 10,
-    backgroundColor: '#a7d2c8',
-  },
-  sentenceContainer: {
-    height: 200,
-    margin: 10,
-    backgroundColor: '#f0f4f4',
   },
   image: {
     margin: 10,
