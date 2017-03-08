@@ -19,19 +19,13 @@ const SentenceContainer = ({ sentence, onWordClick })  => {
       styles.word,
       { backgroundColor: words[item.type]['color'] }
     ]);
-    if (!words[item.type]['custom']) {
-      return (
-        <TouchableHighlight
-          underlayColor='transparent'
-          onPress={onWordClick.bind(this,item.type,index)}>
-          <Text style={wordStyle}>{item.word}</Text>
-        </TouchableHighlight>
-      )
-    } else {
-      return (
+    return (
+      <TouchableHighlight
+        underlayColor='transparent'
+        onPress={onWordClick.bind(this,item.type,index)}>
         <Text style={wordStyle}>{item.word}</Text>
-      )
-    }
+      </TouchableHighlight>
+    )
   });
 
   return (

@@ -6,6 +6,7 @@ import {
   View,
   Container,
   TouchableHighlight,
+  ScrollView
 } from 'react-native';
 import { connect } from 'react-redux';
 
@@ -13,36 +14,28 @@ import { addWord } from '../actions';
 import { styles } from '../styles';
 import { words } from '../words';
 
-const WordsContainer = ({ setModalClick, addBlankWord })  => {
+const WordsContainer = ({ addBlankWord })  => {
   var wordTypes = [];
   for (var type in words) {
     var wordTypeStyle = ([
       styles.typeContainer,
       { backgroundColor: words[type]['color'] }
     ]);
-    if (words[type]['custom']) {
-      wordTypes.push(
-        <TouchableHighlight
-          onPress={setModalClick.bind(this, type)}
-          style={wordTypeStyle}>
-          <Text>+ {type}</Text>
-        </TouchableHighlight>
-      )
-    } else {
-      wordTypes.push(
-        <TouchableHighlight
-          onPress={addBlankWord.bind(this, type)}
-          style={wordTypeStyle}>
-          <Text>+ {type}</Text>
-        </TouchableHighlight>
-      )
-    }
+    wordTypes.push(
+      <TouchableHighlight
+        onPress={addBlankWord.bind(this, type)}
+        style={wordTypeStyle}>
+        <Text>+ {type}</Text>
+      </TouchableHighlight>
+    )
   }
 
   return (
-    <View style={styles.wordsContainer}>
-      { wordTypes }
-    </View>
+    <ScrollView style={styles.wordsScrollContainer}>
+      <View style={styles.wordsContainer}>
+        { wordTypes }
+      </View>
+    </ScrollView>
   )
 }
 

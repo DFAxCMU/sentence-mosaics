@@ -83,11 +83,13 @@ export const styles = StyleSheet.create({
     borderWidth: 1,
     borderStyle: 'dashed',
   },
-  wordsContainer: {
+  wordsScrollContainer: {
+    backgroundColor: '#a7d2c8',
     width: 325,
     height: 200,
     margin: 5,
-    backgroundColor: '#a7d2c8',
+  },
+  wordsContainer: {
     padding: 10,
     flexWrap: 'wrap',
     alignItems: 'flex-start',
@@ -128,8 +130,9 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 10,
-    paddingLeft: 20,
-    paddingRight: 20,
+    paddingLeft: 10,
+    paddingRight: 10,
+    marginBottom: 10,
   },
   modalHeader: {
     paddingBottom: 20,

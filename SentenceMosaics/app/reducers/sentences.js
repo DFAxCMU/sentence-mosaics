@@ -1,9 +1,10 @@
 'use strict';
 
 import { ActionConst } from 'react-native-router-flux';
+import { words } from '../words';
 
 const initialState = {
-  activeSentence: [],
+  activeSentence: [{word: '', type: 'pronoun'}, {word: '', type: 'main verb'}, {word: '', type: 'noun'}],
   activeURI: '',
   editIndex: 0,
   inputWord: '',
@@ -18,21 +19,37 @@ export default function sentences(state = initialState, action) {
         ...state,
         activeSentence: state.activeSentence.concat([{word: action.word, type: action.wordType}])
       }
-    case 'CLICK_WORD':
+    case 'CLEAR_SENTENCE':
       return {
         ...state,
-        wordPicker: action.wordType,
-        editIndex: action.wordIndex
+        activeSentence: initialState.activeSentence
+      }
+    case 'CLICK_WORD':
+      if (words[action.wordType]['custom']) {
+        return {
+          ...state,
+          modalType: action.wordType,
+          editIndex: action.wordIndex
+        }
+      }
+      else {
+        return {
+          ...state,
+          wordPicker: action.wordType,
+          editIndex: action.wordIndex
+        }
       }
     case 'EDIT_WORD':
+      var wordType = state.activeSentence[action.wordIndex].type;
       var updatedSentence = [
         ...state.activeSentence.slice(0, action.wordIndex),
-        {word: action.word, type: state.wordPicker},
+        {word: action.word, type: wordType},
         ...state.activeSentence.slice(action.wordIndex + 1)
       ];
       return {
         ...state,
         wordPicker: null,
+        modalType: null,
         activeSentence: updatedSentence
       }
     case 'INPUT_WORD':

@@ -2,6 +2,7 @@
 
 /* Action Types */
 export const ADD_WORD = 'ADD_WORD';
+export const CLEAR_SENTENCE = 'CLEAR_SENTENCE';
 export const CLICK_WORD = 'CLICK_WORD';
 export const EDIT_WORD = 'EDIT_WORD';
 export const INPUT_WORD = 'INPUT_WORD';
@@ -14,6 +15,12 @@ export function addWord(word, wordType) {
     type: ADD_WORD,
     word,
     wordType
+  }
+}
+
+export function clearSentence() {
+  return {
+    type: CLEAR_SENTENCE,
   }
 }
 

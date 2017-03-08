@@ -10,10 +10,10 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 
-import { addWord, inputWord, setModal } from '../actions';
+import { editWord, inputWord, setModal } from '../actions';
 import { styles } from '../styles';
 
-const NewWordModal = ({ modalType, setModalClick, inputWord, onWordInput, handleSubmit }) => {
+const NewWordModal = ({ modalType, wordIndex, setModalClick, inputWord, onWordInput, handleSubmit }) => {
   if (modalType) {
     return (
       <View>
@@ -38,7 +38,7 @@ const NewWordModal = ({ modalType, setModalClick, inputWord, onWordInput, handle
               placeholder={'Type ' + modalType + ' here!'} />
 
             <TouchableHighlight
-              onPress={handleSubmit.bind(this, inputWord, modalType)}
+              onPress={handleSubmit.bind(this, inputWord, wordIndex)}
               underlayColor='transparent'>
                 <Text style={styles.modalButton}>Enter</Text>
             </TouchableHighlight>
@@ -57,8 +57,8 @@ const mapDispatchToProps = (dispatch) => {
     onWordInput: (word) => {
       dispatch(inputWord(word))
     },
-    handleSubmit: (word, wordType) => {
-      dispatch(addWord(word, wordType));
+    handleSubmit: (word, wordIndex) => {
+      dispatch(editWord(word, wordIndex));
       dispatch(inputWord(''));
       dispatch(setModal(null));
     }
@@ -68,6 +68,7 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = (state) => {
   return {
     modalType: state.sentences.modalType,
+    wordIndex: state.sentences.editIndex,
     inputWord: state.sentences.inputWord
   }
 }
