@@ -25,7 +25,7 @@ const NewSentence = ({ uri, wordPicker, setModalClick }) => (
     <Image
       source={{uri: uri}}
       style={styles.image}
-      resize='contain' />
+      resizeMode={Image.resizeMode.contain} />
     <SentenceContainer />
     { wordPicker ?
       <WordPicker /> :

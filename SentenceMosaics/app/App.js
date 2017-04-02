@@ -27,6 +27,7 @@ export default class App extends Component {
               key="home"
               component={Home}
               title="Sentence Mosaics"
+              type="reset" // Clear navigation stack
               initial={true} />
             <Scene
               key="newSentence"

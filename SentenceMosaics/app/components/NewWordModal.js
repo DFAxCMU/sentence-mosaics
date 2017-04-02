@@ -18,7 +18,8 @@ const NewWordModal = ({ modalType, wordIndex, setModalClick, inputWord, onWordIn
     return (
       <View>
         <Modal
-          animationType={'fade'}
+          //animationType={'fade'} // Was slow and annoying 
+                                   // but consider putting back later
           transparent={true}>
           <View style={styles.modalContainer}>
             <TouchableHighlight
@@ -33,6 +34,7 @@ const NewWordModal = ({ modalType, wordIndex, setModalClick, inputWord, onWordIn
 
             <TextInput
               value={inputWord}
+              autoCapitalize="none"
               onChangeText={onWordInput.bind(this)}
               style={styles.input}
               placeholder={'Type ' + modalType + ' here!'} />

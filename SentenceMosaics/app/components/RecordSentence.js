@@ -23,7 +23,7 @@ const RecordSentence = ({ uri, sentence }) => {
       <Image
         source={{uri: uri}}
         style={styles.image}
-        resize='contain' />
+        resizeMode={Image.resizeMode.contain} />
       <View style={styles.sentenceContainer}>
         <Text style={styles.modalHeader}>{ fullSentence }</Text>
       </View>

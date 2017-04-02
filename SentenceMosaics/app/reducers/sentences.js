@@ -4,7 +4,7 @@ import { ActionConst } from 'react-native-router-flux';
 import { words } from '../words';
 
 const initialState = {
-  activeSentence: [{word: '', type: 'pronoun'}, {word: '', type: 'main verb'}, {word: '', type: 'noun'}],
+  activeSentence: [{word: '', type: 'pronoun'}, {word: '', type: 'aux verb'}, {word: '', type: 'main verb'}],
   activeURI: '',
   editIndex: 0,
   inputWord: '',
