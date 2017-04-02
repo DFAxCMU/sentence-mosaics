@@ -5,6 +5,21 @@ import {
     StyleSheet
 } from 'react-native';
 
+var iPad = [768, 1024]; // width(x), height(y)
+var iPhone6Simulator = [375, 667]
+var currentDevice = iPhone6Simulator;
+//var currentDevice = iPad;
+
+// For iPhone
+var wordBlankHeight = 40
+var wordBlankWidth = 50
+var wordBlankPaddingTop = 10
+
+// For iPad
+/*var wordBlankHeight = 60
+var wordBlankWidth = 80
+var wordBlankPaddingTop = 20*/
+
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -23,16 +38,16 @@ export const styles = StyleSheet.create({
     marginTop: 8
   },
   list: {
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     flexWrap: 'wrap',
     alignItems: 'flex-start',
     flexDirection:'row',
   },
-  item: {
+  item: { // Photos cells in Home page
     marginRight: 10,
     marginTop: 10,
-    width: 110,
-    height: 110
+    width: currentDevice[0] / 4, 
+    height: currentDevice[0] / 4,
   },
   modalContainer: {
     justifyContent: 'center',
@@ -51,41 +66,43 @@ export const styles = StyleSheet.create({
     borderWidth: 1,
     marginBottom: 30,
   },
-  image: {
+  image: { // Enlarged photo in the New Sentence page
     margin: 10,
-    height: 200,
-    width: 325,
+    height: currentDevice[0] * 2/3, // Height is smaller to make room
+                                    // for the sentence and word bank,
+                                    // but the image is still scaled
+    width: currentDevice[0] * 7/8,
   },
   sentenceContainer: {
     height: 110,
     margin: 5,
-    backgroundColor: '#f0f4f4',
+    backgroundColor: '#e4eeed',
     flexWrap: 'wrap',
     alignItems: 'flex-start',
     flexDirection:'row',
     padding: 10,
-    width: 325,
+    width: currentDevice[0] * 7/8,
   },
   word: {
-    height: 40,
+    height: wordBlankHeight,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingTop: 10,
+    paddingTop: /*10,*/ 20,
     paddingLeft: 10,
     paddingRight: 10,
     marginRight: 10,
-    minWidth: 50,
+    minWidth: wordBlankWidth,
     textAlign: 'center',
   },
   blankWord: {
-    height: 40,
-    width: 50,
+    height: wordBlankHeight,
+    width: wordBlankWidth,
     borderWidth: 1,
     borderStyle: 'dashed',
   },
   wordsScrollContainer: {
     backgroundColor: '#a7d2c8',
-    width: 325,
+    width: currentDevice[0] * 7/8,
     height: 200,
     margin: 5,
   },
@@ -94,6 +111,7 @@ export const styles = StyleSheet.create({
     flexWrap: 'wrap',
     alignItems: 'flex-start',
     flexDirection:'row',
+    backgroundColor: '#e4eeed',
   },
   wordsPicker: {
     height: 200,
@@ -126,7 +144,7 @@ export const styles = StyleSheet.create({
     borderRadius: 5,
   },
   typeContainer: {
-    height: 50,
+    height: wordBlankHeight,
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 10,
