@@ -14,7 +14,7 @@ import { styles } from '../styles';
 const RecordSentence = ({ uri, sentence }) => {
   var fullSentence = sentence.map(function(item, index) {
     return (
-      <Text>{item.word} </Text>
+      <Text key={index} >{item.word} </Text>
     )
   });
 

@@ -24,6 +24,7 @@ const WordsContainer = ({ addBlankWord })  => {
     wordTypes.push(
       <TouchableHighlight
         onPress={addBlankWord.bind(this, type)}
+        key={type}
         style={wordTypeStyle}>
         <Text>+ {type}</Text>
       </TouchableHighlight>

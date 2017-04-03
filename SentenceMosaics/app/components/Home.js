@@ -4,6 +4,7 @@ import React, { Component } from 'react'
 import {
   View,
   Image,
+  Alert,
   Button,
   TouchableHighlight,
   ListView
@@ -56,9 +57,16 @@ const Home = ({ onPhotoClick }) => (
         </TouchableHighlight>
       } />
     <Button title="Import Photos"
+            onPress={() => Alert.alert("Notice","Not yet Implemented!",[ {text : "Ok"}])}
             accessibilityLabel="Import New Photos" />
     <Button title="Take Photo"
+            onPress={() => Alert.alert("Notice","Not yet Implemented!",[ {text : "Ok"}])}
             accessibilityLabel="Take a New Photo" />
+
+
+
+
+
   </View>
 )
 

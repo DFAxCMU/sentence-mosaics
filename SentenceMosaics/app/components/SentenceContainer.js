@@ -22,6 +22,7 @@ const SentenceContainer = ({ sentence, onWordClick })  => {
     return (
       <TouchableHighlight
         underlayColor='transparent'
+        key={index}
         onPress={onWordClick.bind(this,item.type,index)}>
         <Text style={wordStyle}>{item.word}</Text>
       </TouchableHighlight>
