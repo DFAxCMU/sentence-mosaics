@@ -38,7 +38,7 @@ export default class App extends Component {
             <Scene
               key="recordSentence"
               component={RecordSentence}
-              title="Record Sentence"
+              title="Read Sentence" // Temp title until we add recording
               onRight={() => Actions.home()}
               rightTitle="Done" />
           </Scene>
