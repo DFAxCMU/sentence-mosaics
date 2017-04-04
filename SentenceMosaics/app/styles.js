@@ -2,23 +2,16 @@
 
 import React, { Component } from 'react';
 import {
+    Dimensions,
     StyleSheet
 } from 'react-native';
 
-var iPad = [768, 1024]; // width(x), height(y)
-var iPhone6Simulator = [375, 667]
-var currentDevice = iPhone6Simulator;
-//var currentDevice = iPad;
-
-// For iPhone
-var wordBlankHeight = 40
-var wordBlankWidth = 50
-var wordBlankPaddingTop = 10
-
-// For iPad
-/*var wordBlankHeight = 60
+var wordBlankHeight = 60
 var wordBlankWidth = 80
-var wordBlankPaddingTop = 20*/
+var wordBlankPaddingTop = 20
+
+var dim = Dimensions.get('window');
+var currentDevice = [dim.width,dim.height];
 
 export const styles = StyleSheet.create({
   container: {
@@ -74,7 +67,6 @@ export const styles = StyleSheet.create({
     width: currentDevice[0] * 7/8,
   },
   sentenceContainer: {
-    height: 110,
     margin: 5,
     backgroundColor: '#e4eeed',
     flexWrap: 'wrap',
@@ -91,6 +83,7 @@ export const styles = StyleSheet.create({
     paddingLeft: 10,
     paddingRight: 10,
     marginRight: 10,
+    marginTop: 10,
     minWidth: wordBlankWidth,
     textAlign: 'center',
   },
@@ -98,10 +91,11 @@ export const styles = StyleSheet.create({
     height: wordBlankHeight,
     width: wordBlankWidth,
     borderWidth: 1,
+    marginTop: 10,
     borderStyle: 'dashed',
   },
   wordsScrollContainer: {
-    backgroundColor: '#a7d2c8',
+    backgroundColor: '#c7e5e1',
     width: currentDevice[0] * 7/8,
     height: 200,
     margin: 5,
@@ -132,6 +126,7 @@ export const styles = StyleSheet.create({
   categoryHeader: {
     paddingTop: 5,
     paddingBottom: 5,
+    flex: 1, 
   },
   categoryWord: {
     height: 30,

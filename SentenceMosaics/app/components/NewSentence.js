@@ -7,6 +7,7 @@ import {
   Image,
   Button,
   TouchableHighlight,
+  ScrollView
 } from 'react-native';
 import { connect } from 'react-redux';
 
@@ -26,12 +27,14 @@ const NewSentence = ({ uri, wordPicker, setModalClick }) => (
       source={{uri: uri}}
       style={styles.image}
       resizeMode={Image.resizeMode.contain} />
+    <ScrollView style={styles.wordsScrollContainer}>
     <SentenceContainer />
     { wordPicker ?
       <WordPicker /> :
       <WordsContainer
         setModalClick={setModalClick} />
     }
+    </ScrollView>
   </View>
 )
 

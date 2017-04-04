@@ -25,13 +25,14 @@ const WordPicker = ({ wordType, wordIndex, editWordClick }) => {
     var wordOptions = wordList[category].map(item =>
       <TouchableHighlight
         underlayColor='transparent'
+        key={item}
         onPress={editWordClick.bind(this,item,wordIndex)}>
-        <Text style={wordStyle}>{item}</Text>
+        <Text key={item} style={wordStyle}>{item}</Text>
       </TouchableHighlight>
     );
     categories.push(
-      <View style={styles.page}>
-        <Text style={styles.categoryHeader}>{category}</Text>
+      <View key={category + "_view" } style={styles.page}>
+        <Text key={category} style={styles.categoryHeader}>{category}</Text>
         <View style={styles.categoryContainer}>
           { wordOptions }
         </View>
@@ -40,9 +41,9 @@ const WordPicker = ({ wordType, wordIndex, editWordClick }) => {
   }
 
   return (
-    <ScrollView style={styles.wordsPicker}>
+     <View style={styles.sentenceContainer}>
       { categories }
-    </ScrollView>
+    </View>
   );
 }
 
