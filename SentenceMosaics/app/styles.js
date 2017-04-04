@@ -119,14 +119,13 @@ export const styles = StyleSheet.create({
     flexWrap: 'wrap',
     alignItems: 'flex-start',
     flexDirection: 'row',
-    borderBottomWidth: 1,
+    // borderBottomWidth: 1,
     paddingBottom: 15,
     marginBottom: 10,
   },
   categoryHeader: {
     paddingTop: 5,
     paddingBottom: 5,
-    flex: 1, 
   },
   categoryWord: {
     height: 30,

@@ -32,9 +32,11 @@ const WordsContainer = ({ addBlankWord })  => {
   }
 
   return (
+    <ScrollView style={styles.wordsScrollContainer}>
       <View style={styles.wordsContainer}>
         { wordTypes }
       </View>
+    </ScrollView>
   )
 }
 
