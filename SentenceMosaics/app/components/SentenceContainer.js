@@ -6,6 +6,7 @@ import {
   View,
   Container,
   TouchableHighlight,
+  ScrollView
 } from 'react-native';
 import { connect } from 'react-redux';
 
@@ -30,10 +31,10 @@ const SentenceContainer = ({ sentence, onWordClick })  => {
   });
 
   return (
-    <View style={styles.sentenceContainer}>
-      { fullSentence }
-      <View style={styles.blankWord}></View>
-    </View>
+          <View style={styles.sentenceContainer}>
+            { fullSentence }
+            <View style={styles.blankWord}></View>
+          </View>
   );
 };
 
