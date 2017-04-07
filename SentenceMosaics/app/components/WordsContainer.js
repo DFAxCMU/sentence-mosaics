@@ -16,6 +16,7 @@ import { words } from '../words';
 
 const WordsContainer = ({ addBlankWord })  => {
   var wordTypes = [];
+  var idx = 0;
   for (var type in words) {
     var wordTypeStyle = ([
       styles.typeContainer,
@@ -23,11 +24,13 @@ const WordsContainer = ({ addBlankWord })  => {
     ]);
     wordTypes.push(
       <TouchableHighlight
+        key={idx}
         onPress={addBlankWord.bind(this, type)}
         style={wordTypeStyle}>
         <Text>+ {type}</Text>
       </TouchableHighlight>
-    )
+    );
+    idx++;
   }
 
   return (

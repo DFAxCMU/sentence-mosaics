@@ -14,29 +14,32 @@ import { editWord } from '../actions';
 import { styles } from '../styles';
 import { words } from '../words';
 
-const WordPicker = ({ wordType, wordIndex, editWordClick }) => {
+const WordPicker = ({ wordType, editWordClick }) => {
   var categories = [];
   var wordList = words[wordType]['categories'];
+  var idx = 0;
   for (var category in wordList) {
     var wordStyle = ([
       styles.categoryWord,
       { backgroundColor: words[wordType]['color'] }
     ]);
-    var wordOptions = wordList[category].map(item =>
+    var wordOptions = wordList[category].map((item,index) =>
       <TouchableHighlight
+        key={index}
         underlayColor='transparent'
-        onPress={editWordClick.bind(this,item,wordIndex)}>
+        onPress={editWordClick.bind(this,item)}>
         <Text style={wordStyle}>{item}</Text>
       </TouchableHighlight>
     );
     categories.push(
-      <View style={styles.page}>
+      <View key={idx} style={styles.page}>
         <Text style={styles.categoryHeader}>{category}</Text>
         <View style={styles.categoryContainer}>
           { wordOptions }
         </View>
       </View>
     );
+    idx++;
   }
 
   return (
@@ -50,16 +53,15 @@ const WordPicker = ({ wordType, wordIndex, editWordClick }) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    editWordClick: (word, wordIndex) => {
-      dispatch(editWord(word,wordIndex))
+    editWordClick: (word) => {
+      dispatch(editWord(word))
     }
   }
 }
 
 const mapStateToProps = (state) => {
   return {
-    wordType: state.sentences.wordPicker,
-    wordIndex: state.sentences.editIndex,
+    wordType: state.sentences.wordPicker
   }
 }
 

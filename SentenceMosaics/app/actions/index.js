@@ -6,6 +6,7 @@ export const CLEAR_SENTENCE = 'CLEAR_SENTENCE';
 export const CLICK_WORD = 'CLICK_WORD';
 export const EDIT_WORD = 'EDIT_WORD';
 export const INPUT_WORD = 'INPUT_WORD';
+export const REORDER_SENTENCE = 'REORDER_SENTENCE';
 export const SELECT_PHOTO = 'SELECT_PHOTO';
 export const SET_MODAL = 'SET_MODAL';
 
@@ -32,11 +33,10 @@ export function clickWord(wordType, wordIndex) {
   }
 }
 
-export function editWord(word, wordIndex) {
+export function editWord(word) {
   return {
     type: EDIT_WORD,
-    word,
-    wordIndex
+    word
   }
 }
 
@@ -44,6 +44,13 @@ export function inputWord(word) {
   return {
     type: INPUT_WORD,
     word
+  }
+}
+
+export function reorderSentence(itemOrder) {
+  return {
+    type: REORDER_SENTENCE,
+    itemOrder
   }
 }
 

@@ -8,33 +8,36 @@ import {
   TouchableHighlight,
 } from 'react-native';
 import { connect } from 'react-redux';
+import SortableGrid from 'react-native-sortable-grid';
 
-import { clickWord } from '../actions';
+import { clickWord, reorderSentence } from '../actions';
 import { styles } from '../styles';
 import { words } from '../words';
 
-const SentenceContainer = ({ sentence, onWordClick })  => {
+import Word from './Word';
+
+const SentenceContainer = ({ sentence, onWordClick, onWordDrag })  => {
   var fullSentence = sentence.map(function(item, index) {
-    var wordStyle = ([
-      styles.word,
-      { backgroundColor: words[item.type]['color'] }
-    ]);
+    console.log("SentenceContainer: ", item, " at index ", index, " from ", sentence);
     return (
-      <TouchableHighlight
-        underlayColor='transparent'
-        onPress={onWordClick.bind(this,item.type,index)}>
-        <Text style={wordStyle}>{item.word}</Text>
-      </TouchableHighlight>
+      <Word
+        key={item.word+index}
+        index={index}
+        onTap={onWordClick.bind(this,item.type,index)} />
     )
   });
 
+  //fullSentence.push(<View style={styles.blankWord}></View>);
+
   return (
     <View style={styles.sentenceContainer}>
-      { fullSentence }
-      <View style={styles.blankWord}></View>
+      <SortableGrid
+        onDragRelease={(result) => onWordDrag(result.itemOrder)}>
+        { fullSentence }
+      </SortableGrid>
     </View>
-  );
-};
+  )
+}
 
 /* Container Component */
 
@@ -42,6 +45,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onWordClick: (wordType, wordIndex) => {
       dispatch(clickWord(wordType, wordIndex))
+    },
+    onWordDrag: (itemOrder) => {
+      dispatch(reorderSentence(itemOrder))
     }
   }
 }

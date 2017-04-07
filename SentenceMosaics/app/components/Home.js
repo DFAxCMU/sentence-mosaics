@@ -11,7 +11,7 @@ import {
 import { Actions } from 'react-native-router-flux'
 import { connect } from 'react-redux'
 
-import { selectPhoto } from '../actions'
+import { selectPhoto, clearSentence } from '../actions'
 import { styles } from '../styles'
 
 /* Hardcoded Images for Photo Gallery */
@@ -49,6 +49,7 @@ const Home = ({ onPhotoClick }) => (
 const mapDispatchToProps = (dispatch) => {
   return {
     onPhotoClick: (uri) => {
+      //dispatch(clearSentence())
       dispatch(selectPhoto(uri))
       Actions.newSentence()
     }

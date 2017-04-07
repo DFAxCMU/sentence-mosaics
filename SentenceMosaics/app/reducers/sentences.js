@@ -40,11 +40,11 @@ export default function sentences(state = initialState, action) {
         }
       }
     case 'EDIT_WORD':
-      var wordType = state.activeSentence[action.wordIndex].type;
+      var editTarget = state.activeSentence[state.editIndex];
       var updatedSentence = [
-        ...state.activeSentence.slice(0, action.wordIndex),
-        {word: action.word, type: wordType},
-        ...state.activeSentence.slice(action.wordIndex + 1)
+        ...state.activeSentence.slice(0, state.editIndex),
+        {word: action.word, type: editTarget.type},
+        ...state.activeSentence.slice(state.editIndex + 1)
       ];
       return {
         ...state,
@@ -56,6 +56,19 @@ export default function sentences(state = initialState, action) {
       return {
         ...state,
         inputWord: action.word
+      }
+    case 'REORDER_SENTENCE':
+      // console.log("Reordering sentence", state.activeSentence);
+      // console.log("Given the item order", action.itemOrder);
+      var newSentence = action.itemOrder.map(function(item) {
+        return (
+          state.activeSentence[parseInt(item.key)]
+        )
+      });
+      console.log("Creating the sentence", newSentence);
+      return {
+        ...state,
+        activeSentence: newSentence
       }
     case 'SELECT_PHOTO':
       return {
