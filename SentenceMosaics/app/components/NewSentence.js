@@ -10,8 +10,7 @@ import {
   ScrollView
 } from 'react-native';
 import { connect } from 'react-redux';
-
-import { setModal } from '../actions';
+import { setModal , clearSentence} from '../actions';
 import { styles } from '../styles';
 
 import NewWordModal from './NewWordModal';
@@ -19,7 +18,7 @@ import SentenceContainer from './SentenceContainer';
 import WordsContainer from './WordsContainer';
 import WordPicker from './WordPicker';
 
-const NewSentence = ({ uri, wordPicker, setModalClick }) => (
+const NewSentence = ({ uri, wordPicker, setModalClick, clearSentenceClick }) => (
   <View style={styles.container}>
     <NewWordModal
       setModalClick={setModalClick} />
@@ -33,6 +32,8 @@ const NewSentence = ({ uri, wordPicker, setModalClick }) => (
       <WordsContainer
         setModalClick={setModalClick} />
     }
+    <Button title = "Clear Sentence" 
+            onPress = {() => clearSentenceClick()} />
   </View>
 )
 
@@ -42,6 +43,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     setModalClick: (wordType) => {
       dispatch(setModal(wordType))
+    }, 
+    clearSentenceClick: () => {
+      dispatch(clearSentence())
     }
   }
 }
