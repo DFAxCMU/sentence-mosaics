@@ -49,7 +49,7 @@ export const words = {
       }
     },
     'conjunction': {
-      'color': '#5e5e5e',
+      'color': '#a5a5a5',
       'custom': false,
       'categories': {
         'all': ['and','but','so','because','since']
