@@ -12,7 +12,7 @@ import {
 import { Actions } from 'react-native-router-flux'
 import { connect } from 'react-redux'
 
-import { selectPhoto, clearSentence } from '../actions'
+import { selectPhoto, clearSentence, clearWordPicker} from '../actions'
 import { styles } from '../styles'
 
 /* Hardcoded Images for Photo Gallery */
@@ -78,6 +78,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(selectPhoto(uri))
       Actions.newSentence()
       dispatch(clearSentence())
+      dispatch(clearWordPicker())
     }
   }
 }

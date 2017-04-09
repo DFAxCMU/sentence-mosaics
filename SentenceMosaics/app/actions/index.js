@@ -6,6 +6,7 @@ export const CLEAR_SENTENCE = 'CLEAR_SENTENCE';
 export const CLICK_WORD = 'CLICK_WORD';
 export const EDIT_WORD = 'EDIT_WORD';
 export const GO_BACK = 'GO_BACK';
+export const CLEAR_WORDPICKER = 'CLEAR_WORDPICKER';
 export const INPUT_WORD = 'INPUT_WORD';
 export const REORDER_SENTENCE = 'REORDER_SENTENCE';
 export const SELECT_PHOTO = 'SELECT_PHOTO';
@@ -45,6 +46,12 @@ export function editWord(word, wordIndex) {
 export function goBack() {
   return {
     type: GO_BACK
+  }
+}
+
+export function clearWordPicker() {
+  return {
+    type: CLEAR_WORDPICKER
   }
 }
 

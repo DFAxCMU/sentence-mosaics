@@ -63,6 +63,11 @@ export default function sentences(state = initialState, action) {
         modalType: null,
         activeSentence: state.activeSentence
       }
+    case 'CLEAR_WORDPICKER':
+      return {
+        ...state, 
+        wordPicker: null
+      }
     case 'INPUT_WORD':
       return {
         ...state,
