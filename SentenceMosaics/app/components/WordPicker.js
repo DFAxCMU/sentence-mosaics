@@ -25,10 +25,11 @@ const WordPicker = ({ wordType, wordIndex, editWordClick, goBackClick }) => {
     ]);
     var wordOptions = wordList[category].map(item =>
       <TouchableHighlight
+        style={wordStyle}
         underlayColor='transparent'
         key={item}
         onPress={editWordClick.bind(this,item,wordIndex)}>
-        <Text key={item} style={wordStyle}>{item}</Text>
+        <Text key={item} style={styles.wordText}>{item}</Text>
       </TouchableHighlight>
     );
     categories.push(

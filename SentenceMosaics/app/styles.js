@@ -147,7 +147,9 @@ export const styles = StyleSheet.create({
     paddingBottom: 5,
   },
   categoryWord: {
-    height: 30,
+    height: globalWordHeight,
+    justifyContent: 'center',
+    alignItems: 'center',
     paddingLeft: 10,
     paddingRight: 10,
     paddingTop:5,
