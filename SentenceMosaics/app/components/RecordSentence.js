@@ -13,7 +13,7 @@ import { styles } from '../styles';
 
 const RecordSentence = ({ uri, sentence, itemOrder }) => {
   var sentenceString = ""
-  for (var i = 0; i < sentence.length; i++) {
+  for (var i = 0; i < itemOrder.length; i++) {
     sentenceString = sentenceString.concat(sentence[itemOrder[i]].word).concat(" ");
   }
 
