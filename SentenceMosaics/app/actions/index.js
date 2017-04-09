@@ -5,6 +5,7 @@ export const ADD_WORD = 'ADD_WORD';
 export const CLEAR_SENTENCE = 'CLEAR_SENTENCE';
 export const CLICK_WORD = 'CLICK_WORD';
 export const EDIT_WORD = 'EDIT_WORD';
+export const GO_BACK = 'GO_BACK';
 export const INPUT_WORD = 'INPUT_WORD';
 export const SELECT_PHOTO = 'SELECT_PHOTO';
 export const SET_MODAL = 'SET_MODAL';
@@ -37,6 +38,12 @@ export function editWord(word, wordIndex) {
     type: EDIT_WORD,
     word,
     wordIndex
+  }
+}
+
+export function goBack() {
+  return {
+    type: GO_BACK
   }
 }
 

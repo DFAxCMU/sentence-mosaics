@@ -4,17 +4,18 @@ import React, { Component } from 'react';
 import {
   Text,
   View,
+  Button,
   Container,
   TouchableHighlight,
   ScrollView,
 } from 'react-native';
 import { connect } from 'react-redux';
 
-import { editWord } from '../actions';
+import { editWord, goBack } from '../actions';
 import { styles } from '../styles';
 import { words } from '../words';
 
-const WordPicker = ({ wordType, wordIndex, editWordClick }) => {
+const WordPicker = ({ wordType, wordIndex, editWordClick, goBackClick }) => {
   var categories = [];
   var wordList = words[wordType]['categories'];
   for (var category in wordList) {
@@ -41,8 +42,12 @@ const WordPicker = ({ wordType, wordIndex, editWordClick }) => {
   }
 
   return (
-     <View style={styles.sentenceContainer}>
-      { categories }
+    <View>
+      <View style={styles.sentenceContainer}>
+        { categories }
+        <Button title = "Go Back" 
+                onPress = {() => goBackClick()} />
+      </View>
     </View>
   );
 }
@@ -53,6 +58,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     editWordClick: (word, wordIndex) => {
       dispatch(editWord(word,wordIndex))
+    }, 
+    goBackClick: () => {
+      dispatch(goBack())
     }
   }
 }

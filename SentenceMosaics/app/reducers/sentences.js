@@ -52,6 +52,13 @@ export default function sentences(state = initialState, action) {
         modalType: null,
         activeSentence: updatedSentence
       }
+    case 'GO_BACK':
+      return {
+        ...state,
+        wordPicker: null,
+        modalType: null,
+        activeSentence: state.activeSentence
+      }
     case 'INPUT_WORD':
       return {
         ...state,
