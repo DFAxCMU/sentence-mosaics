@@ -42,12 +42,12 @@ const WordPicker = ({ wordType, wordIndex, editWordClick, goBackClick }) => {
   }
 
   return (
-    <View>
-      <View style={styles.sentenceContainer}>
+    <View style={styles.wordPickerContainer}>
+      <View style={styles.wordPicker}>
         { categories }
-        <Button title = "Go Back" 
-                onPress = {() => goBackClick()} />
       </View>
+      <Button title = "Go Back" 
+                onPress = {() => goBackClick()} />
     </View>
   );
 }

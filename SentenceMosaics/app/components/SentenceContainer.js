@@ -6,35 +6,43 @@ import {
   View,
   Container,
   TouchableHighlight,
-  ScrollView
+  Dimensions
 } from 'react-native';
 import { connect } from 'react-redux';
 
-import { clickWord } from '../actions';
+import { clickWord, reorderSentence } from '../actions';
 import { styles } from '../styles';
 import { words } from '../words';
 
-const SentenceContainer = ({ sentence, onWordClick })  => {
+import Word from './Word';
+
+import SortableGrid from 'react-native-sortable-grid'
+
+var dim = Dimensions.get('window');
+
+const SentenceContainer = ({ sentence, onWordClick, onWordDrag })  => {
+  var draggableSentenceWidth = dim.width * 7/8 - 10;
+  var itemsPerRow = Math.floor(draggableSentenceWidth / ((3/2) * globalWordWidth));
+
   var fullSentence = sentence.map(function(item, index) {
-    var wordStyle = ([
-      styles.word,
-      { backgroundColor: words[item.type]['color'] }
-    ]);
     return (
-      <TouchableHighlight
-        underlayColor='transparent'
+      <Word 
         key={index}
-        onPress={onWordClick.bind(this,item.type,index)}>
-        <Text style={wordStyle}>{item.word}</Text>
-      </TouchableHighlight>
+        index={index}
+        onTap={onWordClick.bind(this, item.type, index) }/>
     )
   });
 
   return (
           <View style={styles.sentenceContainer}>
-            { fullSentence }
-            <View style={styles.blankWord}></View>
+            <SortableGrid 
+              style={styles.draggableSentence}
+              itemsPerRow = {itemsPerRow}
+              onDragRelease = { (result) => onWordDrag(result.itemOrder) }>
+              { fullSentence }
+            </SortableGrid>
           </View>
+          
   );
 };
 
@@ -44,6 +52,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onWordClick: (wordType, wordIndex) => {
       dispatch(clickWord(wordType, wordIndex))
+    },
+    onWordDrag: (itemOrder) => {
+      dispatch(reorderSentence(itemOrder))
     }
   }
 }

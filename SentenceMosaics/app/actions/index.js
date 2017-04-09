@@ -7,6 +7,7 @@ export const CLICK_WORD = 'CLICK_WORD';
 export const EDIT_WORD = 'EDIT_WORD';
 export const GO_BACK = 'GO_BACK';
 export const INPUT_WORD = 'INPUT_WORD';
+export const REORDER_SENTENCE = 'REORDER_SENTENCE';
 export const SELECT_PHOTO = 'SELECT_PHOTO';
 export const SET_MODAL = 'SET_MODAL';
 
@@ -51,6 +52,13 @@ export function inputWord(word) {
   return {
     type: INPUT_WORD,
     word
+  }
+}
+
+export function reorderSentence(itemOrder) {
+  return {
+    type: REORDER_SENTENCE,
+    itemOrder
   }
 }
 

@@ -4,12 +4,15 @@ import { ActionConst } from 'react-native-router-flux';
 import { words } from '../words';
 
 const initialState = {
-  activeSentence: [{word: '', type: 'pronoun'}, {word: '', type: 'aux verb'}, {word: '', type: 'main verb'}],
+  activeSentence: [{word: '', type: 'pronoun'}, 
+                   {word: '', type: 'aux verb'}, 
+                   {word: '', type: 'main verb'}],
   activeURI: '',
   editIndex: 0,
   inputWord: '',
   modalType: null,
   wordPicker: null,
+  itemOrder: [0,1,2],
 };
 
 export default function sentences(state = initialState, action) {
@@ -17,7 +20,8 @@ export default function sentences(state = initialState, action) {
     case 'ADD_WORD':
       return {
         ...state,
-        activeSentence: state.activeSentence.concat([{word: action.word, type: action.wordType}])
+        activeSentence: state.activeSentence.concat([{word: action.word, type: action.wordType}]),
+        itemOrder: state.itemOrder.concat([state.activeSentence.length])
       }
     case 'CLEAR_SENTENCE':
       return {
@@ -63,6 +67,15 @@ export default function sentences(state = initialState, action) {
       return {
         ...state,
         inputWord: action.word
+      }
+    case 'REORDER_SENTENCE':
+      var newItemOrder = action.itemOrder.map(function(item) {
+          return ( parseInt(item.key) )
+      });
+
+      return {
+        ...state,
+        itemOrder: newItemOrder
       }
     case 'SELECT_PHOTO':
       return {

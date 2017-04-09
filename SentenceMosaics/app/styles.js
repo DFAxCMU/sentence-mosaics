@@ -6,11 +6,25 @@ import {
     StyleSheet
 } from 'react-native';
 
-var wordBlankHeight = 60
-var wordBlankWidth = 80
-var wordBlankPaddingTop = 20
-
+// Make global variable globalDeviceType for device type
 var dim = Dimensions.get('window');
+if (dim.width < 500) {
+  global.globalDeviceType = 'iPhone'
+} else {
+  global.globalDeviceType = 'iPad'
+}
+
+if (globalDeviceType == 'iPad') { 
+  global.globalWordHeight = 70;
+  global.globalWordWidth = 80; 
+  var wordFontSize = 20;
+} 
+else if (globalDeviceType == 'iPhone') {
+  global.globalWordHeight = 50;
+  global.globalWordWidth = 50;
+  var wordFontSize = 11;
+}
+
 var currentDevice = [dim.width,dim.height];
 
 export const styles = StyleSheet.create({
@@ -69,27 +83,27 @@ export const styles = StyleSheet.create({
   sentenceContainer: {
     margin: 5,
     backgroundColor: '#e4eeed',
-    flexWrap: 'wrap',
-    alignItems: 'flex-start',
-    flexDirection:'row',
-    padding: 10,
+    paddingLeft: 10,
     width: currentDevice[0] * 7/8,
   },
+  draggableSentence: { 
+    width: currentDevice[0] * 7/8 - 10, // from 10 padding on left
+    alignItems: 'center'
+  },
   word: {
-    height: wordBlankHeight,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingTop: /*10,*/ 20,
     paddingLeft: 10,
     paddingRight: 10,
     marginRight: 10,
     marginTop: 10,
-    minWidth: wordBlankWidth,
-    textAlign: 'center',
+  },
+  wordText: {
+    fontSize: wordFontSize,
   },
   blankWord: {
-    height: wordBlankHeight,
-    width: wordBlankWidth,
+    height: globalWordHeight,
+    width: globalWordWidth,
     borderWidth: 1,
     marginTop: 10,
     borderStyle: 'dashed',
@@ -107,19 +121,24 @@ export const styles = StyleSheet.create({
     flexDirection:'row',
     backgroundColor: '#e4eeed',
   },
-  wordsPicker: {
-    height: 200,
-    width: 325,
+  wordPickerContainer: {
     margin: 5,
-    backgroundColor: '#a7d2c8',
+    backgroundColor: '#e4eeed',
+    alignItems: 'center',
+    flexDirection:'column',
     padding: 10,
-    flex: 1,
+    width: currentDevice[0] * 7/8,
+  },
+  wordPicker: {
+    flexWrap: 'wrap',
+    alignItems: 'flex-start',
+    flexDirection:'row',
   },
   categoryContainer: {
     flexWrap: 'wrap',
     alignItems: 'flex-start',
     flexDirection: 'row',
-    // borderBottomWidth: 1,
+    borderBottomWidth: 1,
     paddingBottom: 15,
     marginBottom: 10,
   },
@@ -138,7 +157,7 @@ export const styles = StyleSheet.create({
     borderRadius: 5,
   },
   typeContainer: {
-    height: wordBlankHeight,
+    height: globalWordHeight,
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 10,

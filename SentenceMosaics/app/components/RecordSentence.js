@@ -11,12 +11,11 @@ import { connect } from 'react-redux';
 
 import { styles } from '../styles';
 
-const RecordSentence = ({ uri, sentence }) => {
-  var fullSentence = sentence.map(function(item, index) {
-    return (
-      <Text key={index} >{item.word} </Text>
-    )
-  });
+const RecordSentence = ({ uri, sentence, itemOrder }) => {
+  var sentenceString = ""
+  for (var i = 0; i < sentence.length; i++) {
+    sentenceString = sentenceString.concat(sentence[itemOrder[i]].word).concat(" ");
+  }
 
   return (
     <View style={styles.container}>
@@ -25,7 +24,7 @@ const RecordSentence = ({ uri, sentence }) => {
         style={styles.image}
         resizeMode={Image.resizeMode.contain} />
       <View style={styles.sentenceContainer}>
-        <Text style={styles.modalHeader}>{ fullSentence }</Text>
+        <Text style={styles.modalHeader}>{ sentenceString }</Text>
       </View>
     </View>
   )
@@ -41,6 +40,7 @@ const mapStateToProps = (state) => {
   return {
     uri: state.sentences.activeURI,
     sentence: state.sentences.activeSentence,
+    itemOrder: state.sentences.itemOrder,
   }
 }
 
