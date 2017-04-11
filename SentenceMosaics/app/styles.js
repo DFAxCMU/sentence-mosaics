@@ -81,11 +81,14 @@ export const styles = StyleSheet.create({
     width: currentDevice[0] * 7/8,
   },
   sentenceContainer: {
-    margin: 5,
     backgroundColor: '#e4eeed',
+    margin: 5,
     paddingLeft: 10,
     width: currentDevice[0] * 7/8,
-    maxHeight: currentDevice[1] - (currentDevice[0] * 2/3) - 200,
+  },
+  sentenceScrollContainer: {
+    minHeight: globalWordHeight + 10 + 10,
+    maxHeight: currentDevice[1] - (currentDevice[0] * 2/3) - 300,
   },
   draggableSentence: { 
     width: currentDevice[0] * 7/8 - 10, // from 10 padding on left

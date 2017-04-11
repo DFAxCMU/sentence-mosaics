@@ -44,7 +44,8 @@ const SentenceContainer = ({ sentence, itemOrder, onWordClick, onWordDoubleClick
   fullSentence = fullSentence.filter(n => n);
 
   return (
-          <ScrollView style={styles.sentenceContainer}>
+        <View style={styles.sentenceContainer}>
+          <ScrollView style={styles.sentenceScrollContainer}>
             <SortableGrid 
               style={styles.draggableSentence}
               itemsPerRow = {itemsPerRow}
@@ -52,7 +53,7 @@ const SentenceContainer = ({ sentence, itemOrder, onWordClick, onWordDoubleClick
               { fullSentence }
             </SortableGrid>
           </ScrollView>
-          
+        </View>
   );
 };
 
