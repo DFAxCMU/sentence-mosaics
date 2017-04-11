@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 
-import { clickWord, reorderSentence } from '../actions';
+import { clickWord, deleteWord, reorderSentence } from '../actions';
 import { styles } from '../styles';
 import { words } from '../words';
 
@@ -21,18 +21,27 @@ import SortableGrid from 'react-native-sortable-grid'
 
 var dim = Dimensions.get('window');
 
-const SentenceContainer = ({ sentence, onWordClick, onWordDrag })  => {
+const SentenceContainer = ({ sentence, itemOrder, onWordClick, onWordDoubleClick, onWordDrag })  => {
   var draggableSentenceWidth = dim.width * 7/8 - 10;
   var itemsPerRow = Math.floor(draggableSentenceWidth / ((3/2) * globalWordWidth));
 
   var fullSentence = sentence.map(function(item, index) {
-    return (
-      <Word 
-        key={index}
-        index={index}
-        onTap={onWordClick.bind(this, item.type, index) }/>
-    )
+    if (itemOrder.indexOf(index) != -1) {
+      return (
+        <Word 
+          key={index}
+          index={index}
+          onTap={onWordClick.bind(this, item.type, index)}
+          onDoubleTap={onWordDoubleClick.bind(this, index)}/>
+      )
+    } else {
+     // We deleted this word so don't make a Word for it
+     return null;
+    }
   });
+
+  // Remove the null elements
+  fullSentence = fullSentence.filter(n => n);
 
   return (
           <ScrollView style={styles.sentenceContainer}>
@@ -54,6 +63,9 @@ const mapDispatchToProps = (dispatch) => {
     onWordClick: (wordType, wordIndex) => {
       dispatch(clickWord(wordType, wordIndex))
     },
+    onWordDoubleClick: (wordIndex) => {
+      dispatch(deleteWord(wordIndex))
+    },
     onWordDrag: (itemOrder) => {
       dispatch(reorderSentence(itemOrder))
     }
@@ -62,7 +74,8 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
   return {
-    sentence: state.sentences.activeSentence
+    sentence: state.sentences.activeSentence,
+    itemOrder: state.sentences.itemOrder,
   }
 }
 

@@ -23,6 +23,17 @@ export default function sentences(state = initialState, action) {
         activeSentence: state.activeSentence.concat([{word: action.word, type: action.wordType}]),
         itemOrder: state.itemOrder.concat([state.activeSentence.length])
       }
+    case 'DELETE_WORD':
+      state.itemOrder.splice(state.itemOrder.indexOf(action.wordIndex),1);
+      var updatedSentence = [
+        ...state.activeSentence.slice(0, action.wordIndex),
+        {word: 'NULL', type: 'NULL'},
+        ...state.activeSentence.slice(action.wordIndex + 1)
+      ];
+      return {
+        ...state,
+        activeSentence: updatedSentence
+      }
     case 'CLEAR_SENTENCE':
       return {
         ...state,
