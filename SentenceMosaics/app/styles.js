@@ -85,6 +85,7 @@ export const styles = StyleSheet.create({
     backgroundColor: '#e4eeed',
     paddingLeft: 10,
     width: currentDevice[0] * 7/8,
+    maxHeight: currentDevice[1] - (currentDevice[0] * 2/3) - 200,
   },
   draggableSentence: { 
     width: currentDevice[0] * 7/8 - 10, // from 10 padding on left
@@ -147,9 +148,7 @@ export const styles = StyleSheet.create({
     paddingBottom: 5,
   },
   categoryWord: {
-    height: globalWordHeight,
-    justifyContent: 'center',
-    alignItems: 'center',
+    height: 30,
     paddingLeft: 10,
     paddingRight: 10,
     paddingTop:5,

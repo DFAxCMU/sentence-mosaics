@@ -10,7 +10,7 @@ import {
   ScrollView
 } from 'react-native';
 import { connect } from 'react-redux';
-import { setModal , clearSentence} from '../actions';
+import { setModal , clearSentence, clearWordPicker} from '../actions';
 import { styles } from '../styles';
 
 import NewWordModal from './NewWordModal';
@@ -46,6 +46,7 @@ const mapDispatchToProps = (dispatch) => {
     }, 
     clearSentenceClick: () => {
       dispatch(clearSentence())
+      dispatch(clearWordPicker())
     }
   }
 }

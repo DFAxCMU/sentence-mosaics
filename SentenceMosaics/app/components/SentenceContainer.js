@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import {
   Text,
   View,
+  ScrollView,
   Container,
   TouchableHighlight,
   Dimensions
@@ -34,14 +35,14 @@ const SentenceContainer = ({ sentence, onWordClick, onWordDrag })  => {
   });
 
   return (
-          <View style={styles.sentenceContainer}>
+          <ScrollView style={styles.sentenceContainer}>
             <SortableGrid 
               style={styles.draggableSentence}
               itemsPerRow = {itemsPerRow}
               onDragRelease = { (result) => onWordDrag(result.itemOrder) }>
               { fullSentence }
             </SortableGrid>
-          </View>
+          </ScrollView>
           
   );
 };
