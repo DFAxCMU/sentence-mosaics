@@ -98,15 +98,22 @@ export const styles = StyleSheet.create({
     paddingRight: 10,
     marginRight: 10,
     marginTop: 10,
+    height: globalWordHeight,
+    // width is set by the SortableGrid library based on itemsPerRow
   },
   wordText: {
     fontSize: wordFontSize,
   },
+  fullSentenceText: {
+    paddingBottom: 20,
+    paddingTop: 20,
+    fontSize: 2 * wordFontSize,
+  },
   blankWord: {
     height: globalWordHeight,
-    width: globalWordWidth,
     borderWidth: 1,
     marginTop: 10,
+    marginRight: 10,
     borderStyle: 'dashed',
   },
   wordsScrollContainer: {
@@ -148,7 +155,9 @@ export const styles = StyleSheet.create({
     paddingBottom: 5,
   },
   categoryWord: {
-    height: 30,
+    height: globalWordHeight,
+    justifyContent: 'center',
+    alignItems: 'center',
     paddingLeft: 10,
     paddingRight: 10,
     paddingTop:5,
