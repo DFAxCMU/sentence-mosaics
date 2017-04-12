@@ -16,7 +16,7 @@ const Word = ({ sentence, index, onWordClick })  => {
   var targetWord = sentence[index];
   var wordStyle = ([
     styles.word,
-    { backgroundColor: words[targetWord.type]['color'], height: globalWordHeight }
+    { backgroundColor: words[targetWord.type]['color']}
 
   ]);
   return (

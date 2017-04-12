@@ -24,7 +24,7 @@ const RecordSentence = ({ uri, sentence, itemOrder }) => {
         style={styles.image}
         resizeMode={Image.resizeMode.contain} />
       <View style={styles.sentenceContainer}>
-        <Text style={styles.modalHeader}>{ sentenceString }</Text>
+        <Text style={styles.fullSentenceText}>{ sentenceString }</Text>
       </View>
     </View>
   )

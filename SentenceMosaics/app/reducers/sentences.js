@@ -13,6 +13,7 @@ const initialState = {
   modalType: null,
   wordPicker: null,
   itemOrder: [0,1,2],
+  sentenceScrollEnabled: true,
 };
 
 export default function sentences(state = initialState, action) {
@@ -84,6 +85,11 @@ export default function sentences(state = initialState, action) {
         ...state,
         inputWord: action.word
       }
+    case 'SENTENCE_DRAG_IN_PROGRESS':
+      return {
+        ...state,
+        sentenceScrollEnabled: false
+      }
     case 'REORDER_SENTENCE':
       var newItemOrder = action.itemOrder.map(function(item) {
           return ( parseInt(item.key) )
@@ -91,7 +97,8 @@ export default function sentences(state = initialState, action) {
 
       return {
         ...state,
-        itemOrder: newItemOrder
+        itemOrder: newItemOrder,
+        sentenceScrollEnabled: true
       }
     case 'SELECT_PHOTO':
       return {

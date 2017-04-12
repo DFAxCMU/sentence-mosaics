@@ -9,6 +9,7 @@ export const EDIT_WORD = 'EDIT_WORD';
 export const GO_BACK = 'GO_BACK';
 export const CLEAR_WORDPICKER = 'CLEAR_WORDPICKER';
 export const INPUT_WORD = 'INPUT_WORD';
+export const SENTENCE_DRAG_IN_PROGRESS = 'SENTENCE_DRAG_IN_PROGRESS';
 export const REORDER_SENTENCE = 'REORDER_SENTENCE';
 export const SELECT_PHOTO = 'SELECT_PHOTO';
 export const SET_MODAL = 'SET_MODAL';
@@ -67,6 +68,12 @@ export function inputWord(word) {
   return {
     type: INPUT_WORD,
     word
+  }
+}
+
+export function sentenceDragInProgress() {
+  return {
+    type: SENTENCE_DRAG_IN_PROGRESS
   }
 }
 

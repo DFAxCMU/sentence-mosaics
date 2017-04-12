@@ -32,6 +32,7 @@ const NewSentence = ({ uri, wordPicker, setModalClick, clearSentenceClick }) => 
       <WordsContainer
         setModalClick={setModalClick} />
     }
+
     <Button title = "Clear Sentence" 
             onPress = {() => clearSentenceClick()} />
   </View>
