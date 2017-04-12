@@ -82,6 +82,9 @@ export const styles = StyleSheet.create({
   },
   sentenceContainer: {
     backgroundColor: '#e4eeed',
+    flexWrap: 'wrap',
+    alignItems: 'flex-start',
+    flexDirection:'row',
     margin: 5,
     paddingLeft: 10,
     width: currentDevice[0] * 7/8,
