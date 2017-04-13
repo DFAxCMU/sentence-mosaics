@@ -62,15 +62,15 @@ export const words = {
         'all': ['yes','no','please',"you're welcome", 'thank you', 'no thank you']
       }
     },
-    'demonstrative': {
+    'article': {
       'color': '#50bec1',
       'custom': false,
       'categories': {
-        'all': ['yes','no','please',"you're welcome", 'thank you', 'no thank you']
+        'all': ['a','the','an']
       }
     },
     'adj': {
-      'color': '#7194cc',
+      'color': '#98bef9',
       'custom': true,
       'categories': {},
     },
