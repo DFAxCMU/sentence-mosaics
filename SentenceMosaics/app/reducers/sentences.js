@@ -25,7 +25,11 @@ export default function sentences(state = initialState, action) {
         itemOrder: state.itemOrder.concat([state.activeSentence.length])
       }
     case 'DELETE_WORD':
-      state.itemOrder.splice(state.itemOrder.indexOf(action.wordIndex),1);
+      var deleteIndex = state.itemOrder.indexOf(action.wordIndex)
+      var newItemOrder = [
+        ...state.itemOrder.slice(0, deleteIndex),
+        ...state.itemOrder.slice(deleteIndex + 1)
+      ];
       var updatedSentence = [
         ...state.activeSentence.slice(0, action.wordIndex),
         {word: 'NULL', type: 'NULL'},
@@ -33,12 +37,14 @@ export default function sentences(state = initialState, action) {
       ];
       return {
         ...state,
-        activeSentence: updatedSentence
+        activeSentence: updatedSentence,
+        itemOrder: newItemOrder
       }
     case 'CLEAR_SENTENCE':
       return {
         ...state,
-        activeSentence: initialState.activeSentence
+        activeSentence: initialState.activeSentence,
+        itemOrder: initialState.itemOrder
       }
     case 'CLICK_WORD':
       if (words[action.wordType]['custom']) {
