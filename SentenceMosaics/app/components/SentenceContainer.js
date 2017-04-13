@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 
-import { clickWord, deleteWord, sentenceDragInProgress, reorderSentence } from '../actions';
+import { clickWord, deleteWord, sentenceDragInProgress, reorderSentence, clearWordPicker } from '../actions';
 import { styles } from '../styles';
 import { words } from '../words';
 
@@ -67,7 +67,8 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(clickWord(wordType, wordIndex))
     },
     onWordDoubleClick: (wordIndex) => {
-      dispatch(deleteWord(wordIndex))
+      dispatch(deleteWord(wordIndex)),
+      dispatch(clearWordPicker())
     },
     onWordBeginDrag: () => {
       dispatch(sentenceDragInProgress())
