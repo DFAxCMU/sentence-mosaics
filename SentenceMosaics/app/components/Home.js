@@ -79,9 +79,9 @@ class ImageListView extends Component  {
               AsyncStorage.setItem("images", json_images);
               }, error => {})}
             accessibilityLabel="Import New Photos" />
-    <Button title="Take Photo"
+    {/*<Button title="Take Photo"
             onPress={() => Alert.alert("Notice","Not yet Implemented!",[ {text : "Ok"}])}
-            accessibilityLabel="Take a New Photo" />
+            accessibilityLabel="Take a New Photo" />*/}
     </View>
     );
   }
