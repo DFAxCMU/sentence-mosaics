@@ -3,6 +3,7 @@
 /* Action Types */
 export const ADD_WORD = 'ADD_WORD';
 export const DELETE_WORD = 'DELETE_WORD';
+export const SHOW_DEFAULT_SENTENCE = 'SHOW_DEFAULT_SENTENCE';
 export const CLEAR_SENTENCE = 'CLEAR_SENTENCE';
 export const CLICK_WORD = 'CLICK_WORD';
 export const EDIT_WORD = 'EDIT_WORD';
@@ -30,6 +31,11 @@ export function deleteWord(wordIndex) {
   }
 }
 
+export function showDefaultSentence() {
+  return {
+    type: SHOW_DEFAULT_SENTENCE,
+  }
+}
 export function clearSentence() {
   return {
     type: CLEAR_SENTENCE,

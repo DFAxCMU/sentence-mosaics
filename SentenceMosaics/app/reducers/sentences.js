@@ -40,11 +40,17 @@ export default function sentences(state = initialState, action) {
         activeSentence: updatedSentence,
         itemOrder: newItemOrder
       }
-    case 'CLEAR_SENTENCE':
+    case 'SHOW_DEFAULT_SENTENCE':
       return {
         ...state,
         activeSentence: initialState.activeSentence,
         itemOrder: initialState.itemOrder
+      }
+    case 'CLEAR_SENTENCE':
+      return {
+        ...state,
+        activeSentence: [],
+        itemOrder: []
       }
     case 'CLICK_WORD':
       if (words[action.wordType]['custom']) {

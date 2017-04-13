@@ -15,7 +15,7 @@ import {
 import { Actions } from 'react-native-router-flux'
 import { connect } from 'react-redux'
 
-import { selectPhoto, clearSentence, clearWordPicker} from '../actions'
+import { selectPhoto, showDefaultSentence, clearWordPicker} from '../actions'
 import { styles } from '../styles'
 
 /* Hardcoded Images for Photo Gallery */
@@ -99,7 +99,7 @@ const mapDispatchToProps = (dispatch) => {
     onPhotoClick: (uri) => {
       dispatch(selectPhoto(uri))
       Actions.newSentence()
-      dispatch(clearSentence())
+      dispatch(showDefaultSentence())
       dispatch(clearWordPicker())
     }
   }
