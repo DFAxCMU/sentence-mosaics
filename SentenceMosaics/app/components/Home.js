@@ -61,10 +61,25 @@ class ImageListView extends Component  {
       pageSize={9} // Needs to be a multiple of the number of
                    // cells per row or else they will be gaps
                    // when the rows are loaded
-      renderRow={(rowData) =>
+      renderRow={(rowData, sectionID, rowID, highlightRow) =>
         <TouchableHighlight
           underlayColor='transparent'
-          onPress={this.props.onPhotoClick.bind(this, rowData)} >
+          onPress={this.props.onPhotoClick.bind(this, rowData)}
+          onLongPress={ () => 
+              Alert.alert(
+                'Delete Image?',
+                'Are you sure you want to delete this image?',
+                [
+                    {text: 'Yes', onPress: () =>  {
+                          images.splice(rowID,1); 
+                          this.setState({all_images: ds.cloneWithRows(images)});
+                          var json_images = JSON.stringify(images); 
+                          AsyncStorage.setItem("images", json_images);
+                      }
+                    , style: 'cancel'},
+                    {text: 'No', onPress: () => console.log('No delete image')},
+                ]
+              )}>
         <Image
           style={styles.item}
           resizeMode='cover'
