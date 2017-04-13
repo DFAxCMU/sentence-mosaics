@@ -43,6 +43,7 @@ const WordPicker = ({ wordType, wordIndex, editWordClick, goBackClick }) => {
   }
 
   return (
+  <ScrollView style={styles.wordPickerScrollContainer}> 
     <View style={styles.wordPickerContainer}>
       <View style={styles.wordPicker}>
         { categories }
@@ -50,6 +51,7 @@ const WordPicker = ({ wordType, wordIndex, editWordClick, goBackClick }) => {
       <Button title = "Go Back" 
                 onPress = {() => goBackClick()} />
     </View>
+  </ScrollView>
   );
 }
 

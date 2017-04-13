@@ -91,7 +91,7 @@ export const styles = StyleSheet.create({
   },
   sentenceScrollContainer: {
     minHeight: globalWordHeight + 10 + 10,
-    maxHeight: currentDevice[1] - (currentDevice[0] * 2/3) - 300,
+    maxHeight: (currentDevice[1] - (currentDevice[0] * 2/3)) / 2,
   },
   draggableSentence: { 
     width: currentDevice[0] * 7/8 - 10, // from 10 padding on left
@@ -135,13 +135,15 @@ export const styles = StyleSheet.create({
     flexDirection:'row',
     backgroundColor: '#e4eeed',
   },
-  wordPickerContainer: {
+  wordPickerScrollContainer: {
+    backgroundColor: '#c7e5e1',
+    height: 200,
     margin: 5,
-    backgroundColor: '#e4eeed',
-    alignItems: 'center',
-    flexDirection:'column',
-    padding: 10,
     width: currentDevice[0] * 7/8,
+  },
+  wordPickerContainer: {
+    backgroundColor: '#e4eeed',
+    padding: 10,
   },
   wordPicker: {
     flexWrap: 'wrap',
