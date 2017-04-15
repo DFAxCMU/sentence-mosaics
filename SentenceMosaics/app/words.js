@@ -35,7 +35,7 @@ export const words = {
       'categories': {},
     }, 
     'inflection': {
-      'color': '#41893b', 
+      'color': '#54914f', 
       'custom': false,
       'categories': {
         'all': ['-ing', '-ed', '-s', '-es']

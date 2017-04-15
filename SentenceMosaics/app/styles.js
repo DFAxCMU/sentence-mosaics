@@ -105,6 +105,7 @@ export const styles = StyleSheet.create({
     marginRight: 10,
     marginTop: 10,
     height: globalWordHeight,
+    borderRadius: 8,
     // width is set by the SortableGrid library based on itemsPerRow
   },
   wordText: {
@@ -172,7 +173,7 @@ export const styles = StyleSheet.create({
     paddingBottom: 5,
     marginRight: 10,
     marginBottom: 5,
-    borderRadius: 5,
+    borderRadius: 8,
   },
   typeContainer: {
     height: globalWordHeight,
@@ -182,6 +183,7 @@ export const styles = StyleSheet.create({
     paddingLeft: 10,
     paddingRight: 10,
     marginBottom: 10,
+    borderRadius: 8,
   },
   modalHeader: {
     paddingBottom: 20,
