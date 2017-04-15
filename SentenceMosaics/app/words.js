@@ -15,13 +15,6 @@ export const words = {
       'custom': true,
       'categories': {},
     },
-    'punctuation': {
-      'color': '#f5f6f8',
-      'custom': false,
-      'categories': {
-        'all': ['.','?','!']
-      }
-    },
     'preposition': {
       'color': '#c7ab7c',
       'custom': false,
@@ -40,6 +33,13 @@ export const words = {
       'color': '#49ab41',
       'custom': true,
       'categories': {},
+    }, 
+    'inflection': {
+      'color': '#41893b', 
+      'custom': false,
+      'categories': {
+        'all': ['-ing', '-ed', '-s', '-es']
+      } 
     },
     'wh-': {
       'color': '#ac90c3',
@@ -78,5 +78,12 @@ export const words = {
       'color': '#5e7bb3',
       'custom': true,
       'categories': {},
+    },
+    'punctuation': {
+      'color': '#f5f6f8',
+      'custom': false,
+      'categories': {
+        'all': ['.','?','!']
+      }
     }
   };
