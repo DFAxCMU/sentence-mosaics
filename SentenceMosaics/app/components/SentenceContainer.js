@@ -50,6 +50,7 @@ const SentenceContainer = ({ sentence, itemOrder, sentenceScrollEnabled, onWordC
             <SortableGrid 
               style={styles.draggableSentence}
               itemsPerRow = {itemsPerRow}
+              doubleTapTreshold = {200} //default is 150 ms
               onDragStart={ () => onWordBeginDrag() }
               onDragRelease = { (result) => onWordDrag(result.itemOrder) }>
               { fullSentence }
