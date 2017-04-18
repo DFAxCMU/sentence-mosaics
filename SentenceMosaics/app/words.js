@@ -19,14 +19,14 @@ export const words = {
       'color': '#c7ab7c',
       'custom': false,
       'categories': {
-        'all': ['in','out','over','on','off','to','at','for','up','down','outside','inside','from','through']
+        'all': ['in','out','over','on','off','to','at','for','up','down','outside','inside','from','through', '+']
       }
     },
     'aux verb': {
       'color': '#82c659',
       'custom': false,
       'categories': {
-        'all': ['am','is','are','was','were','did','will']
+        'all': ['am','is','are','was','were','did','will', '+']
       }
     },
     'main verb': {
@@ -52,14 +52,14 @@ export const words = {
       'color': '#a5a5a5',
       'custom': false,
       'categories': {
-        'all': ['and','but','so','because','since']
+        'all': ['and','but','so','because','since', '+']
       }
     },
     'social': {
       'color': '#e48dbd',
       'custom': false,
       'categories': {
-        'all': ['yes','no','please',"you're welcome", 'thank you', 'no thank you']
+        'all': ['yes','no','please',"you're welcome", 'thank you', 'no thank you', '+']
       }
     },
     'article': {

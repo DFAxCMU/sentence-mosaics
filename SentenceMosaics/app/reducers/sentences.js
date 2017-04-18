@@ -74,11 +74,20 @@ export default function sentences(state = initialState, action) {
         {word: action.word, type: wordType},
         ...state.activeSentence.slice(action.wordIndex + 1)
       ];
-      return {
-        ...state,
-        wordPicker: null,
-        modalType: null,
-        activeSentence: updatedSentence
+      if (updatedSentence[action.wordIndex]['word'] == '+') {
+        return {
+          ...state,
+          wordPicker: null,
+          editIndex: action.wordIndex,
+          modalType: wordType,
+        }
+      } else {
+        return {
+          ...state,
+          wordPicker: null,
+          modalType: null,
+          activeSentence: updatedSentence
+        }
       }
     case 'GO_BACK':
       return {
