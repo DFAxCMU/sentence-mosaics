@@ -165,6 +165,7 @@ export const styles = StyleSheet.create({
   },
   categoryWord: {
     height: globalWordHeight,
+    minWidth: 50,
     justifyContent: 'center',
     alignItems: 'center',
     paddingLeft: 10,
