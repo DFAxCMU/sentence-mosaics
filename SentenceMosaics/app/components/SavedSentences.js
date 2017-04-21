@@ -23,11 +23,17 @@ class SentenceView extends Component {
   }
 
   render() {
+    var sentenceTextStyle = ([
+      styles.wordText,
+      { paddingBottom: 20}
+    ]);
     return (
       <ListView
+        style={{paddingTop:10}}
         enableEmptySections={true}
         dataSource={this.state.dataSource}
-        renderRow={(rowData) => <Text>{rowData}</Text>}
+        renderRow={(rowData) => 
+          <Text style={sentenceTextStyle}>{rowData}</Text>}
       />
     );
   }
