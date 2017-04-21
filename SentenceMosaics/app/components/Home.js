@@ -144,6 +144,7 @@ const mapDispatchToProps = (dispatch) => {
   return{ onPhotoClick: (uri) => { 
     dispatch(selectPhoto(uri))
     Actions.chooseSaveOrNew()
+    dispatch(showDefaultSentence())
   }}
 }
 
