@@ -15,6 +15,7 @@ export const REORDER_SENTENCE = 'REORDER_SENTENCE';
 export const SELECT_PHOTO = 'SELECT_PHOTO';
 export const SET_MODAL = 'SET_MODAL';
 
+
 /* Action Creators */
 export function addWord(word, wordType) {
   return {

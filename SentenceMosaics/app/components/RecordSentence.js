@@ -7,7 +7,8 @@ import {
   Image,
   TouchableHighlight,
   Platform,
-  ScrollView
+  ScrollView,
+  AsyncStorage
 } from 'react-native';
 import { connect } from 'react-redux';
 
@@ -145,17 +146,29 @@ class Recorder extends Component {
   }
 }
 
-
 const RecordSentence = ({ uri, sentence, itemOrder }) => {
   var sentenceString = ""
   for (var i = 0; i < itemOrder.length; i++) {
     sentenceString = sentenceString.concat(sentence[itemOrder[i]].word).concat(" ");
   }
 
+  //Save the sentence! 
+  var current_id = uri.id;
+  AsyncStorage.getItem("image_data").then((value) => {
+        var image_data = JSON.parse(value);
+        for (var i = 0; i < image_data.length; i++) {
+          if (image_data[i].id == current_id) {
+            image_data[i].sentence_strings.push(sentenceString);
+          }
+        }
+        var json_images = JSON.stringify(image_data); 
+        AsyncStorage.setItem("image_data", json_images);
+  }).done();
+
   return (
     <View style={styles.container}>
       <Image
-        source={{uri: uri}}
+        source={{uri: uri.image}}
         style={styles.image}
         resizeMode={Image.resizeMode.contain} />
       <View style={styles.sentenceContainer}>
@@ -169,6 +182,7 @@ const RecordSentence = ({ uri, sentence, itemOrder }) => {
 /* Container Component */
 
 const mapDispatchToProps = (dispatch) => {
+  
   return {}
 }
 

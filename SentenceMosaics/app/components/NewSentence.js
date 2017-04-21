@@ -23,7 +23,7 @@ const NewSentence = ({ uri, wordPicker, setModalClick, clearSentenceClick }) => 
     <NewWordModal
       setModalClick={setModalClick} />
     <Image
-      source={{uri: uri}}
+      source={{uri: uri.image}}
       style={styles.image}
       resizeMode={Image.resizeMode.contain} />
     <SentenceContainer />

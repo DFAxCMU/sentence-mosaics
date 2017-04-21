@@ -15,6 +15,8 @@ import { styles } from './styles';
 import Home from './components/Home';
 import NewSentence from './components/NewSentence';
 import RecordSentence from './components/RecordSentence';
+import SavedSentences from './components/SavedSentences';
+import ChooseSaveOrNew from './components/ChooseSaveOrNew';
 
 export default class App extends Component {
 
@@ -27,8 +29,9 @@ export default class App extends Component {
               key="home"
               component={Home}
               title="Sentence Mosaics"
+              initial={true}
               type="reset" // Clear navigation stack
-              initial={true} />
+              />
             <Scene
               key="newSentence"
               component={NewSentence}
@@ -41,6 +44,17 @@ export default class App extends Component {
               title="Record Sentence"
               onRight={() => Actions.home()}
               rightTitle="Done" />
+            <Scene
+              key="savedSentences"
+              component={SavedSentences}
+              title="Saved Sentences"
+              onRight={() => Actions.home()}
+              rightTitle="Done" />
+            <Scene
+              key="chooseSaveOrNew"
+              component={ChooseSaveOrNew}
+              title="Saved or New"
+              />
           </Scene>
         </RouterWithRedux>
       </Provider>
