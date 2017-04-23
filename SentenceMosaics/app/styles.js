@@ -201,6 +201,6 @@ export const styles = StyleSheet.create({
   },
   closeModal: {
     textAlign: 'right',
-    fontSize: 20,
+    fontSize: 60,
   }
 });
