@@ -37,6 +37,7 @@ const NewWordModal = ({ modalType, wordIndex, setModalClick, inputWord, onWordIn
               autoCapitalize="none"
               onChangeText={onWordInput.bind(this)}
               style={styles.input}
+              autoFocus = {true}
               placeholder={'Type ' + modalType + ' here!'} />
 
             <TouchableHighlight
