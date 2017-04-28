@@ -72,6 +72,7 @@ export const styles = StyleSheet.create({
     padding: 10,
     borderWidth: 1,
     marginBottom: 30,
+    fontSize: wordFontSize
   },
   image: { // Enlarged photo in the New Sentence page
     margin: 10,

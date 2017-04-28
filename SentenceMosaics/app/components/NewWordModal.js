@@ -38,6 +38,7 @@ const NewWordModal = ({ modalType, wordIndex, setModalClick, inputWord, onWordIn
               onChangeText={onWordInput.bind(this)}
               style={styles.input}
               autoFocus = {true}
+              onSubmitEditing={handleSubmit.bind(this, inputWord, wordIndex)}
               placeholder={'Type ' + modalType + ' here!'} />
 
             <TouchableHighlight
