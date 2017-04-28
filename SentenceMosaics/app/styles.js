@@ -188,8 +188,8 @@ export const styles = StyleSheet.create({
   },
   modalHeader: {
     paddingBottom: 20,
-    paddingTop: 20,
-    fontSize: 18,
+    paddingTop: 0,
+    fontSize: 40,
   },
   modalButton: {
     paddingLeft: 20,
@@ -197,10 +197,14 @@ export const styles = StyleSheet.create({
     backgroundColor: '#e4e319',
     paddingTop:10,
     paddingBottom:10,
-    width: 75,
+    width: 135,
+    fontSize: 40
   },
   closeModal: {
     textAlign: 'right',
-    fontSize: 60,
+    paddingTop: 0,
+    paddingRight: 15,
+    paddingBottom: 0,
+    fontSize: 80,
   }
 });

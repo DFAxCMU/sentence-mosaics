@@ -25,7 +25,7 @@ const NewWordModal = ({ modalType, wordIndex, setModalClick, inputWord, onWordIn
             <TouchableHighlight
               onPress={() => {setModalClick(null)}}
               underlayColor='transparent' >
-                <Text style={styles.closeModal}>X</Text>
+                <Text style={styles.closeModal}>x</Text>
             </TouchableHighlight>
 
             <View>
