@@ -163,33 +163,19 @@ const RecordSentence = ({ uri, sentence, itemOrder }) => {
   for (var i = 0; i < itemOrder.length; i++) {
     curr = sentence[itemOrder[i]].word
 
-    console.log("curr:")
-    console.log(curr)
-
-    if (capitalizeNext) {
-      console.log("capitalizing:")
-      console.log(curr)
-      curr = curr[0].toUpperCase() + curr.slice(1);
-      console.log(curr)
+    if (i == 0 || capitalizeNext) {
+      curr = curr[0].toUpperCase() + curr.slice(C1);
     }
 
-    if (curr[0] == "-") {
-      curr = curr.slice(1);
-      addSpace = false
-    }
-    
-    if (curr == "." || curr == "!" || curr == "?") {
-      capitalizeNext = true
-    } else {
-      capitalizeNext = false
-    }
+    capitalizeNext = (curr == "." || curr == "!" || curr == "?")
 
-    if (addSpace) {
-      sentenceString = sentenceString.concat(" ");
-    } 
+    addSpace = (sentence[itemOrder[i]].type != "punctuation" &&
+                sentence[itemOrder[i]].type != "inflection")
+
+    if (addSpace) sentenceString = sentenceString.concat(" ");
+
     sentenceString = sentenceString.concat(curr);
     addSpace = true
-
   }
 
   //Save the sentence! 
