@@ -148,8 +148,40 @@ class Recorder extends Component {
 
 const RecordSentence = ({ uri, sentence, itemOrder }) => {
   var sentenceString = ""
+  var curr = ""
+  var capitalizeNext = false
+  var addSpace = true
+
   for (var i = 0; i < itemOrder.length; i++) {
-    sentenceString = sentenceString.concat(sentence[itemOrder[i]].word).concat(" ");
+    curr = sentence[itemOrder[i]].word
+
+    console.log("curr:")
+    console.log(curr)
+
+    if (capitalizeNext) {
+      console.log("capitalizing:")
+      console.log(curr)
+      curr = curr[0].toUpperCase() + curr.slice(1);
+      console.log(curr)
+    }
+
+    if (curr[0] == "-") {
+      curr = curr.slice(1);
+      addSpace = false
+    }
+    
+    if (curr == "." || curr == "!" || curr == "?") {
+      capitalizeNext = true
+    } else {
+      capitalizeNext = false
+    }
+
+    if (addSpace) {
+      sentenceString = sentenceString.concat(" ");
+    } 
+    sentenceString = sentenceString.concat(curr);
+    addSpace = true
+
   }
 
   //Save the sentence! 
