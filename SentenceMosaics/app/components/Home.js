@@ -43,12 +43,17 @@ var images =  ['https://s-media-cache-ak0.pinimg.com/564x/21/c4/af/21c4af62d979e
 ];
 var image_data = [];
 
+var have_loaded = false; 
+
 
 class ImageListView extends Component  {
   constructor(props) {
     super(props);
     this.state = {all_images: ds.cloneWithRows(image_data)};
-    this.load();
+    if (have_loaded == false) {
+      this.load();
+      have_loaded = true;
+    }
   }
 
   load() {
@@ -67,7 +72,6 @@ class ImageListView extends Component  {
           image_data[i] = d;
           image_id_count += 1;
         }
-        this.setState({all_images: ds.cloneWithRows(image_data)});
         this.sync();
       }
     }).done();

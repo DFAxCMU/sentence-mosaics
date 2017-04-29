@@ -20,7 +20,7 @@ export default function RecordButton(props) {
     text = 'Recording...'
   } 
   if (isFinishRecorded) {
-    text = 'Tap to renew'
+    text = 'Tap to record'
   }
   
   if (isRecording) {

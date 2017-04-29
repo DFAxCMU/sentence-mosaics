@@ -17,8 +17,15 @@ const Word = ({ sentence, index, onWordClick })  => {
   var wordStyle = ([
     styles.word,
     { backgroundColor: words[targetWord.type]['color']}
-
   ]);
+
+  if (targetWord.type == 'punctuation') { // add thin gray outline
+    wordStyle = ([
+      wordStyle,
+      { borderColor: '#aaa', borderWidth: 1.0 }
+    ]);
+  }
+
   return (
     <View style={wordStyle}>
     <Text style={styles.wordText}>

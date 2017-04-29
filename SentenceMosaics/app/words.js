@@ -83,7 +83,7 @@ export const words = {
       'color': '#f5f6f8',
       'custom': false,
       'categories': {
-        'all': ['.','?','!']
+        'all': ['.','?','!',',',':',';','-']
       }
     }
   };
