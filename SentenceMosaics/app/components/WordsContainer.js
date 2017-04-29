@@ -21,10 +21,15 @@ const WordsContainer = ({ addBlankWord })  => {
       styles.typeContainer,
       { backgroundColor: words[type]['color'] }
     ]);
-    var displayText = type;
-    if (words[type]['custom']) {
-      displayText = '+ ' + type;
+    
+    if (type == 'punctuation') { // add thin gray outline
+      wordTypeStyle = ([
+        wordTypeStyle,
+        { borderColor: '#aaa', borderWidth: 1.0 }
+      ]);
     }
+
+    var displayText = words[type]['custom'] ? '+ ' + type : type;
 
     wordTypes.push(
       <TouchableHighlight
