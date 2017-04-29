@@ -104,6 +104,7 @@ class Recorder extends Component {
       this.setState({currentTime: time})
       if (time === this.state.audioLength) {
         this.stopPlaying()
+        this.setState({ currentTime: 0})
         clearInterval(this.timer)
       }
     }, 1000)
