@@ -92,14 +92,21 @@ class Recorder extends Component {
 
   startPlaying = () => {
     if (this.state.isPaused) {
-      console.log("isPaused is true")
       AudioPlayer.unpause()      
       this.setState({isPlaying: true, isPaused: false})
       return
     }
-    console.log("isPaused is false")
     AudioPlayer.play(Constants.AUDIO_PATH)
     this.setState({isPlaying: true})
+
+    this.timer = setInterval(() => {
+      const time = this.state.currentTime + 1
+      this.setState({currentTime: time})
+      if (time === this.state.audioLength) {
+        this.stopPlaying()
+        clearInterval(this.timer)
+      }
+    }, 1000)
   }
 
   pausePlaying = () => {
