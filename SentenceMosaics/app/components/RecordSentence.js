@@ -165,9 +165,9 @@ const RecordSentence = ({ uri, sentence, itemOrder }) => {
   for (var i = 0; i < itemOrder.length; i++) {
     curr = sentence[itemOrder[i]].word
 
-    // if (i == 0 || capitalizeNext) {
-    //   curr = curr[0].toUpperCase() + curr.slice(C1);
-    // }
+    if (i == 0 || capitalizeNext) {
+      curr = curr[0].toUpperCase() + curr.slice(1);
+    }
 
     // capitalizeNext = (curr == "." || curr == "!" || curr == "?")
 
