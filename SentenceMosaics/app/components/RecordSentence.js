@@ -4,7 +4,9 @@ import React, { Component } from 'react';
 import {
   View,
   Text,
+  Alert,
   Image,
+  Button,
   TouchableHighlight,
   Platform,
   ScrollView,
@@ -163,11 +165,11 @@ const RecordSentence = ({ uri, sentence, itemOrder }) => {
   for (var i = 0; i < itemOrder.length; i++) {
     curr = sentence[itemOrder[i]].word
 
-    if (i == 0 || capitalizeNext) {
-      curr = curr[0].toUpperCase() + curr.slice(C1);
-    }
+    // if (i == 0 || capitalizeNext) {
+    //   curr = curr[0].toUpperCase() + curr.slice(C1);
+    // }
 
-    capitalizeNext = (curr == "." || curr == "!" || curr == "?")
+    // capitalizeNext = (curr == "." || curr == "!" || curr == "?")
 
     addSpace = (sentence[itemOrder[i]].type != "punctuation" &&
                 sentence[itemOrder[i]].type != "inflection")
@@ -178,18 +180,7 @@ const RecordSentence = ({ uri, sentence, itemOrder }) => {
     addSpace = true
   }
 
-  //Save the sentence! 
-  var current_id = uri.id;
-  AsyncStorage.getItem("image_data").then((value) => {
-        var image_data = JSON.parse(value);
-        for (var i = 0; i < image_data.length; i++) {
-          if (image_data[i].id == current_id) {
-            image_data[i].sentence_strings.push(sentenceString);
-          }
-        }
-        var json_images = JSON.stringify(image_data); 
-        AsyncStorage.setItem("image_data", json_images);
-  }).done();
+ 
 
   return (
     <View style={styles.container}>
@@ -200,6 +191,24 @@ const RecordSentence = ({ uri, sentence, itemOrder }) => {
       <View style={styles.sentenceContainer}>
         <Text style={styles.fullSentenceText}>{ sentenceString }</Text>
       </View>
+        <Button 
+            title="Save Sentence Text"
+            onPress={() => {
+               //Save the sentence! 
+              var current_id = uri.id;
+              AsyncStorage.getItem("image_data").then((value) => {
+              var image_data = JSON.parse(value);
+              for (var i = 0; i < image_data.length; i++) {
+                if (image_data[i].id == current_id) {
+                  image_data[i].sentence_strings.push(sentenceString);
+                }
+              }
+              var json_images = JSON.stringify(image_data); 
+              AsyncStorage.setItem("image_data", json_images);
+              Alert.alert("Saved Sentence!");
+              }).done();
+            }}
+            />
       <Recorder/>
     </View>
   )
