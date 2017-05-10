@@ -57,23 +57,24 @@ class SentenceView extends Component {
         dataSource={this.state.dataSource}
         renderRow={ (rowData,sectionID, rowID) => {
           return(
-               <TouchableHighlight
-                  underlayColor='transparent'
-                  onLongPress={ () => { 
-                  Alert.alert(
-                    'Delete Sentence?',
-                    'Are you sure you want to delete this Sentence?',
-                    [
-                        {text: 'Yes', onPress: () =>  {
-                            comp.removeSentence(comp.state.uri.id,rowID,comp);
-                          }
-                        , style: 'cancel'},
-                        {text: 'No', onPress: () => console.log('No delete image')},
-                    ]
-                  )
-                  }}>
-              <Text style={{fontSize: 24}}>{rowData}</Text>
-              </TouchableHighlight>
+               <View style={{flexDirection:'row'}}>
+                <Text style={{fontSize: 24}}>{rowData}</Text>
+                <Text style={{fontSize: 24, color: "red"}}
+                  onPress={ () => { 
+                    Alert.alert(
+                      'Delete Sentence?',
+                      'Are you sure you want to delete this Sentence?',
+                      [
+                          {text: 'Yes', onPress: () =>  {
+                              comp.removeSentence(comp.state.uri.id,rowID,comp);
+                            }
+                          , style: 'cancel'},
+                          {text: 'No', onPress: () => console.log('No delete image')},
+                      ]
+                    )
+                    }}
+                >x</Text>
+              </View>
           );
             }}
       />
