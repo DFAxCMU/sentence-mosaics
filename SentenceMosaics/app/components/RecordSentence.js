@@ -196,6 +196,10 @@ const RecordSentence = ({ uri, sentence, itemOrder }) => {
         <Button 
             title="Save Sentence Text"
             onPress={() => {
+              if (sentenceString == "") {
+                Alert.alert("This sentence is empty!");
+                return;
+              }
                //Save the sentence! 
               var current_id = uri.id;
               AsyncStorage.getItem("image_data").then((value) => {
