@@ -26,6 +26,8 @@ import RecordButton from './RecordButton'
 import ActionButtons from './ActionButtons'
 import IconButton from './IconButton'
 
+import { add_sentence } from '../actions'
+
 const Constants = {
   MAX_AUDIO_LENGTH: 60,
   AUDIO_PATH: AudioUtils.DocumentDirectoryPath + '/example.aac',
@@ -156,7 +158,7 @@ class Recorder extends Component {
   }
 }
 
-const RecordSentence = ({ uri, sentence, itemOrder }) => {
+const RecordSentence = ({ uri, sentence, itemOrder, add_sentence }) => {
   var sentenceString = ""
   var curr = ""
   var capitalizeNext = false
@@ -182,8 +184,6 @@ const RecordSentence = ({ uri, sentence, itemOrder }) => {
     }
   }
 
- 
-
   return (
     <View style={styles.container}>
       <Image
@@ -200,19 +200,8 @@ const RecordSentence = ({ uri, sentence, itemOrder }) => {
                 Alert.alert("This sentence is empty!");
                 return;
               }
-               //Save the sentence! 
-              var current_id = uri.id;
-              AsyncStorage.getItem("image_data").then((value) => {
-              var image_data = JSON.parse(value);
-              for (var i = 0; i < image_data.length; i++) {
-                if (image_data[i].id == current_id) {
-                  image_data[i].sentence_strings.push(sentenceString);
-                }
-              }
-              var json_images = JSON.stringify(image_data); 
-              AsyncStorage.setItem("image_data", json_images);
-              Alert.alert("Saved Sentence!");
-              }).done();
+              add_sentence(uri.image_index, sentenceString);
+              Alert.alert("Saved!");
             }}
             />
       <Recorder/>
@@ -223,13 +212,18 @@ const RecordSentence = ({ uri, sentence, itemOrder }) => {
 /* Container Component */
 
 const mapDispatchToProps = (dispatch) => {
-  
-  return {}
+return {
+      add_sentence: (image_index, sentence) => {
+        dispatch(add_sentence(image_index,sentence));
+      }
+  }
 }
 
 const mapStateToProps = (state) => {
+  var index = state.sentences.activeImageIndex;
+  var correct_image = state.images.image_list[index];
   return {
-    uri: state.sentences.activeURI,
+    uri: correct_image,
     sentence: state.sentences.activeSentence,
     itemOrder: state.sentences.itemOrder,
   }

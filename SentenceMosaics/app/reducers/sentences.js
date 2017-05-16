@@ -7,7 +7,7 @@ const initialState = {
   activeSentence: [{word: '', type: 'pronoun'}, 
                    {word: '', type: 'aux verb'}, 
                    {word: '', type: 'main verb'}],
-  activeURI: '',
+  activeImageIndex: -1, 
   editIndex: 0,
   inputWord: '',
   modalType: null,
@@ -124,7 +124,7 @@ export default function sentences(state = initialState, action) {
     case 'SELECT_PHOTO':
       return {
         ...state,
-        activeURI: action.uri
+        activeImageIndex: action.index
       }
     case 'SET_MODAL':
       return {

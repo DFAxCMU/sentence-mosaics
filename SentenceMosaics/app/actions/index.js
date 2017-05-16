@@ -14,7 +14,10 @@ export const SENTENCE_DRAG_IN_PROGRESS = 'SENTENCE_DRAG_IN_PROGRESS';
 export const REORDER_SENTENCE = 'REORDER_SENTENCE';
 export const SELECT_PHOTO = 'SELECT_PHOTO';
 export const SET_MODAL = 'SET_MODAL';
-
+export const ADD_IMAGE = 'ADD_IMAGE';
+export const DELETE_IMAGE = 'DELETE_IMAGE';
+export const ADD_SENTENCE = 'ADD_SENTENCE';
+export const REMOVE_SENTENCE = 'REMOVE_SENTENCE';
 
 /* Action Creators */
 export function addWord(word, wordType) {
@@ -91,10 +94,10 @@ export function reorderSentence(itemOrder) {
   }
 }
 
-export function selectPhoto(uri) {
+export function selectPhoto(index) {
   return {
     type: SELECT_PHOTO,
-    uri
+    index 
   }
 }
 
@@ -102,5 +105,39 @@ export function setModal(modalType) {
   return {
     type: SET_MODAL,
     modalType
+  }
+}
+
+export function add_image(image) {
+  return {
+    type: ADD_IMAGE,
+    image
+  }
+}
+
+export function delete_image(image_index) {
+  image_index = parseInt(image_index);
+  return {
+    type: DELETE_IMAGE,
+    image_index
+  }
+}
+
+export function add_sentence(image_index,sentence) {
+  image_index = parseInt(image_index);
+  return {
+    type: ADD_SENTENCE,
+    image_index,
+    sentence
+  }
+}
+
+export function remove_sentence(image_index,sentence_index) {
+  image_index = parseInt(image_index);
+  sentence_index = parseInt(sentence_index);
+  return  {
+    type: REMOVE_SENTENCE,
+    image_index,
+    sentence_index
   }
 }

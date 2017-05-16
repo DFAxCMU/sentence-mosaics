@@ -15,6 +15,8 @@ import {
 import { connect } from 'react-redux';
 import { styles } from '../styles';
 
+import { remove_sentence } from '../actions'
+
 class SentenceView extends Component {
   constructor(props) {
     super(props);
@@ -22,26 +24,16 @@ class SentenceView extends Component {
     this.state = {
       uri: this.props.uri, 
       ds: ds, 
-      dataSource: ds.cloneWithRows(this.props.uri.sentence_strings),
+      dataSource: ds.cloneWithRows(this.props.sentences),
     };
   }
 
-  removeSentence(current_id,rowID,comp) {
-    AsyncStorage.getItem("image_data").then((value) => {
-      var image_data = JSON.parse(value);
-      var index = -1;
-      for (var i = 0; i < image_data.length; i++) {
-        if (image_data[i].id == current_id) {
-          index = i;
-          image_data[i].sentence_strings.splice(rowID,1);
-        }
-      }
-      var json_images = JSON.stringify(image_data); 
-      AsyncStorage.setItem("image_data", json_images);
-      var new_state = comp.state.ds.cloneWithRows(image_data[index].sentence_strings);
-      comp.setState({dataSource: new_state});
-    }).done();
-
+  componentWillReceiveProps(props) {
+    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+    this.setState({
+      ds: ds, 
+      dataSource: ds.cloneWithRows(props.sentences),
+    });
   }
 
   render() {
@@ -49,7 +41,7 @@ class SentenceView extends Component {
       styles.wordText,
       { paddingBottom: 20}
     ]);
-    var comp = this;
+    var comp = this; 
     return (
       <ListView
         style={{paddingTop:10, }}
@@ -66,14 +58,14 @@ class SentenceView extends Component {
                       'Are you sure you want to delete this Sentence?',
                       [
                           {text: 'Yes', onPress: () =>  {
-                              comp.removeSentence(comp.state.uri.id,rowID,comp);
+                              comp.props.remove_sentence(comp.props.uri.image_index,parseInt(rowID)); 
                             }
                           , style: 'cancel'},
-                          {text: 'No', onPress: () => console.log('No delete image')},
+                          {text: 'No', onPress: () => console.log('No delete sentence')},
                       ]
                     )
                     }}
-                >x</Text>
+                >       x</Text>
               </View>
           );
             }}
@@ -82,7 +74,7 @@ class SentenceView extends Component {
   }
 }
 
-const SavedSentences = ({ uri }) => (
+const SavedSentences = ({ uri,sentences,remove_sentence }) => (
   <View style={styles.container}>
       <Image
       source={{uri: uri.image}}
@@ -90,6 +82,8 @@ const SavedSentences = ({ uri }) => (
       resizeMode={Image.resizeMode.contain} />
     <SentenceView
         uri={uri}
+        sentences={sentences}
+        remove_sentence={remove_sentence}
         />
   </View>
 )
@@ -97,13 +91,21 @@ const SavedSentences = ({ uri }) => (
 /* Container Component */
 
 const mapDispatchToProps = (dispatch) => {
-  return {}
+  return {
+      remove_sentence: (image_index, sentence_index ) => {
+        dispatch(remove_sentence(image_index,sentence_index));
+      }
+  }
 }
 
 const mapStateToProps = (state) => {
+  var index = state.sentences.activeImageIndex;
+  var correct_image = state.images.image_list[index];
+  var sentences = correct_image.sentence_strings;
   return {
-        uri: state.sentences.activeURI,
-      }
+    sentences: sentences, 
+    uri: correct_image,
+  }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SavedSentences)

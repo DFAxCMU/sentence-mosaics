@@ -53,8 +53,10 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 const mapStateToProps = (state) => {
+  var index = state.sentences.activeImageIndex;
+  var correct_image = state.images.image_list[index];
   return {
-    uri: state.sentences.activeURI,
+    uri: correct_image,
     wordPicker: state.sentences.wordPicker
   }
 }
