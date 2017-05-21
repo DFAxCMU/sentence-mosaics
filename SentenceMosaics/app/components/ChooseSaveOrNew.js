@@ -21,19 +21,26 @@ const ChooseSaveOrNew = ({ uri }) => (
       source={{uri: uri.image}}
       style={styles.image}
       resizeMode={Image.resizeMode.contain} />
-      <Button 
-          title="new sentence"
-          onPress={() => { 
-            selectPhoto(uri)
-            Actions.newSentence()
-            showDefaultSentence()
-            clearWordPicker()
-          } }
-          accessibilityLabel="Saved Sentences" />
-      <Button 
-          title="saved sentences"
-          onPress={() => { Actions.savedSentences()}}
-          accessibilityLabel="Saved Sentences" />
+
+    <TouchableHighlight
+        onPress={() => { 
+          selectPhoto(uri)
+          Actions.newSentence()
+          showDefaultSentence()
+          clearWordPicker()
+        } }
+        style={[styles.button, {minWidth: 300}]}
+        accessibilityLabel="New Sentence">
+        <Text style={styles.wordText}>New Sentence</Text>
+    </TouchableHighlight>
+
+    <TouchableHighlight
+        onPress={() => { Actions.savedSentences()}}
+        style={[styles.button, {minWidth: 300}]}
+        accessibilityLabel="Saved Sentences">
+        <Text style={styles.wordText}>Saved Sentences</Text>
+    </TouchableHighlight>
+
   </View>
 )
 

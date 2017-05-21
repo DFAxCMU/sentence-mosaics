@@ -59,12 +59,17 @@ class ImageListView extends Component  {
           resizeMode='cover'
           source={{uri: rowData.image}} />
         </TouchableHighlight>
-      } />
-    <Button title="Import Photos"
-            onPress={() => ImagePickerIOS.openSelectDialog({}, imageUri => {
-              this.props.add_image(imageUri);
-              }, error => {})}
-            accessibilityLabel="Import New Photos" />
+      } />    
+
+    <TouchableHighlight
+        onPress={() => ImagePickerIOS.openSelectDialog({}, imageUri => {
+              this.props.add_image(imageUri);}, error => {})}
+        style={styles.button}
+        accessibilityLabel="Import New Photos">
+        
+        <Text style={styles.wordText}>Import Photos</Text>
+    </TouchableHighlight>
+
     </View>
     );
   }

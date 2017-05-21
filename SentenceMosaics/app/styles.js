@@ -207,5 +207,15 @@ export const styles = StyleSheet.create({
     paddingRight: 15,
     paddingBottom: 0,
     fontSize: 80,
-  }
+  },
+  button: {
+    backgroundColor: '#e4eeed',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+    marginBottom: 20,
+    marginTop: 20,
+    borderRadius: 8,
+    minWidth: 200,
+  },
 });

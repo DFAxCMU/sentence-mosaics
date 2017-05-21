@@ -33,8 +33,13 @@ const NewSentence = ({ uri, wordPicker, setModalClick, clearSentenceClick }) => 
         setModalClick={setModalClick} />
     }
 
-    <Button title = "Clear Sentence" 
-            onPress = {() => clearSentenceClick()} />
+    <TouchableHighlight
+        onPress={() => clearSentenceClick()}
+        style={styles.button}
+        accessibilityLabel="Clear Sentence">
+        <Text style={styles.wordText}>Clear Sentence</Text>
+    </TouchableHighlight>
+
   </View>
 )
 

@@ -55,7 +55,7 @@ class SentenceView extends Component {
                   onPress={ () => { 
                     Alert.alert(
                       'Delete Sentence?',
-                      'Are you sure you want to delete this Sentence?',
+                      'Are you sure you want to delete this sentence?',
                       [
                           {text: 'Yes', onPress: () =>  {
                               comp.props.remove_sentence(comp.props.uri.image_index,parseInt(rowID)); 
