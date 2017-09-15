@@ -152,6 +152,10 @@ export const styles = StyleSheet.create({
     alignItems: 'flex-start',
     flexDirection:'row',
   },
+  wordsHeader: {
+    fontSize: 25,
+    margin: 10,
+  },
   categoryContainer: {
     flexWrap: 'wrap',
     alignItems: 'flex-start',

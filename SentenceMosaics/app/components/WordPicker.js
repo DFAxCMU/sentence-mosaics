@@ -32,9 +32,12 @@ const WordPicker = ({ wordType, wordIndex, editWordClick, goBackClick }) => {
         <Text key={item} style={styles.wordText}>{item}</Text>
       </TouchableHighlight>
     );
+    var categoryTitle = category !== 'all' ? 
+      <Text key={category} style={styles.categoryHeader}>{category}</Text>
+      : null;
     categories.push(
       <View key={category + "_view" } style={styles.page}>
-        <Text key={category} style={styles.categoryHeader}>{category}</Text>
+        { categoryTitle }
         <View style={styles.categoryContainer}>
           { wordOptions }
         </View>
@@ -45,11 +48,12 @@ const WordPicker = ({ wordType, wordIndex, editWordClick, goBackClick }) => {
   return (
   <ScrollView style={styles.wordPickerScrollContainer}> 
     <View style={styles.wordPickerContainer}>
+      <Text style={styles.wordsHeader}>{ wordType }s</Text>
       <View style={styles.wordPicker}>
         { categories }
       </View>
       <Button title = "Go Back" 
-                onPress = {() => goBackClick()} />
+              onPress = {() => goBackClick()} />
     </View>
   </ScrollView>
   );
