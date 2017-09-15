@@ -38,14 +38,14 @@ export const words = {
       'color': '#54914f', 
       'custom': false,
       'categories': {
-        'all': ['-ing', '-ed', '-s', '-es']
+        'all': ['-ing', '-ed', '-s', '-es', '+']
       } 
     },
     'wh-': {
       'color': '#ac90c3',
       'custom': false,
       'categories': {
-        'all': ['who','what','when','how','why','where']
+        'all': ['who','what','when','how','why','where', '+']
       }
     },
     'conjunction': {
@@ -83,7 +83,7 @@ export const words = {
       'color': '#f5f6f8',
       'custom': false,
       'categories': {
-        'all': ['.','?','!',',',':',';','-']
+        'all': ['.','?','!',',',':',';','-','+']
       }
     }
   };
