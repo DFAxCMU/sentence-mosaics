@@ -14,3 +14,12 @@
 
 Type `npm run simulator`!
 
+## Troubleshooting 
+
+![instruments not found](docs/troubleshooting/command_line_tools_failed.png)
+
+Open Xcode. Go to Xcode->Preferences->Locations and select an installation for command line tools. 
+
+![simulator not found](docs/troubleshooting/simulator_not_found.png)
+
+Use `npm run simulator-updated` instead. 
