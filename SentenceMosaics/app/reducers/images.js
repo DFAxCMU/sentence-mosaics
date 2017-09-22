@@ -1,10 +1,12 @@
 'use strict';
 
 const initialState = {
-  image_list: [[{image: 'https://s-media-cache-ak0.pinimg.com/564x/21/c4/af/21c4af62d979e779f08730def389c7a4.jpg',
+  /*image_list: [[{image: 'https://s-media-cache-ak0.pinimg.com/564x/21/c4/af/21c4af62d979e779f08730def389c7a4.jpg',
       sentence_strings: [],
       image_index: 0}]], 
-  image_count: 1, 
+  image_count: 1, */
+  image_list: [],
+  image_count: 0,
 };
 
 /*'https://s-media-cache-ak0.pinimg.com/564x/21/c4/af/21c4af62d979e779f08730def389c7a4.jpg', 
