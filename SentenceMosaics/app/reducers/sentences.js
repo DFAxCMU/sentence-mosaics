@@ -2,6 +2,7 @@
 
 import { ActionConst } from 'react-native-router-flux';
 import { words } from '../words';
+import * as Actions from '../actions/index';
 
 const initialState = {
   activeSentence: [{word: '', type: 'pronoun'}, 
@@ -18,13 +19,13 @@ const initialState = {
 
 export default function sentences(state = initialState, action) {
   switch (action.type) {
-    case 'ADD_WORD':
+    case Actions.ADD_WORD:
       return {
         ...state,
         activeSentence: state.activeSentence.concat([{word: action.word, type: action.wordType}]),
         itemOrder: state.itemOrder.concat([state.activeSentence.length])
       }
-    case 'DELETE_WORD':
+    case Actions.DELETE_WORD:
       var deleteIndex = state.itemOrder.indexOf(action.wordIndex)
       var newItemOrder = [
         ...state.itemOrder.slice(0, deleteIndex),
@@ -40,19 +41,19 @@ export default function sentences(state = initialState, action) {
         activeSentence: updatedSentence,
         itemOrder: newItemOrder
       }
-    case 'SHOW_DEFAULT_SENTENCE':
+    case Actions.SHOW_DEFAULT_SENTENCE:
       return {
         ...state,
         activeSentence: initialState.activeSentence,
         itemOrder: initialState.itemOrder
       }
-    case 'CLEAR_SENTENCE':
+    case Actions.CLEAR_SENTENCE:
       return {
         ...state,
         activeSentence: [],
         itemOrder: []
       }
-    case 'CLICK_WORD':
+    case Actions.CLICK_WORD:
       if (words[action.wordType]['custom']) {
         return {
           ...state,
@@ -67,7 +68,7 @@ export default function sentences(state = initialState, action) {
           editIndex: action.wordIndex
         }
       }
-    case 'EDIT_WORD':
+    case Actions.EDIT_WORD:
       var wordType = state.activeSentence[action.wordIndex].type;
       var updatedSentence = [
         ...state.activeSentence.slice(0, action.wordIndex),
@@ -89,29 +90,29 @@ export default function sentences(state = initialState, action) {
           activeSentence: updatedSentence
         }
       }
-    case 'GO_BACK':
+    case Actions.GO_BACK:
       return {
         ...state,
         wordPicker: null,
         modalType: null,
         activeSentence: state.activeSentence
       }
-    case 'CLEAR_WORDPICKER':
+    case Actions.CLEAR_WORDPICKER:
       return {
         ...state, 
         wordPicker: null
       }
-    case 'INPUT_WORD':
+    case Actions.INPUT_WORD:
       return {
         ...state,
         inputWord: action.word
       }
-    case 'SENTENCE_DRAG_IN_PROGRESS':
+    case Actions.SENTENCE_DRAG_IN_PROGRESS:
       return {
         ...state,
         sentenceScrollEnabled: false
       }
-    case 'REORDER_SENTENCE':
+    case Actions.REORDER_SENTENCE:
       var newItemOrder = action.itemOrder.map(function(item) {
           return ( parseInt(item.key) )
       });
@@ -121,12 +122,12 @@ export default function sentences(state = initialState, action) {
         itemOrder: newItemOrder,
         sentenceScrollEnabled: true
       }
-    case 'SELECT_PHOTO':
+    case Actions.SELECT_PHOTO:
       return {
         ...state,
         activeImageIndex: action.index
       }
-    case 'SET_MODAL':
+    case Actions.SET_MODAL:
       return {
         ...state,
         modalType: action.modalType

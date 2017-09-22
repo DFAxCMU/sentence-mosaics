@@ -26,12 +26,13 @@ const initialState = {
 
 
 import {persistStore} from 'redux-persist'
+import * as Actions from '../actions/index'
 
 export default function images(state=initialState, action) {
 
 console.log(state)
   switch (action.type) {
-    case 'ADD_IMAGE':
+    case Actions.ADD_IMAGE:
       return ({
         ...state,
         image_list: state.image_list.concat([{
@@ -41,7 +42,7 @@ console.log(state)
         }]), 
         image_count: state.image_count + 1,
       });
-    case 'DELETE_IMAGE':
+    case Actions.DELETE_IMAGE:
       var left_half = state.image_list.slice(0,action.image_index);
       var right_half = state.image_list.slice(action.image_index + 1);
       for (var i = 0; i < right_half.length; i++) {
@@ -54,7 +55,7 @@ console.log(state)
         image_list: left_half.concat(right_half),
         image_count: Math.max(state.image_count - 1, 0), 
       });
-    case 'ADD_SENTENCE': 
+    case Actions.ADD_SENTENCE: 
         var sentence_string = action.sentence;
         var image_index = action.image_index;
         var current_sentences = state.image_list[image_index].sentence_strings.slice();
@@ -71,7 +72,7 @@ console.log(state)
           ...state,
           image_list: new_images,
         });
-    case 'REMOVE_SENTENCE':
+    case Actions.REMOVE_SENTENCE:
         var image_index = action.image_index;
         var sentence_index = action.sentence_index;
         var current_sentences = state.image_list[image_index].sentence_strings.slice();
