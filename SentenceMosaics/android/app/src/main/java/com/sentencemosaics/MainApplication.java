@@ -8,7 +8,6 @@ import com.oblador.vectoricons.VectorIconsPackage;
 import com.rnim.rn.audio.ReactNativeAudioPackage;
 import com.lwansbrough.RCTCamera.RCTCameraPackage;
 import com.imagepicker.ImagePickerPackage;
-import io.realm.react.RealmReactPackage;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
@@ -33,8 +32,7 @@ public class MainApplication extends Application implements ReactApplication {
             new VectorIconsPackage(),
             new ReactNativeAudioPackage(),
             new RCTCameraPackage(),
-            new ImagePickerPackage(),
-            new RealmReactPackage()
+            new ImagePickerPackage()
       );
     }
   };

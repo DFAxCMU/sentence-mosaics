@@ -19,11 +19,6 @@ import { connect } from 'react-redux'
 import { selectPhoto, showDefaultSentence, clearWordPicker, add_image, delete_image} from '../actions'
 import { styles } from '../styles'
 
-import Realm from 'realm'
-let realm = new Realm({
-  schema: [{name: 'Photos', properties: {uri: 'string'}}]
-})
-
 class ImageListView extends Component  {
   constructor(props) {
     super(props);
