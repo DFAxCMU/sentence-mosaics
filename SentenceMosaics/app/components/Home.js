@@ -91,6 +91,7 @@ const mapDispatchToProps = (dispatch) => {
     dispatch(selectPhoto(index))
     Actions.chooseSaveOrNew()
     dispatch(showDefaultSentence())
+    dispatch(clearWordPicker())
   },
   delete_image:  (index) => {
     dispatch(delete_image(index));
