@@ -37,13 +37,6 @@ export const styles = StyleSheet.create({
   page: {
     flex: 1,
   },
-  nav: {
-    backgroundColor: '#e4eeed',
-  },
-  header: {
-    fontSize: 18,
-    marginTop: 8
-  },
   list: {
     justifyContent: 'flex-start',
     flexWrap: 'wrap',
