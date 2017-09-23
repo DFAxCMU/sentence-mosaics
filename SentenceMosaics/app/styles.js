@@ -27,12 +27,14 @@ else if (globalDeviceType == 'iPhone') {
 
 var currentDevice = [dim.width,dim.height];
 
+const numOfCols = 4;
+const spaceBetween = 10;
+
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
     backgroundColor: '#c7e5e1',
-    marginTop: 60,
   },
   page: {
     flex: 1,
@@ -42,11 +44,11 @@ export const styles = StyleSheet.create({
     flexWrap: 'wrap',
     alignItems: 'flex-start',
     flexDirection:'row',
-    padding: 5,
+    padding: spaceBetween / 2,
   },
   item: { // Photos cells in Home page
-    margin: 5,
-    width: (currentDevice[0] - 50) / 4, 
+    margin: spaceBetween / 2,
+    width: (currentDevice[0] - (numOfCols + 1) * spaceBetween) / numOfCols, 
     aspectRatio: 1,
   },
   modalContainer: {
