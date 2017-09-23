@@ -42,12 +42,12 @@ export const styles = StyleSheet.create({
     flexWrap: 'wrap',
     alignItems: 'flex-start',
     flexDirection:'row',
+    padding: 5,
   },
   item: { // Photos cells in Home page
-    marginRight: 10,
-    marginTop: 10,
-    width: currentDevice[0] / 4, 
-    height: currentDevice[0] / 4,
+    margin: 5,
+    width: (currentDevice[0] - 50) / 4, 
+    aspectRatio: 1,
   },
   modalContainer: {
     justifyContent: 'center',
