@@ -27,34 +27,29 @@ else if (globalDeviceType == 'iPhone') {
 
 var currentDevice = [dim.width,dim.height];
 
+const numOfCols = 4;
+const spaceBetween = 10;
+
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
     backgroundColor: '#c7e5e1',
-    marginTop: 60,
   },
   page: {
     flex: 1,
-  },
-  nav: {
-    backgroundColor: '#e4eeed',
-  },
-  header: {
-    fontSize: 18,
-    marginTop: 8
   },
   list: {
     justifyContent: 'flex-start',
     flexWrap: 'wrap',
     alignItems: 'flex-start',
     flexDirection:'row',
+    padding: spaceBetween / 2,
   },
   item: { // Photos cells in Home page
-    marginRight: 10,
-    marginTop: 10,
-    width: currentDevice[0] / 4, 
-    height: currentDevice[0] / 4,
+    margin: spaceBetween / 2,
+    width: (currentDevice[0] - (numOfCols + 1) * spaceBetween) / numOfCols, 
+    aspectRatio: 1,
   },
   modalContainer: {
     justifyContent: 'center',
