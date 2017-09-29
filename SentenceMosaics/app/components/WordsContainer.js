@@ -29,14 +29,12 @@ const WordsContainer = ({ addBlankWord })  => {
       ]);
     }
 
-    var displayText = words[type]['custom'] ? '+ ' + type : type;
-
     wordTypes.push(
       <TouchableHighlight
         onPress={addBlankWord.bind(this, type)}
         key={type}
         style={wordTypeStyle}>
-        <Text style={styles.wordText}>{displayText}</Text>
+        <Text style={styles.wordText}>{type}</Text>
       </TouchableHighlight>
     )
   }

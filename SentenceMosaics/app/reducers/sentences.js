@@ -54,19 +54,10 @@ export default function sentences(state = initialState, action) {
         itemOrder: []
       }
     case Actions.CLICK_WORD:
-      if (words[action.wordType]['custom']) {
-        return {
-          ...state,
-          modalType: action.wordType,
-          editIndex: action.wordIndex
-        }
-      }
-      else {
-        return {
-          ...state,
-          wordPicker: action.wordType,
-          editIndex: action.wordIndex
-        }
+      return {
+        ...state,
+        wordPicker: action.wordType,
+        editIndex: action.wordIndex
       }
     case Actions.EDIT_WORD:
       var wordType = state.activeSentence[action.wordIndex].type;
