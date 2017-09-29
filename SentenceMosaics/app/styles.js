@@ -241,8 +241,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 20,
-    marginBottom: 20,
-    marginTop: 20,
+    margin: 20,
     borderRadius: 8,
     minWidth: 50,
   }
