@@ -16,7 +16,11 @@ import {
 import { Actions } from 'react-native-router-flux'
 import { connect } from 'react-redux'
 
-import { selectPhoto, showDefaultSentence, clearWordPicker, add_image, delete_image} from '../actions'
+import { add_image, delete_image} from '../actions'
+import { onPhotoClick,
+    onPhotoLongPress,
+} from '../actions/homeActions';
+
 import { styles } from '../styles'
 
 class ImageListView extends Component  {
@@ -25,6 +29,7 @@ class ImageListView extends Component  {
   }
 
   render() {
+      console.log(this.props);
     return (
   <View style={styles.lightContainer}>
     <View style={styles.topContainer}>
@@ -37,19 +42,8 @@ class ImageListView extends Component  {
         renderRow={(rowData, sectionID, rowID, highlightRow) =>
           <TouchableHighlight
             underlayColor='transparent'
-            onPress={this.props.onPhotoClick.bind(this, (rowID))}
-            onLongPress={ () => 
-                Alert.alert(
-                  'Delete Image?',
-                  'Are you sure you want to delete this image?',
-                  [
-                      {text: 'Yes', onPress: () =>  {
-                            this.props.delete_image(rowID);
-                        }
-                      , style: 'cancel'},
-                      {text: 'No', onPress: () => console.log('No delete image')},
-                  ]
-                )}>
+            onPress={ () => this.props.onPhotoClick(rowID) }
+            onLongPress={ () => this.props.onPhotoLongPress(rowID)}>
           <Image
             style={styles.item}
             resizeMode='cover'
@@ -87,19 +81,25 @@ class ImageListView extends Component  {
   }
 }
 
-var Home = ({ ds,onPhotoClick, delete_image, add_image }) => (
+var Home = ({ ds,onPhotoClick, delete_image, add_image, onPhotoLongPress }) => (
     <ImageListView 
     ds={ds}
     onPhotoClick={ onPhotoClick }
     delete_image= {delete_image}
     add_image= {add_image}
+    onPhotoLongPress={ onPhotoLongPress }
      />
 )
 
 /* Container Component */
 
-const mapDispatchToProps = (dispatch) => {
-  return{ onPhotoClick: (index) => { 
+const mapDispatchToProps = {
+    onPhotoClick,
+    onPhotoLongPress,
+    delete_image,
+    add_image,
+} /*= (dispatch) => {
+  return { onPhotoClick: (index) => { 
     dispatch(selectPhoto(index))
     Actions.chooseSaveOrNew()
     dispatch(showDefaultSentence())
@@ -112,7 +112,7 @@ const mapDispatchToProps = (dispatch) => {
     dispatch(add_image(image));
   }, 
   }
-}
+}*/
 
 const mapStateToProps = (state) => {
   const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});

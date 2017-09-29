@@ -6,13 +6,14 @@ import { Actions, Router, Scene } from 'react-native-router-flux';
 import { connect, Provider } from 'react-redux';
 import {compose, applyMiddleware, createStore} from 'redux'
 import {persistStore, autoRehydrate} from 'redux-persist'
+import thunk from 'redux-thunk';
 
 const RouterWithRedux = connect()(Router);
 import allReducers from './reducers';
 
 const store = createStore(
   allReducers,
-  undefined,
+  applyMiddleware(thunk),
   compose(
     autoRehydrate()
   )
