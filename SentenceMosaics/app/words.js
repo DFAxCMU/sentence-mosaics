@@ -6,7 +6,7 @@ export const words = {
       'categories': {
         'subject': ['I', 'we', 'he', 'she', 'they', 'you'],
         'object': ['me', 'us', 'him', 'her', 'them'],
-        'possession': ['my', 'our', 'his', 'her', 'their']
+        'possession': ['my', 'our', 'his', 'her', 'their','+']
       }
     },
     'noun': {
@@ -60,7 +60,7 @@ export const words = {
     'article': {
       'color': '#50bec1',
       'categories': {
-        'all': ['a','the','an']
+        'all': ['a','the','an','+']
       }
     },
     'adj': {
