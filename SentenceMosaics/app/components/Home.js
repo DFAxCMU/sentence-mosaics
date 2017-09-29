@@ -26,44 +26,61 @@ class ImageListView extends Component  {
 
   render() {
     return (
-  <View style={styles.container}>
-    <ListView contentContainerStyle={styles.list}
-      enableEmptySections={true}
-      dataSource={this.props.ds}
-      pageSize={9} // Needs to be a multiple of the number of
-                   // cells per row or else they will be gaps
-                   // when the rows are loaded
-      renderRow={(rowData, sectionID, rowID, highlightRow) =>
-        <TouchableHighlight
-          underlayColor='transparent'
-          onPress={this.props.onPhotoClick.bind(this, (rowID))}
-          onLongPress={ () => 
-              Alert.alert(
-                'Delete Image?',
-                'Are you sure you want to delete this image?',
-                [
-                    {text: 'Yes', onPress: () =>  {
-                          this.props.delete_image(rowID);
-                      }
-                    , style: 'cancel'},
-                    {text: 'No', onPress: () => console.log('No delete image')},
-                ]
-              )}>
-        <Image
-          style={styles.item}
-          resizeMode='cover'
-          source={{uri: rowData.image}} />
-        </TouchableHighlight>
-      } />    
+  <View style={styles.lightContainer}>
+    <View style={styles.topContainer}>
+      <ListView contentContainerStyle={styles.list}
+        enableEmptySections={true}
+        dataSource={this.props.ds}
+        pageSize={9} // Needs to be a multiple of the number of
+                     // cells per row or else they will be gaps
+                     // when the rows are loaded
+        renderRow={(rowData, sectionID, rowID, highlightRow) =>
+          <TouchableHighlight
+            underlayColor='transparent'
+            onPress={this.props.onPhotoClick.bind(this, (rowID))}
+            onLongPress={ () => 
+                Alert.alert(
+                  'Delete Image?',
+                  'Are you sure you want to delete this image?',
+                  [
+                      {text: 'Yes', onPress: () =>  {
+                            this.props.delete_image(rowID);
+                        }
+                      , style: 'cancel'},
+                      {text: 'No', onPress: () => console.log('No delete image')},
+                  ]
+                )}>
+          <Image
+            style={styles.item}
+            resizeMode='cover'
+            source={{uri: rowData.image}} />
+          </TouchableHighlight>
+        } />    
 
-    <TouchableHighlight
-        onPress={() => ImagePickerIOS.openSelectDialog({}, imageUri => {
-              this.props.add_image(imageUri);}, error => {})}
-        style={styles.button}
-        accessibilityLabel="Import New Photos">
-        
-        <Text style={styles.wordText}>Import Photos</Text>
-    </TouchableHighlight>
+      </View>
+
+      <View style={styles.bottomContainer}>
+
+        <Text>
+        </Text>
+
+        <TouchableHighlight
+            onPress={() => ImagePickerIOS.openSelectDialog({}, imageUri => {
+                  this.props.add_image(imageUri);}, error => {})}
+            style={styles.button}
+            accessibilityLabel="Import New Photos">
+            
+            <Text style={styles.wordText}>Import Photos</Text>
+        </TouchableHighlight>
+
+        <TouchableHighlight
+            onPress={() => { Actions.help(); }}
+            style={styles.smallButton}
+        >
+            <Text style={styles.wordText}>?</Text>
+        </TouchableHighlight>
+      </View>
+
 
     </View>
     );
