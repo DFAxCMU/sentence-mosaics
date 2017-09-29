@@ -7,7 +7,6 @@ import {
   Button,
   Text,
   TouchableHighlight,
-  ImagePickerIOS,
   ListView,
 } from 'react-native'
 
@@ -17,6 +16,7 @@ import { connect } from 'react-redux'
 import { 
   onPhotoClick,
   onPhotoLongPress,
+  importImage,
 } from '../actions/homeActions';
 
 import { styles } from '../styles'
@@ -52,8 +52,7 @@ class Home extends Component  {
           </Text>
 
           <TouchableHighlight
-            onPress={() => ImagePickerIOS.openSelectDialog({}, imageUri => {
-              this.props.add_image(imageUri);}, error => {})}
+            onPress={ this.props.importImage }
               style={styles.button}
               accessibilityLabel="Import New Photos">
 
@@ -77,6 +76,7 @@ class Home extends Component  {
 const mapDispatchToProps = {
   onPhotoClick,
   onPhotoLongPress,
+  importImage,
 } 
 
 const mapStateToProps = (state) => {
@@ -88,4 +88,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home)
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
