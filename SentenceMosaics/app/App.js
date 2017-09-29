@@ -22,6 +22,7 @@ persistStore(store, {storage: AsyncStorage});
 import { styles } from './styles';
 
 import Home from './components/Home';
+import Help from './components/Help';
 import NewSentence from './components/NewSentence';
 import RecordSentence from './components/RecordSentence';
 import SavedSentences from './components/SavedSentences';
@@ -39,6 +40,11 @@ export default class App extends Component {
                 title="Sentence Mosaics"
                 initial={true}
                 type="reset" // Clear navigation stack
+                />
+              <Scene
+                key="help"
+                component={Help}
+                title="Sentence Mosaics Help"
                 />
               <Scene
                 key="newSentence"

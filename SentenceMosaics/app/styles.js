@@ -31,10 +31,26 @@ const numOfCols = 4;
 const spaceBetween = 10;
 
 export const styles = StyleSheet.create({
+  lightContainer: {
+    flex: 1,
+    backgroundColor: '#c7e5e1',
+  },
   container: {
     flex: 1,
     alignItems: 'center',
     backgroundColor: '#c7e5e1',
+  },
+  topContainer: {
+    flex: 1,
+    alignItems: 'center',
+    backgroundColor: '#c7e5e1',
+  },
+  bottomContainer: {
+    flex: 1, 
+    flexDirection: 'row', 
+    justifyContent: 'space-between',
+    maxHeight:100,
+    height:100,
   },
   page: {
     flex: 1,
@@ -220,4 +236,14 @@ export const styles = StyleSheet.create({
     borderRadius: 8,
     minWidth: 200,
   },
+  smallButton: {
+    backgroundColor: '#e4eeed',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+    marginBottom: 20,
+    marginTop: 20,
+    borderRadius: 8,
+    minWidth: 50,
+  }
 });
