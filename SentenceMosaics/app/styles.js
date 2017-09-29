@@ -62,7 +62,7 @@ export const styles = StyleSheet.create({
     paddingBottom: 20,
     paddingTop: 10,
   },
-  input: {
+  modalInput: {
     height: 60,
     padding: 10,
     borderWidth: 1,
@@ -194,11 +194,14 @@ export const styles = StyleSheet.create({
   modalButton: {
     paddingLeft: 20,
     paddingRight: 20,
-    backgroundColor: '#e4e319',
+    backgroundColor: '#4f933e', // darkish green
     paddingTop:10,
     paddingBottom:10,
     width: 135,
-    fontSize: 40
+    borderRadius: 8,
+  },
+  modalButtonText: {
+    fontSize: 40,
   },
   closeModal: {
     textAlign: 'right',

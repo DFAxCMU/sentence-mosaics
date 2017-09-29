@@ -36,16 +36,18 @@ const NewWordModal = ({ modalType, wordIndex, setModalClick, inputWord, onWordIn
               value={inputWord}
               autoCapitalize="none"
               onChangeText={onWordInput.bind(this)}
-              style={styles.input}
+              style={styles.modalInput}
               autoFocus = {true}
               onSubmitEditing={handleSubmit.bind(this, inputWord, wordIndex)}
               placeholder={'Type ' + modalType + ' here!'} />
 
             <TouchableHighlight
               onPress={handleSubmit.bind(this, inputWord, wordIndex)}
+              style={styles.modalButton}
               underlayColor='transparent'>
-                <Text style={styles.modalButton}>Enter</Text>
+                <Text style={styles.modalButtonText}>Enter</Text>
             </TouchableHighlight>
+
           </View>
         </Modal>
       </View>
