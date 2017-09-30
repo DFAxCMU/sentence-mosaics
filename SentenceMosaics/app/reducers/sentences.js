@@ -18,6 +18,7 @@ const initialState = {
 };
 
 export default function sentences(state = initialState, action) {
+  console.log(action);
   switch (action.type) {
     case Actions.ADD_WORD:
       return {

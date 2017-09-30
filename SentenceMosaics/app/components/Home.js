@@ -60,7 +60,7 @@ class Home extends Component  {
             </TouchableHighlight>
 
             <TouchableHighlight
-              onPress={() => { Actions.help(); }}
+              onPress={ Actions.help }
               style={styles.smallButton}
             >
               <Text style={styles.wordText}>?</Text>

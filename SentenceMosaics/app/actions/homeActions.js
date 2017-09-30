@@ -10,7 +10,7 @@ import { Alert, ImagePickerIOS } from 'react-native';
 export function onPhotoClick(index) {
   return (dispatch) => {
     dispatch(selectPhoto(index));
-    Actions.chooseSaveOrNew();
+    Actions.chooseSaveOrNew({ index: index });
     dispatch(showDefaultSentence());
     dispatch(clearWordPicker);
   }
