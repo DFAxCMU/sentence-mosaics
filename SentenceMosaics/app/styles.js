@@ -244,5 +244,14 @@ export const styles = StyleSheet.create({
     margin: 20,
     borderRadius: 8,
     minWidth: 50,
+  },
+  fakeSmallButton: {
+    backgroundColor: '#c7e5e1',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+    margin: 20,
+    borderRadius: 8,
+    minWidth: 50,
   }
 });

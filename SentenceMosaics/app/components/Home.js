@@ -61,8 +61,10 @@ class ImageListView extends Component  {
 
       <View style={styles.bottomContainer}>
 
-        <Text>
-        </Text>
+        <View
+            style={styles.fakeSmallButton}>
+            <Text> </Text>
+        </View>
 
         <TouchableHighlight
             onPress={() => ImagePickerIOS.openSelectDialog({}, imageUri => {
@@ -75,12 +77,10 @@ class ImageListView extends Component  {
 
         <TouchableHighlight
             onPress={() => { Actions.help(); }}
-            style={styles.smallButton}
-        >
+            style={styles.smallButton}>
             <Text style={styles.wordText}>?</Text>
         </TouchableHighlight>
       </View>
-
 
     </View>
     );
