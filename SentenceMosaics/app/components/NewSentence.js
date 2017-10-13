@@ -57,8 +57,8 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-const mapStateToProps = (state) => {
-  var index = state.sentences.activeImageIndex;
+const mapStateToProps = (state, props) => {
+  var index = props.index;
   var correct_image = state.images.image_list[index];
   return {
     uri: correct_image,
