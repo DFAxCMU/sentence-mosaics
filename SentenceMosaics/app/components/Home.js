@@ -13,10 +13,9 @@ import {
 import { Actions } from 'react-native-router-flux'
 import { connect } from 'react-redux'
 
-import { 
-  onPhotoClick,
-  onPhotoLongPress,
+import {
   importImage,
+  handlePhotoTap,
 } from '../actions/homeActions';
 
 import { styles } from '../styles'
@@ -35,8 +34,7 @@ class Home extends Component  {
             renderRow={(rowData, sectionID, rowID, highlightRow) =>
                 <TouchableHighlight
                   underlayColor='transparent'
-                  onPress={ () => this.props.onPhotoClick(rowID) }
-                  onLongPress={ () => this.props.onPhotoLongPress(rowID)}>
+                  onPress={ () => this.props.handlePhotoTap(rowID) }>
                   <Image
                     style={styles.item}
                     resizeMode='cover'
@@ -75,9 +73,8 @@ class Home extends Component  {
 }
 
 const mapDispatchToProps = {
-  onPhotoClick,
-  onPhotoLongPress,
   importImage,
+  handlePhotoTap,
 } 
 
 const mapStateToProps = (state) => {
