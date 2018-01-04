@@ -11,7 +11,7 @@ import { connect } from 'react-redux';
 import  Question  from './Question';
 
 
-const Help = ({ uri,sentences,remove_sentence }) => (
+const Help = () => (
   <View style={styles.container}>
 
   <ScrollView style={{margin: 20}} >

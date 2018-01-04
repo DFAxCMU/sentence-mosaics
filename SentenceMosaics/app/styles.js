@@ -236,22 +236,16 @@ export const styles = StyleSheet.create({
     borderRadius: 8,
     minWidth: 200,
   },
-  smallButton: {
+  smallIconButton: {
     backgroundColor: '#e4eeed',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 20,
+    padding: 5,
     margin: 20,
     borderRadius: 8,
     minWidth: 50,
   },
-  fakeSmallButton: {
-    backgroundColor: '#c7e5e1',
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
-    margin: 20,
-    borderRadius: 8,
-    minWidth: 50,
+  icon: {
+    fontSize: 30,
   }
 });

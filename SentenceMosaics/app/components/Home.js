@@ -11,6 +11,7 @@ import {
 } from 'react-native'
 
 import { Actions } from 'react-native-router-flux'
+import Icon from 'react-native-vector-icons/Ionicons';
 import { connect } from 'react-redux'
 
 import {
@@ -46,10 +47,11 @@ class Home extends Component  {
 
         <View style={styles.bottomContainer}>
 
-           <View
-            style={styles.fakeSmallButton}>
-            <Text> </Text>
-           </View>
+           <TouchableHighlight
+              onPress={ Actions.info }
+              style={styles.smallIconButton}>
+              <Icon name="ios-information-circle-outline" style={styles.icon}> </Icon>
+           </TouchableHighlight>
 
            <TouchableHighlight
             onPress={ this.props.importImage }
@@ -61,8 +63,8 @@ class Home extends Component  {
 
             <TouchableHighlight
               onPress={ Actions.help }
-              style={styles.smallButton}>
-              <Text style={styles.wordText}>?</Text>
+              style={styles.smallIconButton}>
+              <Icon name="ios-help-circle-outline" style={styles.icon}> </Icon>
             </TouchableHighlight>
           </View>
 

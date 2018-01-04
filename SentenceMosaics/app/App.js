@@ -24,6 +24,7 @@ import { styles } from './styles';
 
 import Home from './components/Home';
 import Help from './components/Help';
+import Info from './components/Info';
 import NewSentence from './components/NewSentence';
 import RecordSentence from './components/RecordSentence';
 import SavedSentences from './components/SavedSentences';
@@ -40,13 +41,16 @@ export default class App extends Component {
                 component={Home}
                 title="Sentence Mosaics"
                 initial={true}
-                type="reset" // Clear navigation stack
-                />
+                type="reset" // Clear navigation stack 
+              />
               <Scene
                 key="help"
                 component={Help}
-                title="Sentence Mosaics Help"
-                />
+                title="Sentence Mosaics Help" />
+              <Scene
+                key="info"
+                component={Info}
+                title="Sentence Mosaics Info" />
               <Scene
                 key="newSentence"
                 component={NewSentence}
@@ -68,8 +72,7 @@ export default class App extends Component {
               <Scene
                 key="chooseSaveOrNew"
                 component={ChooseSaveOrNew}
-                title="Saved or New"
-                />
+                title="Saved or New" />
             </Scene>
           </RouterWithRedux>
         </Provider>
