@@ -18,7 +18,7 @@ export const words = {
     'preposition': {
       'color': '#c7ab7c',
       'categories': {
-        'all': ['in','out','over','on','off','to','at','for','up','down','outside','inside','from','through', '+']
+        'all': ['at','down','for','from','in','inside','off','on','out','outside','over','through','to','up','with','+']
       }
     },
     'aux verb': {
