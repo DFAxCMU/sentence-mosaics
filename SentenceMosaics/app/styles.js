@@ -70,7 +70,8 @@ export const styles = StyleSheet.create({
   modalContainer: {
     justifyContent: 'center',
     backgroundColor: 'white',
-    marginTop: 200,
+    opacity: 0.95,
+    marginTop: 100,
     marginLeft: 30,
     marginRight: 30,
     paddingLeft: 20,
@@ -79,7 +80,6 @@ export const styles = StyleSheet.create({
     paddingTop: 10,
   },
   modalInput: {
-    height: 60,
     padding: 10,
     borderWidth: 1,
     marginBottom: 30,
@@ -171,7 +171,6 @@ export const styles = StyleSheet.create({
     flexWrap: 'wrap',
     alignItems: 'flex-start',
     flexDirection: 'row',
-    borderBottomWidth: 1,
     paddingBottom: 15,
     marginBottom: 10,
   },
@@ -205,26 +204,27 @@ export const styles = StyleSheet.create({
   modalHeader: {
     paddingBottom: 20,
     paddingTop: 0,
-    fontSize: 40,
+    fontSize: 2 * wordFontSize,
   },
   modalButton: {
+    alignItems: 'center',
     paddingLeft: 20,
     paddingRight: 20,
     backgroundColor: '#4f933e', // darkish green
     paddingTop:10,
-    paddingBottom:10,
-    width: 135,
+    paddingBottom: 10,
+    maxWidth: 135,
     borderRadius: 8,
   },
   modalButtonText: {
-    fontSize: 40,
+    fontSize: 2 * wordFontSize,
   },
   closeModal: {
     textAlign: 'right',
     paddingTop: 0,
     paddingRight: 15,
     paddingBottom: 0,
-    fontSize: 80,
+    fontSize: 50,
   },
   button: {
     backgroundColor: '#e4eeed',

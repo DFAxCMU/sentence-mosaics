@@ -5,15 +5,16 @@ import {
   Modal,
   Text,
   TextInput,
-  TouchableHighlight,
+  TouchableOpacity,
   View,
 } from 'react-native';
 import { connect } from 'react-redux';
 
 import { editWord, inputWord, setModal } from '../actions';
 import { styles } from '../styles';
+import Icon from 'react-native-vector-icons/Ionicons';
 
-const NewWordModal = ({ modalType, wordIndex, setModalClick, inputWord, onWordInput, handleSubmit }) => {
+const NewWordModal = ({ modalType, wordIndex, inputWord, onWordInput, handleSubmit, closeModal }) => {
   if (modalType) {
     return (
       <View>
@@ -22,14 +23,13 @@ const NewWordModal = ({ modalType, wordIndex, setModalClick, inputWord, onWordIn
                                    // but consider putting back later
           transparent={true}>
           <View style={styles.modalContainer}>
-            <TouchableHighlight
-              onPress={() => {setModalClick(null)}}
-              underlayColor='transparent' >
-                <Text style={styles.closeModal}>x</Text>
-            </TouchableHighlight>
+            <TouchableOpacity
+              onPress={() => {closeModal()}}>
+                <Icon name="ios-close" style={styles.closeModal}> </Icon>
+            </TouchableOpacity>
 
             <View>
-              <Text style={styles.modalHeader}>Add new {modalType}</Text>
+              <Text style={styles.modalHeader}>Use custom {modalType}</Text>
             </View>
 
             <TextInput
@@ -41,12 +41,11 @@ const NewWordModal = ({ modalType, wordIndex, setModalClick, inputWord, onWordIn
               onSubmitEditing={handleSubmit.bind(this, inputWord, wordIndex)}
               placeholder={'Type ' + modalType + ' here!'} />
 
-            <TouchableHighlight
+            <TouchableOpacity
               onPress={handleSubmit.bind(this, inputWord, wordIndex)}
-              style={styles.modalButton}
-              underlayColor='transparent'>
+              style={styles.modalButton}>
                 <Text style={styles.modalButtonText}>Enter</Text>
-            </TouchableHighlight>
+            </TouchableOpacity>
 
           </View>
         </Modal>
@@ -67,6 +66,10 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(editWord(word, wordIndex));
       dispatch(inputWord(''));
       dispatch(setModal(null));
+    },
+    closeModal: () => {
+      dispatch(inputWord(''));
+      dispatch(setModal(null));  
     }
   }
 }

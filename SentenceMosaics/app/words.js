@@ -1,5 +1,7 @@
 'use strict';
 
+// Must add '+' to the list for each part of speech
+
 export const words = {
     'pronoun': {
       'color': '#f6e863',
