@@ -240,12 +240,11 @@ export const styles = StyleSheet.create({
     backgroundColor: '#e4eeed',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 5,
+    padding: 10,
     margin: 20,
     borderRadius: 8,
-    minWidth: 50,
   },
   icon: {
-    fontSize: 30,
+    fontSize: 2 * wordFontSize,
   }
 });
