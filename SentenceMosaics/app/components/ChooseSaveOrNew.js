@@ -8,11 +8,12 @@ import {
   TouchableHighlight,
 } from 'react-native';
 import { connect } from 'react-redux';
+import { clearWordPicker, showDefaultSentence } from '../actions';
 import { styles } from '../styles';
 
 import { Actions } from 'react-native-router-flux'
 
-class ChooseSaveOrNew extends Component { 
+class ChooseSaveOrNew extends Component {
   render() {
     return ( 
       <View style={styles.container}>
@@ -22,7 +23,7 @@ class ChooseSaveOrNew extends Component {
           resizeMode={Image.resizeMode.contain} />
 
         <TouchableHighlight
-          onPress={() => Actions.newSentence({ index: this.props.index }) }
+          onPress={() => this.props.newSentenceClick(this.props.index) }
           style={[styles.button, {minWidth: 300}]}
           accessibilityLabel="New Sentence">
           <Text style={styles.wordText}>New Sentence</Text>
@@ -39,6 +40,16 @@ class ChooseSaveOrNew extends Component {
   }
 }
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    newSentenceClick: (index) => {
+      dispatch(showDefaultSentence())
+      dispatch(clearWordPicker())
+      Actions.newSentence({ index: index })
+    }
+  }
+}
+
 const mapStateToProps = (state, props) => {
   var index = props.index;
   var image = state.images.image_list[index];
@@ -48,4 +59,4 @@ const mapStateToProps = (state, props) => {
 }
 
 
-export default connect(mapStateToProps)(ChooseSaveOrNew)
+export default connect(mapStateToProps, mapDispatchToProps)(ChooseSaveOrNew)
