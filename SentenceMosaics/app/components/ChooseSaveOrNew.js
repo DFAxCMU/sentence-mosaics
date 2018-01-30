@@ -8,7 +8,7 @@ import {
   TouchableHighlight,
 } from 'react-native';
 import { connect } from 'react-redux';
-import { clearWordPicker, showDefaultSentence } from '../actions';
+import { clearWordPicker, setModal, showDefaultSentence } from '../actions';
 import { styles } from '../styles';
 
 import { Actions } from 'react-native-router-flux'
@@ -45,6 +45,7 @@ const mapDispatchToProps = (dispatch) => {
     newSentenceClick: (index) => {
       dispatch(showDefaultSentence())
       dispatch(clearWordPicker())
+      dispatch(setModal(null))
       Actions.newSentence({ index: index })
     }
   }
