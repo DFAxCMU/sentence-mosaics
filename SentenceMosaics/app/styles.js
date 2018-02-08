@@ -52,6 +52,12 @@ export const styles = StyleSheet.create({
     maxHeight:100,
     height:100,
   },
+  infoContainer: {
+    flex: 1,
+    backgroundColor: '#c7e5e1',
+    padding: 30,
+    margin: 50,
+  },
   page: {
     flex: 1,
   },

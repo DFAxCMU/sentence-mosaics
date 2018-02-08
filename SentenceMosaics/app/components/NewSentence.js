@@ -7,7 +7,6 @@ import {
   Image,
   Button,
   TouchableHighlight,
-  ScrollView
 } from 'react-native';
 import { connect } from 'react-redux';
 import { clearSentence, clearWordPicker} from '../actions';

@@ -134,7 +134,7 @@ class Recorder extends Component {
     const playPauseHandler = isPlaying ? this.pausePlaying : this.startPlaying
     return (
       <ScrollView 
-        style={{marginTop: 50, flex: 1}} 
+        style={{marginTop: 20, flex: 1}} 
         contentContainerStyle={{alignItems: 'center'}}>
         <RecordButton 
           isRecording={isRecording} 
