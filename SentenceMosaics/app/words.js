@@ -17,12 +17,6 @@ export const words = {
         'all': ['+']
       },
     },
-    'preposition': {
-      'color': '#c7ab7c',
-      'categories': {
-        'all': ['at','down','for','from','in','inside','off','on','out','outside','over','through','to','up','with','+']
-      }
-    },
     'aux verb': {
       'color': '#82c659',
       'categories': {
@@ -40,6 +34,12 @@ export const words = {
       'categories': {
         'all': ['-ing', '-ed', '-s', '-es', '+']
       } 
+    },
+    'preposition': {
+      'color': '#c7ab7c',
+      'categories': {
+        'all': ['at','down','for','from','in','inside','off','on','out','outside','over','through','to','up','with','+']
+      }
     },
     'wh-': {
       'color': '#ac90c3',

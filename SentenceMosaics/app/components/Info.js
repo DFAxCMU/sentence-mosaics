@@ -11,22 +11,30 @@ import { connect } from 'react-redux';
 import  Question  from './Question';
 import Swiper from 'react-native-swiper';
 
+if (global.globalDeviceType == 'iPad') {
+  var headingSize = 48;
+  var bodySize = 26;
+} else { // iPhone
+  var headingSize = 24;
+  var bodySize = 14;
+}
+
 
 const Info = () => (
 
   <Swiper showsButtons={true}>
-        <View style={styles.infoContainer}>
-            <Text style={{ fontSize: 48 }}>What is Sentence Mosaics?</Text>
-            <Text style={{ fontSize: 26 }}> {"\n"}
+        <ScrollView style={styles.infoContainer}>
+            <Text style={{ fontSize: headingSize }}>What is Sentence Mosaics?</Text>
+            <Text style={{ fontSize: bodySize }}> {"\n"}
             The purpose of this app is to assist students in their formulation of novel, complete, and meaningful spoken sentences produced in context with a photograph or illustration and with a language “coach” (speech-language therapist, teacher, parent, tutor, etc.) to assist in facilitating correct syntax.  
             {"\n"} {"\n"}Students who can profit from the app include those with delayed language development (particularly with delayed oral expressive language skills), those whose hearing loss has impacted language skills, those for whom English is a second language, and those for whom written expression and/or reading is a challenge. 
             The program may be of benefit as well to adults who have suffered language loss secondary to head trauma or CVA.  
-            </Text>
-        </View>
+            {"\n"} {"\n"} </Text>
+        </ScrollView>
 
         <ScrollView style={styles.infoContainer}>
-            <Text style={{ fontSize: 48 }}>App Usage</Text>
-            <Text style={{ fontSize: 26 }}> {"\n"}
+            <Text style={{ fontSize: headingSize }}>App Usage</Text>
+            <Text style={{ fontSize: bodySize }}> {"\n"}
                - This program has been used in context with visual images, such as commercially available photos that illustrate daily actions (washing, eating, climbing, brushing, etc.), more complex interactions (baking bread, serving dinner, cleaning the floor), cause-effect relationships and recognition of problems (cutting bread with a saw), and verb tense sequences (e.g. “He will peel the potatoes”; “He is peeling the potatoes”; “He did peel the potatoes”).  Illustrations from narratives, reproductions of paintings, and print ads can be used effectively. 
                {"\n"} {"\n"}
               - To illustrate meaningfully and in context the use of the pronouns “I” and “we,” photos of the student(s), class, family, personal pets, etc.  should be used.  Because of the need for confidentiality, these should not be published but should remain on the students’ personal devices or on a classroom device that can be cleared when students complete their programs.  The photos stored on albums on individual iPads (student, teacher, therapist, or parent iPads) easily can be imported for direct use in sentence formulation through the tools in the “Sentence Mosaics” app. 
@@ -48,12 +56,12 @@ const Info = () => (
               - This approach also has been used successfully with students who have Specific Learning Disabilities with a goal for writing/written expressive language.  The students can be helped with including all needed parts of speech, word order, inflective endings, maintenance of verb tense, production of several sentences on one topic, and so forth.  
                {"\n"} {"\n"}
               - This program is intended to be basic, flexible, and highly functional.  As students increase in language mastery, they should progress to other instructional materials.  
-               {"\n"} {"\n"}</Text>
+               {"\n"} {"\n"} {"\n"} {"\n"} {"\n"} {"\n"}</Text>
         </ScrollView>
 
         <ScrollView style={styles.infoContainer}>
-            <Text style={{ fontSize: 48 }}>Background</Text>
-            <Text style={{ fontSize: 26 }}>  {"\n"}
+            <Text style={{ fontSize: headingSize }}>Background</Text>
+            <Text style={{ fontSize: bodySize }}>  {"\n"}
             This app builds upon the original work of Edith Fitzgerald who published Straight Language for the Deaf in 1926.  Her seminal work utilized six symbols to represent parts of speech and correct word order.  Bessie Pugh made additional modifications to Fitzgerald’s system with the 1947 publication of Steps in Language Development for the Deaf.  The use of color to represent parts of speech (noun, pronoun, adjective, adverb, verb, etc.) and additional categories for functional usage of words (“social”) were added later as use of the Fitzgerald Key as a tool for instruction was expanded for students who did not have a hearing impairment but who had language needs.  
             {"\n"} {"\n"}
             There have been many other commercially available sentence-building programs over the past several decades.  The present app evolved over several decades from personal, clinician-made materials -- first as a series of colored one-inch wooden cubes with key words written on them, then as laminated colored squares in a simple frame, and finally as soft foam color tiles upon which words easily could be written and which readily could be moved on a foam sentence frame with the attachment of Velcro “buttons”.   
@@ -61,23 +69,23 @@ const Info = () => (
             The present speech-language pathologist has observed that the use of manipulable color tiles, thus making the words tangible and more concrete, has been highly effective in helping students to perceive word order (and change in word order for affirmative statements versus negation or questions), to know where to insert adjectives and adverbs, and to note when “functor words” (bound and unbound grammatical morphemes such as articles, prepositions, and auxiliary verbs) have been left out because of a typical pattern of omission errors.  Further, students have been supported effectively through seeing/reading/touching/removing/adding individual morphemes (meaningful word parts) in order to use correct subject verb agreement and to change verb tenses.  For example, if a student states, “I did going” or “I will going,” the teacher physically can remove the “-ing” to demonstrate that “-ing” is not employed when the auxiliary “did” or “will” are used.  
             {"\n"} {"\n"}
             While the color-tile foamboard system has helped many students on caseload to produce longer and syntactically more correct sentences, the foamboard is awkward to carry and to use in settings outside of school.  The search for a means to develop a readily portable and convenient iPad app has taken years.   Without the intercession of a professor and countless hours of programming by students at Carnegie Mellon University, this app would not have become a reality.  
-            {"\n"} {"\n"}</Text>
+            {"\n"} {"\n"} {"\n"} {"\n"} {"\n"} {"\n"}</Text>
         </ScrollView>
 
-        <View style={styles.infoContainer}>
-            <Text style={{ fontSize: 48 }}>App Credits</Text>
-            <Text style={{ fontSize: 26 }}> {"\n"} 
+        <ScrollView style={styles.infoContainer}>
+            <Text style={{ fontSize: headingSize }}>App Credits</Text>
+            <Text style={{ fontSize: bodySize }}> {"\n"} 
             Program development & implementation: Alyse O. Baker, CCC-SLP, Wexford, PA.
             {"\n"} {"\n"}
-            Program designers through Design for America: Jackie Kang, Christie Chang, Ashley Lai, Elizabeth Board, Ambika Chetal, Mehar Sawhney, Eddie Dryer, Sashank Gogula, and Jennifer Chou at Carnegie Mellon University, Pittsburgh, PA.
+            Program design through Design for America: Jackie Kang, Christie Chang, Ashley Lai, Elizabeth Board, Ambika Chetal, Mehar Sawhney, Eddie Dryer, Sashank Gogula, and Jennifer Chou at Carnegie Mellon University, Pittsburgh, PA.
             {"\n"} {"\n"}
-            Oversight: Dr. David Kosbie, Carnegie Mellon University
+            Oversight: David Kosbie, Carnegie Mellon University
             {"\n"} {"\n"}
             Initial Liaison: Dr. Stephen Pellathy, Hampton Township School District, Allison Park, PA
             {"\n"} {"\n"}
             Thanks also are given to parents and to colleagues who generously gave their time and volunteered their children for initial trials while the app was in development. 
-            </Text>
-        </View>
+            {"\n"} {"\n"} </Text>
+        </ScrollView>
 
       </Swiper>
 )

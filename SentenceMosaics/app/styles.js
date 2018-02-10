@@ -18,11 +18,13 @@ if (globalDeviceType == 'iPad') {
   global.globalWordHeight = 70;
   global.globalWordWidth = 80; 
   var wordFontSize = 20;
+  global.wordFontSize = 20;
 } 
 else if (globalDeviceType == 'iPhone') {
   global.globalWordHeight = 50;
   global.globalWordWidth = 50;
   var wordFontSize = 11;
+  global.wordFontSize = 11;
 }
 
 var currentDevice = [dim.width,dim.height];
@@ -56,7 +58,6 @@ export const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#c7e5e1',
     padding: 30,
-    margin: 50,
   },
   page: {
     flex: 1,
