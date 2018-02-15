@@ -56,7 +56,7 @@ class Home extends Component  {
            <TouchableHighlight
             onPress={ this.props.importImage }
               style={styles.button}
-              accessibilityLabel="Import New Photos">
+              accessibilityLabel="Import Photos">
 
               <Text style={styles.wordText}>Import Photos</Text>
             </TouchableHighlight>

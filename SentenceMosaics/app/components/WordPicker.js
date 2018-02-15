@@ -30,6 +30,14 @@ const WordPicker = ({ wordType, wordIndex, editWordClick, goBackClick }) => {
       styles.categoryWord,
       { backgroundColor: words[wordType]['color'] }
     ]);
+
+    if (wordType == 'punctuation') { // add thin gray outline
+      wordStyle = ([
+        wordStyle,
+        { borderColor: '#aaa', borderWidth: 1.0 }
+      ]);
+    }
+
     var wordOptions = wordList[category].map(item =>
       <TouchableHighlight
         style={wordStyle}
