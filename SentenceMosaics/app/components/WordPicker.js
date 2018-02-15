@@ -17,6 +17,13 @@ import { words } from '../words';
 
 const WordPicker = ({ wordType, wordIndex, editWordClick, goBackClick }) => {
   var categories = [];
+
+  var wordTypePlural = wordType == "punctuation" 
+                            || wordType == "wh-"
+                            || wordType == "social"
+                        ? wordType 
+                        : wordType + "s";
+
   var wordList = words[wordType]['categories'];
   for (var category in wordList) {
     var wordStyle = ([
@@ -48,7 +55,7 @@ const WordPicker = ({ wordType, wordIndex, editWordClick, goBackClick }) => {
   return (
   <ScrollView style={styles.wordPickerScrollContainer}> 
     <View style={styles.wordPickerContainer}>
-      <Text style={styles.wordsHeader}>{ wordType }s</Text>
+      <Text style={styles.wordsHeader}>{ wordTypePlural }</Text>
       <View style={styles.wordPicker}>
         { categories }
       </View>
