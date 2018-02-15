@@ -80,16 +80,15 @@ export const styles = StyleSheet.create({
     backgroundColor: 'white',
     alignSelf: "center",
     position: "absolute",
-    top: currentDevice[0] * 1/2, // Middle of screen
+    top: currentDevice[0] * 3/5, // Covers the bottom of the image
     opacity: 0.95,
-    marginTop: 100,
     marginLeft: 30,
     marginRight: 30,
     paddingLeft: 20,
     paddingRight: 20,
     paddingBottom: 20,
     paddingTop: 10,
-    minWidth: 300,
+    minWidth: 350,
   },
   modalInput: {
     flex: 1,
@@ -97,6 +96,7 @@ export const styles = StyleSheet.create({
     borderWidth: 1,
     fontSize: wordFontSize,
     marginRight: 10,
+    minWidth: 200,
   },
   image: { // Enlarged photo in the New Sentence page
     //margin: 10,
