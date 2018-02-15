@@ -75,8 +75,12 @@ export const styles = StyleSheet.create({
     aspectRatio: 1,
   },
   modalContainer: {
+    flexDirection: "column",
     justifyContent: 'center',
     backgroundColor: 'white',
+    alignSelf: "center",
+    position: "absolute",
+    top: currentDevice[0] * 1/2, // Middle of screen
     opacity: 0.95,
     marginTop: 100,
     marginLeft: 30,
@@ -85,12 +89,14 @@ export const styles = StyleSheet.create({
     paddingRight: 20,
     paddingBottom: 20,
     paddingTop: 10,
+    minWidth: 300,
   },
   modalInput: {
+    flex: 1,
     padding: 10,
     borderWidth: 1,
-    marginBottom: 30,
-    fontSize: wordFontSize
+    fontSize: wordFontSize,
+    marginRight: 10,
   },
   image: { // Enlarged photo in the New Sentence page
     margin: 10,
@@ -208,29 +214,25 @@ export const styles = StyleSheet.create({
     marginBottom: 10,
     borderRadius: 8,
   },
-  modalHeader: {
-    paddingBottom: 20,
-    paddingTop: 0,
-    fontSize: 2 * wordFontSize,
+  modalRow: {
+    flexDirection: "row", 
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   modalButton: {
     alignItems: 'center',
     paddingLeft: 20,
     paddingRight: 20,
     backgroundColor: '#4f933e', // darkish green
-    paddingTop:10,
+    paddingTop: 10,
     paddingBottom: 10,
     maxWidth: 135,
     borderRadius: 8,
   },
-  modalButtonText: {
-    fontSize: 2 * wordFontSize,
+  modalText: {
+    fontSize: wordFontSize,
   },
-  closeModal: {
-    textAlign: 'right',
-    paddingTop: 0,
-    paddingRight: 15,
-    paddingBottom: 0,
+  closeModalButton: {
     fontSize: 50,
   },
   button: {

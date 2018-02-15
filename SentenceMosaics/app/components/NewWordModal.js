@@ -17,39 +17,41 @@ import Icon from 'react-native-vector-icons/Ionicons';
 const NewWordModal = ({ modalType, wordIndex, inputWord, onWordInput, handleSubmit, closeModal }) => {
   if (modalType) {
     return (
-      <View>
         <Modal
           //animationType={'fade'} // Was slow and annoying 
                                    // but consider putting back later
           transparent={true}>
           <View style={styles.modalContainer}>
-            <TouchableOpacity
-              onPress={() => {closeModal()}}>
-                <Icon name="ios-close" style={styles.closeModal}> </Icon>
-            </TouchableOpacity>
 
-            <View>
-              <Text style={styles.modalHeader}>Use custom {modalType}</Text>
+            <View style={styles.modalRow}>
+          
+              <Text style={styles.modalText}>Use custom {modalType}</Text>
+              
+              <TouchableOpacity
+                onPress={() => {closeModal()}}>
+                  <Icon name="ios-close" style={styles.closeModalButton}> </Icon>
+              </TouchableOpacity>
             </View>
 
-            <TextInput
-              value={inputWord}
-              autoCapitalize="none"
-              onChangeText={onWordInput.bind(this)}
-              style={styles.modalInput}
-              autoFocus = {true}
-              onSubmitEditing={handleSubmit.bind(this, inputWord, wordIndex)}
-              placeholder={'Type ' + modalType + ' here!'} />
+            <View style={styles.modalRow}>
+              <TextInput
+                value={inputWord}
+                autoCapitalize="none"
+                onChangeText={onWordInput.bind(this)}
+                style={styles.modalInput}
+                autoFocus = {true}
+                onSubmitEditing={handleSubmit.bind(this, inputWord, wordIndex)}
+                placeholder={'Type ' + modalType + ' here!'} />
 
-            <TouchableOpacity
-              onPress={handleSubmit.bind(this, inputWord, wordIndex)}
-              style={styles.modalButton}>
-                <Text style={styles.modalButtonText}>Enter</Text>
-            </TouchableOpacity>
+              <TouchableOpacity
+                onPress={handleSubmit.bind(this, inputWord, wordIndex)}
+                style={styles.modalButton}>
+                  <Text style={styles.modalText}>Enter</Text>
+              </TouchableOpacity>
+            </View>
 
           </View>
         </Modal>
-      </View>
     );
   }
   else return null;
