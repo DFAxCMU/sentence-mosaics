@@ -15,16 +15,16 @@ if (dim.width < 500) {
 }
 
 if (globalDeviceType == 'iPad') { 
-  global.globalWordHeight = 70;
-  global.globalWordWidth = 80; 
-  var wordFontSize = 20;
-  global.wordFontSize = 20;
+  global.globalWordHeight = 60; //70;
+  global.globalWordWidth = 60;//80; 
+  var wordFontSize = 16;
+  //global.wordFontSize = 20;
 } 
 else if (globalDeviceType == 'iPhone') {
   global.globalWordHeight = 50;
   global.globalWordWidth = 50;
   var wordFontSize = 11;
-  global.wordFontSize = 11;
+  //global.wordFontSize = 11;
 }
 
 var currentDevice = [dim.width,dim.height];
@@ -99,7 +99,7 @@ export const styles = StyleSheet.create({
     marginRight: 10,
   },
   image: { // Enlarged photo in the New Sentence page
-    margin: 10,
+    //margin: 10,
     height: currentDevice[0] * 2/3, // Height is smaller to make room
                                     // for the sentence and word bank,
                                     // but the image is still scaled
@@ -177,7 +177,7 @@ export const styles = StyleSheet.create({
     flexDirection:'row',
   },
   wordsHeader: {
-    fontSize: 25,
+    fontSize: wordFontSize,
     margin: 10,
   },
   categoryContainer: {

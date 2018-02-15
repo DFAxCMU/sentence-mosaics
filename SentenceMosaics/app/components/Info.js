@@ -13,7 +13,7 @@ import Swiper from 'react-native-swiper';
 
 if (global.globalDeviceType == 'iPad') {
   var headingSize = 48;
-  var bodySize = 26;
+  var bodySize = 20;
 } else { // iPhone
   var headingSize = 24;
   var bodySize = 14;
