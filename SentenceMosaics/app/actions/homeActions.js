@@ -2,7 +2,8 @@ import { selectPhoto,
   showDefaultSentence, 
   clearWordPicker, 
   add_image, 
-  delete_image
+  delete_image,
+  delete_all_images,
 } from './index';
 import { Actions } from 'react-native-router-flux';
 import { Alert, ImagePickerIOS } from 'react-native';
@@ -16,6 +17,23 @@ export function importImage() {
     ImagePickerIOS.openSelectDialog({}, imageUri => {
       dispatch(add_image(imageUri))
     }, error => {})
+  }
+}
+
+export function deleteAllPhotos() {
+  return(dispatch) => {
+      Alert.alert(
+      'Delete All Photos?',
+      'Are you sure you want to delete all photos?',
+      [{
+        text: 'Yes', 
+        onPress: () => dispatch(delete_all_images()), 
+        style: 'cancel'
+      }, {
+        text: 'No', 
+        onPress: () => console.log('No delete all images')
+      }]
+    )
   }
 }
 

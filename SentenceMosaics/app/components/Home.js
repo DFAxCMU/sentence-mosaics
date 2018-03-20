@@ -25,6 +25,7 @@ class Home extends Component  {
   render() {
     return (
       <View style={styles.lightContainer}>
+
         <View style={styles.topContainer}>
           <ListView contentContainerStyle={styles.list}
             enableEmptySections={true}
@@ -47,26 +48,25 @@ class Home extends Component  {
 
         <View style={styles.bottomContainer}>
 
-           <TouchableHighlight
-              onPress={ Actions.info }
-              style={styles.smallIconButton}>
-              <Icon name="ios-information-circle-outline" style={styles.icon}> </Icon>
-           </TouchableHighlight>
-
-           <TouchableHighlight
-            onPress={ this.props.importImage }
-              style={styles.button}
-              accessibilityLabel="Import Photos">
-
-              <Text style={styles.wordText}>Import Photos</Text>
+            <TouchableHighlight
+                onPress={ Actions.info }
+                style={styles.smallIconButton}>
+                <Icon name="ios-information-circle-outline" style={styles.icon}> </Icon>
             </TouchableHighlight>
 
             <TouchableHighlight
-              onPress={ Actions.help }
-              style={styles.smallIconButton}>
-              <Icon name="ios-help-circle-outline" style={styles.icon}> </Icon>
+                onPress={ this.props.importImage }
+                  style={styles.button}
+                  accessibilityLabel="Import Photos">
+                <Text style={styles.wordText}>Import Photos</Text>
             </TouchableHighlight>
-          </View>
+
+            <TouchableHighlight
+                onPress={ Actions.help }
+                style={styles.smallIconButton}>
+                <Icon name="ios-help-circle-outline" style={styles.icon}> </Icon>
+            </TouchableHighlight>
+        </View>
 
 
         </View>

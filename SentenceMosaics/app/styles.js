@@ -255,5 +255,11 @@ export const styles = StyleSheet.create({
   },
   icon: {
     fontSize: 2 * wordFontSize,
+  },
+  homeDrawer: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    padding: 20,
   }
 });

@@ -16,6 +16,7 @@ export const SELECT_PHOTO = 'SELECT_PHOTO';
 export const SET_MODAL = 'SET_MODAL';
 export const ADD_IMAGE = 'ADD_IMAGE';
 export const DELETE_IMAGE = 'DELETE_IMAGE';
+export const DELETE_ALL_IMAGES = 'DELETE_ALL_IMAGES'
 export const ADD_SENTENCE = 'ADD_SENTENCE';
 export const REMOVE_SENTENCE = 'REMOVE_SENTENCE';
 
@@ -120,6 +121,12 @@ export function delete_image(image_index) {
   return {
     type: DELETE_IMAGE,
     image_index
+  }
+}
+
+export function delete_all_images() {
+  return {
+    type: DELETE_ALL_IMAGES
   }
 }
 

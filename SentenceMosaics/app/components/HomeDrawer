@@ -1,0 +1,14 @@
+export default class HomeDrawer extends Component<{}> {
+    constructor(props) {
+        super(props);
+
+    };
+
+    render() {
+        return (
+            <View style={styles.container}>
+                <Text>menu items go here</Text>
+            </View>
+        );
+    }
+}

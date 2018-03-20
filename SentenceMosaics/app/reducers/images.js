@@ -55,6 +55,12 @@ console.log(state)
         image_list: left_half.concat(right_half),
         image_count: Math.max(state.image_count - 1, 0), 
       });
+    case Actions.DELETE_ALL_IMAGES:
+      return ({
+        ...state,
+        image_list: [],
+        image_count: 0, 
+      });
     case Actions.ADD_SENTENCE: 
         var sentence_string = action.sentence;
         var image_index = action.image_index;

@@ -2,7 +2,7 @@
 
 import React, { Component} from 'react';
 import {AsyncStorage} from 'react-native'
-import { Actions, Router, Scene } from 'react-native-router-flux';
+import { Actions, Drawer, Router, Scene } from 'react-native-router-flux';
 import { connect, Provider } from 'react-redux';
 import {compose, applyMiddleware, createStore} from 'redux'
 import {persistStore, autoRehydrate} from 'redux-persist'
@@ -29,6 +29,7 @@ import NewSentence from './components/NewSentence';
 import RecordSentence from './components/RecordSentence';
 import SavedSentences from './components/SavedSentences';
 import ChooseSaveOrNew from './components/ChooseSaveOrNew';
+import HomeDrawer from './components/HomeDrawer.js';
 
 export default class App extends Component {
     render() {
@@ -36,6 +37,13 @@ export default class App extends Component {
         <Provider store={store}>
           <RouterWithRedux>
             <Scene key="root">
+              <Drawer
+                  hideNavBar
+                  key="homeDrawer"
+                  contentComponent={HomeDrawer}
+                  drawerWidth={250}
+                  drawerPosition="right"
+              >
               <Scene
                 key="home"
                 component={Home}
@@ -43,6 +51,7 @@ export default class App extends Component {
                 initial={true}
                 type="reset" // Clear navigation stack 
               />
+              </Drawer>
               <Scene
                 key="help"
                 component={Help}
