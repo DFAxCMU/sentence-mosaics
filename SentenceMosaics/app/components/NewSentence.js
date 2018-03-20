@@ -8,6 +8,9 @@ import {
   Button,
   TouchableHighlight,
 } from 'react-native';
+
+import { Actions } from 'react-native-router-flux'
+import Icon from 'react-native-vector-icons/Ionicons';
 import { connect } from 'react-redux';
 import { clearSentence, clearWordPicker} from '../actions';
 import { styles } from '../styles';
@@ -18,24 +21,43 @@ import WordsContainer from './WordsContainer';
 import WordPicker from './WordPicker';
 
 const NewSentence = ({ uri, wordPicker, clearSentenceClick }) => (
-  <View style={styles.container}>
-    <NewWordModal />
-    <Image
-      source={{uri: uri.image}}
-      style={styles.image}
-      resizeMode={Image.resizeMode.contain} />
-    <SentenceContainer />
-    { wordPicker ?
-      <WordPicker /> :
-      <WordsContainer />
-    }
+  <View style={styles.lightContainer}>
 
-    <TouchableHighlight
-        onPress={() => clearSentenceClick()}
-        style={styles.button}
-        accessibilityLabel="Clear Sentence">
-        <Text style={styles.wordText}>Clear Sentence</Text>
-    </TouchableHighlight>
+    <View style={styles.topContainer}>
+        <NewWordModal />
+        <Image
+          source={{uri: uri.image}}
+          style={styles.image}
+          resizeMode={Image.resizeMode.contain} />
+        <SentenceContainer />
+        { wordPicker ?
+          <WordPicker /> :
+          <WordsContainer />
+        }
+    </View>
+
+    <View style={styles.bottomContainer}>
+        <TouchableHighlight
+          onPress={ Actions.info }
+          style={styles.smallIconButton}>
+          <Icon name="ios-information-circle-outline" style={styles.icon}> </Icon>
+        </TouchableHighlight>
+
+        <TouchableHighlight
+          onPress={() => clearSentenceClick()}
+          style={styles.button}
+          accessibilityLabel="Clear Sentence">
+          <Text style={styles.wordText}>Clear Sentence</Text>
+        </TouchableHighlight>
+
+        <TouchableHighlight
+          onPress={ Actions.help }
+          style={styles.smallIconButton}>
+          <Icon name="ios-help-circle-outline" style={styles.icon}> </Icon>
+        </TouchableHighlight>
+    </View>
+
+
 
   </View>
 )

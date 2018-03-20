@@ -51,8 +51,8 @@ export const styles = StyleSheet.create({
     flex: 1, 
     flexDirection: 'row', 
     justifyContent: 'space-between',
-    maxHeight:100,
-    height:100,
+    maxHeight:80,
+    height:80,
   },
   infoContainer: {
     flex: 1,
