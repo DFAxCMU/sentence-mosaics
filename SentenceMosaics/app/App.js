@@ -70,13 +70,13 @@ export default class App extends Component {
                 key="recordSentence"
                 component={RecordSentence}
                 title="Record Sentence"
-                onRight={() => Actions.home()}
+                onRight={() => Actions.homeDrawer()}
                 rightTitle="Done" />
               <Scene
                 key="savedSentences"
                 component={SavedSentences}
                 title="Saved Sentences"
-                onRight={() => Actions.home()}
+                onRight={() => Actions.homeDrawer()}
                 rightTitle="Done" />
               <Scene
                 key="chooseSaveOrNew"
