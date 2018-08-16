@@ -20,6 +20,13 @@ export function importImage() {
   }
 }
 
+export function takePhoto() {
+  console.log("taking photo");
+  return (dispatch) => {
+    Actions.camera();
+  }
+}
+
 export function deleteAllPhotos() {
   return(dispatch) => {
       Alert.alert(

@@ -16,6 +16,7 @@ import { connect } from 'react-redux'
 
 import {
   importImage,
+  takePhoto,
   handlePhotoTap,
 } from '../actions/homeActions';
 
@@ -55,6 +56,13 @@ class Home extends Component  {
             </TouchableHighlight>
 
             <TouchableHighlight
+                onPress={ this.props.takePhoto }
+                  style={styles.button}
+                  accessibilityLabel="Take Photo">
+                <Text style={styles.wordText}>Take Photo</Text>
+            </TouchableHighlight>
+
+            <TouchableHighlight
                 onPress={ this.props.importImage }
                   style={styles.button}
                   accessibilityLabel="Import Photos">
@@ -77,6 +85,7 @@ class Home extends Component  {
 const mapDispatchToProps = {
   importImage,
   handlePhotoTap,
+  takePhoto,
 } 
 
 const mapStateToProps = (state) => {

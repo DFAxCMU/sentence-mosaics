@@ -23,6 +23,7 @@ persistStore(store, {storage: AsyncStorage});
 import { styles } from './styles';
 
 import Home from './components/Home';
+import Camera from './components/Camera';
 import Help from './components/Help';
 import Info from './components/Info';
 import NewSentence from './components/NewSentence';
@@ -52,6 +53,10 @@ export default class App extends Component {
                 type="reset" // Clear navigation stack 
               />
               </Drawer>
+              <Scene
+                key="camera"
+                component={Camera}
+                title="Camera" />
               <Scene
                 key="help"
                 component={Help}
