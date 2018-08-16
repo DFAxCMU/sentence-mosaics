@@ -12,7 +12,11 @@ import {
 import { Actions } from 'react-native-router-flux'
 import Icon from 'react-native-vector-icons/Ionicons';
 import { connect } from 'react-redux';
-import { clearSentence, clearWordPicker} from '../actions';
+import { 
+  clearSentence, 
+  clearWordPicker, 
+  takeScreenshot
+} from '../actions';
 import { styles } from '../styles';
 
 import NewWordModal from './NewWordModal';
@@ -20,7 +24,7 @@ import SentenceContainer from './SentenceContainer';
 import WordsContainer from './WordsContainer';
 import WordPicker from './WordPicker';
 
-const NewSentence = ({ uri, wordPicker, clearSentenceClick }) => (
+const NewSentence = ({ uri, wordPicker, clearSentenceClick, takeScreenshotClick }) => (
   <View style={styles.lightContainer}>
 
     <View style={styles.topContainer}>
@@ -51,6 +55,13 @@ const NewSentence = ({ uri, wordPicker, clearSentenceClick }) => (
         </TouchableHighlight>
 
         <TouchableHighlight
+          onPress={() => takeScreenshotClick()}
+          style={styles.button}
+          accessibilityLabel="Take Screenshot">
+          <Text style={styles.wordText}>Take Screenshot</Text>
+        </TouchableHighlight>
+
+        <TouchableHighlight
           onPress={ Actions.help }
           style={styles.smallIconButton}>
           <Icon name="ios-help-circle-outline" style={styles.icon}> </Icon>
@@ -69,6 +80,9 @@ const mapDispatchToProps = (dispatch) => {
     clearSentenceClick: () => {
       dispatch(clearSentence())
       dispatch(clearWordPicker())
+    }, 
+    takeScreenshotClick: () => {
+      dispatch(takeScreenshot())
     }
   }
 }

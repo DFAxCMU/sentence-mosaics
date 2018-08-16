@@ -5,6 +5,7 @@ export const ADD_WORD = 'ADD_WORD';
 export const DELETE_WORD = 'DELETE_WORD';
 export const SHOW_DEFAULT_SENTENCE = 'SHOW_DEFAULT_SENTENCE';
 export const CLEAR_SENTENCE = 'CLEAR_SENTENCE';
+export const TAKE_SCREENSHOT = 'TAKE_SCREENSHOT';
 export const CLICK_WORD = 'CLICK_WORD';
 export const EDIT_WORD = 'EDIT_WORD';
 export const GO_BACK = 'GO_BACK';
@@ -41,9 +42,16 @@ export function showDefaultSentence() {
     type: SHOW_DEFAULT_SENTENCE,
   }
 }
+
 export function clearSentence() {
   return {
     type: CLEAR_SENTENCE,
+  }
+}
+
+export function takeScreenshot() {
+  return {
+    type: TAKE_SCREENSHOT,
   }
 }
 

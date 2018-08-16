@@ -1,6 +1,8 @@
 'use strict';
 
+import { CameraRoll } from 'react-native';
 import { ActionConst } from 'react-native-router-flux';
+import { captureScreen } from "react-native-view-shot";
 import { words } from '../words';
 import * as Actions from '../actions/index';
 
@@ -53,6 +55,25 @@ export default function sentences(state = initialState, action) {
         ...state,
         activeSentence: [],
         itemOrder: []
+      }
+    case Actions.TAKE_SCREENSHOT:
+      captureScreen({
+        format: "jpg",
+        quality: 0.8
+      })
+      .then(
+        uri => {
+          console.log("Image saved:", uri);
+          CameraRoll.saveToCameraRoll(uri, 'photo');
+      },
+        error => console.error("Snapshot failed:", error)
+      );
+      return {
+        ...state
+      }
+    case Actions.CLEAR_SENTENCE:
+      return {
+        ...state
       }
     case Actions.CLICK_WORD:
       return {
