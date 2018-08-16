@@ -106,7 +106,11 @@ export const styles = StyleSheet.create({
     width: currentDevice[0] * 7/8,
   },
   sentenceContainer: {
-    backgroundColor: '#e4eeed',
+    backgroundColor: '#f9fffe',
+    shadowColor: '#a7d6cf',
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 1.0,
+    shadowRadius: 6,
     flexWrap: 'wrap',
     alignItems: 'flex-start',
     flexDirection:'row',
