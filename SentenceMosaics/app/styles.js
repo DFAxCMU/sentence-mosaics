@@ -105,6 +105,29 @@ export const styles = StyleSheet.create({
                                     // but the image is still scaled
     width: currentDevice[0] * 7/8,
   },
+  dropdownButton: {
+    alignSelf: 'center',
+    backgroundColor: '#448479',
+    width: "50%",
+    marginTop: 10,
+    marginBottom: 5,
+    borderRadius: 10,
+  },
+  dropdownText: {
+    alignSelf: 'center',
+    color: 'white',
+    fontSize: 20,
+    margin: 10,
+  },
+  dropdownOptions: {
+    alignSelf: 'center',
+    width: "50%",
+    borderRadius: 10,
+  },
+    dropdownOptionsText: {
+    fontSize: 20,
+    width: "50%"
+  },
   sentenceContainer: {
     backgroundColor: '#f9fffe',
     shadowColor: '#a7d6cf',

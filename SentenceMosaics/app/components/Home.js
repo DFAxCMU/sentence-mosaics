@@ -13,18 +13,35 @@ import {
 import { Actions } from 'react-native-router-flux'
 import Icon from 'react-native-vector-icons/Ionicons';
 import { connect } from 'react-redux'
+import Dropdown from 'react-native-modal-dropdown';
 
 import {
   importImage,
   handlePhotoTap,
+  handleSetFolder,
 } from '../actions/homeActions';
 
 import { styles } from '../styles'
 
 class Home extends Component  {
   render() {
+    let options = this.props.folderList.slice();
+    let label = this.props.folder;
+    if (!label) label = "Select Folder...";
+    
     return (
       <View style={styles.lightContainer}>
+        <Dropdown onSelect={i => {
+            this.props.handleSetFolder(options[i])
+          }} 
+          animated={false} 
+          defaultValue={label}
+          options={options}
+          style={styles.dropdownButton}
+          textStyle={styles.dropdownText}
+          dropdownStyle={styles.dropdownOptions}
+          dropdownTextStyle={styles.dropdownOptionsText}
+          />
 
         <View style={styles.topContainer}>
           <ListView contentContainerStyle={styles.list}
@@ -55,7 +72,7 @@ class Home extends Component  {
             </TouchableHighlight>
 
             <TouchableHighlight
-                onPress={ this.props.importImage }
+                onPress={() => this.props.importImage(this.props.folder) }
                   style={styles.button}
                   accessibilityLabel="Import Photos">
                 <Text style={styles.wordText}>Import Photos</Text>
@@ -77,14 +94,18 @@ class Home extends Component  {
 const mapDispatchToProps = {
   importImage,
   handlePhotoTap,
+  handleSetFolder,
 } 
 
 const mapStateToProps = (state) => {
   const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
   ds.removeClippedSubviews = false;
-  var images = ds.cloneWithRows(state.images.image_list);
+  var filtered_images = state.images.image_list.filter(image => image.folder === state.images.folder);
+  var images = ds.cloneWithRows(filtered_images);
   return {
     "ds": images, 
+    "folder": state.images.folder,
+    "folderList": state.images.folder_list,
   }
 }
 

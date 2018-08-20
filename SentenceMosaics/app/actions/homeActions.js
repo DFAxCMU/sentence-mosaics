@@ -1,4 +1,8 @@
-import { selectPhoto, 
+import { 
+  setFolder,
+  createFolder,
+  deleteFolder,
+  selectPhoto, 
   showDefaultSentence, 
   clearWordPicker, 
   add_image, 
@@ -6,16 +10,38 @@ import { selectPhoto,
   delete_all_images,
 } from './index';
 import { Actions } from 'react-native-router-flux';
-import { Alert, ImagePickerIOS } from 'react-native';
+import { Alert, ImagePickerIOS, AlertIOS } from 'react-native';
 
 tapTimer = null
 ignoreTap = false
 waitingForDoubleTap = false
 
-export function importImage() {
+export function handleSetFolder(folder) {
+  return (dispatch) => {
+    dispatch(setFolder(folder));
+  }
+}
+
+export function handleCreateFolder() {
+  return (dispatch) => {
+    AlertIOS.prompt('New Folder Name', 'Remember to choose a name that is not already a folder!', name => {
+      dispatch(createFolder(name));
+      Actions.homeDrawer();
+    });
+  }
+}
+
+export function handleDeleteFolder() {
+  return dispatch => {
+    dispatch(deleteFolder());
+    Actions.homeDrawer();
+  }
+}
+
+export function importImage(folder) {
   return (dispatch) => {
     ImagePickerIOS.openSelectDialog({}, imageUri => {
-      dispatch(add_image(imageUri))
+      dispatch(add_image(imageUri, folder))
     }, error => {})
   }
 }

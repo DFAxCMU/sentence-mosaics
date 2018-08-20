@@ -1,6 +1,9 @@
 'use strict';
 
 /* Action Types */
+export const SET_FOLDER = 'SET_FOLDER';
+export const CREATE_FOLDER = 'CREATE_FOLDER';
+export const DELETE_FOLDER = 'DELETE_FOLDER';
 export const ADD_WORD = 'ADD_WORD';
 export const DELETE_WORD = 'DELETE_WORD';
 export const SHOW_DEFAULT_SENTENCE = 'SHOW_DEFAULT_SENTENCE';
@@ -22,6 +25,26 @@ export const ADD_SENTENCE = 'ADD_SENTENCE';
 export const REMOVE_SENTENCE = 'REMOVE_SENTENCE';
 
 /* Action Creators */
+export function setFolder(folder) {
+  return {
+    type: SET_FOLDER,
+    folder,
+  }
+}
+
+export function createFolder(folderName) {
+  return {
+    type: CREATE_FOLDER,
+    folderName,
+  }
+}
+
+export function deleteFolder() {
+  return {
+    type: DELETE_FOLDER,
+  }
+}
+
 export function addWord(word, wordType) {
   return {
     type: ADD_WORD,
@@ -117,10 +140,11 @@ export function setModal(modalType) {
   }
 }
 
-export function add_image(image) {
+export function add_image(image, folder) {
   return {
     type: ADD_IMAGE,
-    image
+    image, 
+    folder
   }
 }
 

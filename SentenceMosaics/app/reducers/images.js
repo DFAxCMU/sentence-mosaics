@@ -1,37 +1,46 @@
 'use strict';
 
+const homeFolder = 'Home Folder';
+
 const initialState = {
-  /*image_list: [[{image: 'https://s-media-cache-ak0.pinimg.com/564x/21/c4/af/21c4af62d979e779f08730def389c7a4.jpg',
-      sentence_strings: [],
-      image_index: 0}]], 
-  image_count: 1, */
+  folder: homeFolder,
+  folder_list: [
+    homeFolder],
   image_list: [],
   image_count: 0,
 };
 
-/*'https://s-media-cache-ak0.pinimg.com/564x/21/c4/af/21c4af62d979e779f08730def389c7a4.jpg', 
-    'https://pulsations.files.wordpress.com/2010/05/randomdog.jpg', 
-    'https://alpha.wallhaven.cc/wallpapers/thumb/small/th-439774.jpg',
-   'https://s-media-cache-ak0.pinimg.com/736x/1c/2b/0e/1c2b0e1391f95210ce394d8f6ffc3349.jpg', 
-   'https://az616578.vo.msecnd.net/files/responsive/embedded/any/desktop/2016/03/02/6359254205422825251433349260_pointe.jpg',
-   'https://d1amk1w0mr5k0.cloudfront.net/files/2012/09/Toddler-Excited-About-Reading-Tips2.jpg', 
-   'https://thumbs.dreamstime.com/x/jumping-child-7002757.jpg', 
-   'https://www.cfbham.org/wp-content/uploads/2015/04/Childhood-nutrition.jpg', 
-   'https://thumbs.dreamstime.com/x/child-swimming-17490975.jpg', 
-    'https://static1.squarespace.com/static/53f25b20e4b0d6b2d8640379/t/553e2672e4b06614df78db39/1430136459547/', 
-    'https://wesayyesprogram.com/wp-content/uploads/2015/07/man-walking-dog.jpg', 
-    'https://ionehellobeautiful.files.wordpress.com/2015/02/mom-cooking-dinner.jpg?quality=70&strip=all&w=630&h=420'
-*/
-
-
-
 import {persistStore} from 'redux-persist'
-import * as Actions from '../actions/index'
+import * as Actions from '../actions/index';
 
 export default function images(state=initialState, action) {
 
 console.log(state)
   switch (action.type) {
+    case Actions.SET_FOLDER:
+      return ({
+        ...state, 
+        folder: action.folder
+      });
+    case Actions.CREATE_FOLDER:
+      var newFolderList = state.folder_list.slice();
+      newFolderList.push(action.folderName);
+      return ({
+        ...state, 
+        folder: action.folderName,
+        folder_list: newFolderList
+      })
+    case Actions.DELETE_FOLDER:
+      var newFolderList = state.folder_list.slice();
+      if (state.folder != homeFolder) {
+        var index = state.folder_list.indexOf(state.folder);
+        newFolderList.splice(index, 1);
+      }
+      return ({
+          ...state, 
+          folder: homeFolder,
+          folder_list: newFolderList
+        })
     case Actions.ADD_IMAGE:
       return ({
         ...state,
@@ -39,6 +48,7 @@ console.log(state)
             image: action.image, 
             sentence_strings: [],
             image_index: state.image_count,
+            folder: action.folder,
         }]), 
         image_count: state.image_count + 1,
       });
