@@ -8,7 +8,7 @@ export default function Question(props) {
   return (
     <View>
       <Text style={{ margin: 20, fontSize: 24, fontWeight: 'bold'}}>  { props.question } </Text>
-      <Text style={{ marginLeft: 40, fontSize: 18, fontStyle: 'italic'}}> { props.answer } </Text>
+      <Text style={{ fontSize: 18, fontStyle: 'italic'}}> { props.answer } </Text>
     </View>
   )
 }

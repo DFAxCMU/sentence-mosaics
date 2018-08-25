@@ -24,13 +24,17 @@ const Info = () => (
 
   <Swiper showsButtons={true}>
         <ScrollView style={styles.infoContainer}>
-            <Text style={{ fontSize: headingSize }}>What is Sentence Mosaics?</Text>
+            <Text style={{ fontSize: headingSize }}>
+              What is Sentence Mosaics?
+            </Text>
             <Text style={{ fontSize: bodySize }}> {"\n"}
             The purpose of this app is to assist students in their formulation of novel, complete, and meaningful spoken sentences produced in context with a photograph or illustration and with a language “coach” (speech-language therapist, teacher, parent, tutor, etc.) to assist in facilitating correct syntax.  
             {"\n"} {"\n"}Students who can profit from the app include those with delayed language development (particularly with delayed oral expressive language skills), those whose hearing loss has impacted language skills, those for whom English is a second language, and those for whom written expression and/or reading is a challenge. 
             The program may be of benefit as well to adults who have suffered language loss secondary to head trauma or CVA.  
             {"\n"} {"\n"} </Text>
+            </ScrollView>
 
+        <ScrollView style={styles.infoContainer}>
             <Text style={{ fontSize: headingSize }}>App Usage</Text>
             <Text style={{ fontSize: bodySize }}> {"\n"}
                - This program has been used in context with visual images, such as commercially available photos that illustrate daily actions (washing, eating, climbing, brushing, etc.), more complex interactions (baking bread, serving dinner, cleaning the floor), cause-effect relationships and recognition of problems (cutting bread with a saw), and verb tense sequences (e.g. “He will peel the potatoes”; “He is peeling the potatoes”; “He did peel the potatoes”).  Illustrations from narratives, reproductions of paintings, and print ads can be used effectively. 

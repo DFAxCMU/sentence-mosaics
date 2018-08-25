@@ -10,12 +10,19 @@ import { styles } from '../styles';
 import { connect } from 'react-redux';
 import  Question  from './Question';
 
+if (global.globalDeviceType == 'iPad') {
+  var headingSize = 48;
+  var bodySize = 20;
+} else { // iPhone
+  var headingSize = 24;
+  var bodySize = 14;
+}
 
 const Help = () => (
   <View style={styles.container}>
 
   <ScrollView style={{margin: 20}} >
-    <Text style={{ fontSize: 48 }}>Frequently Asked Questions</Text>
+    <Text style={{ fontSize: headingSize }}>Frequently Asked Questions</Text>
     <Question 
         question="How do I delete an image?"
         answer="Double tap an image to delete it."/>
