@@ -1,6 +1,6 @@
 'use strict';
 
-const homeFolder = 'Home Folder';
+const homeFolder = null;
 
 const initialState = {
   folder: homeFolder,
