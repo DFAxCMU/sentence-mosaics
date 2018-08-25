@@ -3,6 +3,7 @@
 /* Action Types */
 export const SET_FOLDER = 'SET_FOLDER';
 export const CREATE_FOLDER = 'CREATE_FOLDER';
+export const RENAME_FOLDER = 'RENAME_FOLDER';
 export const DELETE_FOLDER = 'DELETE_FOLDER';
 export const ADD_WORD = 'ADD_WORD';
 export const DELETE_WORD = 'DELETE_WORD';
@@ -36,6 +37,13 @@ export function createFolder(folderName) {
   return {
     type: CREATE_FOLDER,
     folderName,
+  }
+}
+
+export function renameFolder(name) {
+  return {
+    type: RENAME_FOLDER,
+    name,
   }
 }
 

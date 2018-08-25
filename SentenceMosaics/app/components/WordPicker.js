@@ -23,7 +23,6 @@ const WordPicker = ({ wordType, wordIndex, editWordClick, goBackClick }) => {
                             || wordType == "social"
                         ? wordType 
                         : wordType + "s";
-
   var wordList = words[wordType]['categories'];
   for (var category in wordList) {
     var wordStyle = ([

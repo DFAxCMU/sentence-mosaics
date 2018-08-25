@@ -4,7 +4,6 @@ import React, { Component } from 'react'
 import {
   View,
   Image,
-  Button,
   Text,
   TouchableHighlight,
   ListView,

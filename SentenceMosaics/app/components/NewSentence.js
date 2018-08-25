@@ -54,12 +54,12 @@ const NewSentence = ({ uri, wordPicker, clearSentenceClick, takeScreenshotClick 
           <Text style={styles.wordText}>Clear Sentence</Text>
         </TouchableHighlight>
 
-        <TouchableHighlight
+        {/* <TouchableHighlight
           onPress={() => takeScreenshotClick()}
           style={styles.button}
           accessibilityLabel="Take Screenshot">
           <Text style={styles.wordText}>Take Screenshot</Text>
-        </TouchableHighlight>
+        </TouchableHighlight> */}
 
         <TouchableHighlight
           onPress={ Actions.help }

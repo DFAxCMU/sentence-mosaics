@@ -1,6 +1,6 @@
 'use strict';
 
-const homeFolder = null;
+const homeFolder = 'Home Folder';
 
 const initialState = {
   folder: homeFolder,
@@ -28,6 +28,15 @@ console.log(state)
       return ({
         ...state, 
         folder: action.folderName,
+        folder_list: newFolderList
+      })
+    case Actions.RENAME_FOLDER:
+      var newFolderList = state.folder_list.slice();
+      var index = state.folder_list.indexOf(state.folder);
+      newFolderList[index] = action.name;
+      return ({
+        ...state, 
+        folder: action.name,
         folder_list: newFolderList
       })
     case Actions.DELETE_FOLDER:

@@ -194,7 +194,7 @@ const RecordSentence = ({ uri, sentence, itemOrder, add_sentence }) => {
         <Text style={styles.fullSentenceText}>{ sentenceString }</Text>
       </View>
 
-      <TouchableHighlight
+      {/* <TouchableHighlight
           onPress={() => {
               if (sentenceString == "") {
                 Alert.alert("This sentence is empty!");
@@ -206,7 +206,7 @@ const RecordSentence = ({ uri, sentence, itemOrder, add_sentence }) => {
           style={styles.button}
           accessibilityLabel="Save Sentence Text">
           <Text style={styles.wordText}>Save Sentence Text</Text>
-      </TouchableHighlight>
+      </TouchableHighlight> */}
 
       <Recorder/>
     </View>

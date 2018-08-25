@@ -48,6 +48,7 @@ export const styles = StyleSheet.create({
     backgroundColor: '#c7e5e1',
   },
   bottomContainer: {
+    display: 'flex',
     flex: 1, 
     flexDirection: 'row', 
     justifyContent: 'space-between',
@@ -99,7 +100,7 @@ export const styles = StyleSheet.create({
     minWidth: 200,
   },
   image: { // Enlarged photo in the New Sentence page
-    //margin: 10,
+    margin: 10,
     height: currentDevice[0] * 2/3, // Height is smaller to make room
                                     // for the sentence and word bank,
                                     // but the image is still scaled
@@ -108,7 +109,7 @@ export const styles = StyleSheet.create({
   dropdownButton: {
     alignSelf: 'center',
     backgroundColor: '#448479',
-    width: "50%",
+    width: "80%",
     marginTop: 10,
     marginBottom: 5,
     borderRadius: 10,
@@ -121,7 +122,7 @@ export const styles = StyleSheet.create({
   },
   dropdownOptions: {
     alignSelf: 'center',
-    width: "50%",
+    width: "80%",
     borderRadius: 10,
   },
     dropdownOptionsText: {
@@ -204,8 +205,9 @@ export const styles = StyleSheet.create({
     flexDirection:'row',
   },
   wordsHeader: {
-    fontSize: wordFontSize,
+    fontSize: wordFontSize + 5,
     margin: 10,
+    fontWeight: 'bold'
   },
   categoryContainer: {
     flexWrap: 'wrap',
@@ -215,6 +217,7 @@ export const styles = StyleSheet.create({
     marginBottom: 10,
   },
   categoryHeader: {
+    fontSize: wordFontSize,
     paddingTop: 5,
     paddingBottom: 5,
   },
@@ -274,14 +277,20 @@ export const styles = StyleSheet.create({
   },
   smallIconButton: {
     backgroundColor: '#e4eeed',
-    justifyContent: 'center',
-    alignItems: 'center',
+    // justifyContent: 'center',
+    // alignItems: 'center',
+    // padding: 10,
+    // margin: 20,
     padding: 10,
     margin: 20,
+    marginTop: 10,
+    borderRadius: 8,
+    alignSelf: 'center',
     borderRadius: 8,
   },
   icon: {
     fontSize: 2 * wordFontSize,
+    textAlign: 'center',
   },
   homeDrawer: {
     flex: 1,

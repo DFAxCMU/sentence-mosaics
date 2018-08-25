@@ -2,6 +2,7 @@ import {
   setFolder,
   createFolder,
   deleteFolder,
+  renameFolder,
   selectPhoto, 
   showDefaultSentence, 
   clearWordPicker, 
@@ -25,9 +26,26 @@ export function handleSetFolder(folder) {
 export function handleCreateFolder() {
   return (dispatch) => {
     AlertIOS.prompt('New Folder Name', 'Remember to choose a name that is not already a folder!', name => {
-      dispatch(createFolder(name));
-      Actions.homeDrawer();
+      if (name.trim()) {
+        dispatch(createFolder(name));
+        Actions.homeDrawer();  
+      } else {
+        AlertIOS.alert('Folder name cannot be empty!');
+      }
     });
+  }
+}
+
+export function handleRenameFolder() {
+  return dispatch => {
+    AlertIOS.prompt('Rename Folder',  'Remember to choose a name that is not already a folder!', name => {
+      if (name.trim()) {
+        dispatch(renameFolder(name));
+        Actions.homeDrawer();
+      } else {
+        AlertIOS.alert('Folder name cannot be empty!');
+      }
+    })
   }
 }
 
