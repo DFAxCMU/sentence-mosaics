@@ -5,7 +5,8 @@
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "simulator-updated": "react-native run-ios --simulator 'iPad Pro (12.9-inch)'",
-    "simulator": "react-native run-ios --simulator 'iPad Pro (12.9 inch)'"
+    "simulator": "react-native run-ios --simulator 'iPad Pro (12.9 inch)'",
+    "build:ios": "react-native bundle --entry-file='index.ios.js' --bundle-output='./ios/SentenceMosaics/main.jsbundle' --dev=false --platform='ios' --assets-dest='./ios'"
   },
   "dependencies": {
     "react": "^16.0.0-alpha.12",
