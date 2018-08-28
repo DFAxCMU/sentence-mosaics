@@ -158,7 +158,7 @@ class Recorder extends Component {
   }
 }
 
-const RecordSentence = ({ uri, sentence, itemOrder, add_sentence }) => {
+const RecordSentence = ({ uri, sentence, itemOrder, add_sentence, index }) => {
   var sentenceString = ""
   var curr = ""
   var capitalizeNext = false
@@ -194,19 +194,19 @@ const RecordSentence = ({ uri, sentence, itemOrder, add_sentence }) => {
         <Text style={styles.fullSentenceText}>{ sentenceString }</Text>
       </View>
 
-      {/* <TouchableHighlight
+      <TouchableHighlight
           onPress={() => {
               if (sentenceString == "") {
                 Alert.alert("This sentence is empty!");
                 return;
               }
-              add_sentence(uri.image_index, sentenceString);
+              add_sentence(index, sentenceString);
               Alert.alert("Saved!");
             }}
           style={styles.button}
           accessibilityLabel="Save Sentence Text">
           <Text style={styles.wordText}>Save Sentence Text</Text>
-      </TouchableHighlight> */}
+      </TouchableHighlight>
 
       <Recorder/>
     </View>
@@ -230,6 +230,7 @@ const mapStateToProps = (state) => {
     uri: correct_image,
     sentence: state.sentences.activeSentence,
     itemOrder: state.sentences.itemOrder,
+    index,
   }
 }
 

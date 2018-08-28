@@ -52,7 +52,10 @@ class Home extends Component  {
             renderRow={(rowData, sectionID, rowID, highlightRow) =>
                 <TouchableHighlight
                   underlayColor='transparent'
-                  onPress={ () => this.props.handlePhotoTap(rowID) }>
+                  onPress={ () => {
+                    console.log("here", this.props.unfilteredImages);
+                    this.props.handlePhotoTap(rowData.image_index) 
+                  }}>
                   <Image
                     style={styles.item}
                     resizeMode='cover'
@@ -103,6 +106,7 @@ const mapStateToProps = (state) => {
   var images = ds.cloneWithRows(filtered_images);
   return {
     "ds": images, 
+    "unfilteredImages": state.images.image_list,
     "folder": state.images.folder,
     "folderList": state.images.folder_list,
   }

@@ -102,6 +102,7 @@ function onPhotoSingleTap(dispatch, index) {
 
     waitingForDoubleTap = false;
     // Do the single click action
+    console.log("single click", index);
     dispatch(selectPhoto(index));
     Actions.chooseSaveOrNew({ index: index });
     dispatch(showDefaultSentence());

@@ -81,6 +81,7 @@ console.log(state)
         image_count: 0, 
       });
     case Actions.ADD_SENTENCE: 
+        console.log("add sentence", action, action.image_index);
         var sentence_string = action.sentence;
         var image_index = action.image_index;
         var current_sentences = state.image_list[image_index].sentence_strings.slice();
@@ -90,9 +91,12 @@ console.log(state)
             image: state.image_list[image_index].image, 
             sentence_strings: new_sentences,
             image_index: state.image_list[image_index].image_index, 
+            folder: state.image_list[image_index].folder,
         }];
         var right_half = state.image_list.slice(image_index +1);
         var new_images = left_half.concat(middle.concat(right_half));
+        console.log(middle);
+        console.log(new_images);
         return ({
           ...state,
           image_list: new_images,
@@ -107,6 +111,7 @@ console.log(state)
             image: state.image_list[image_index].image, 
             sentence_strings: new_sentences,
             image_index: state.image_list[image_index].image_index, 
+            folder: state.image_list[image_index].folder,
         }];
         var right_half = state.image_list.slice(image_index +1);
         var new_images = left_half.concat(middle.concat(right_half));

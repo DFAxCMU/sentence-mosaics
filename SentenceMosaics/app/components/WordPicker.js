@@ -37,14 +37,21 @@ const WordPicker = ({ wordType, wordIndex, editWordClick, goBackClick }) => {
       ]);
     }
 
-    var wordOptions = wordList[category].map(item =>
-      <TouchableHighlight
+    var wordOptions = wordList[category].map(item => {
+      var labelText = item;
+      if (wordIndex === 0) {
+        labelText = item[0].toUpperCase() + item.substring(1);
+      }
+      return (
+        <TouchableHighlight
         style={wordStyle}
         underlayColor='transparent'
         key={item}
-        onPress={editWordClick.bind(this,item,wordIndex)}>
-        <Text key={item} style={styles.wordText}>{item}</Text>
+        onPress={editWordClick.bind(this, labelText, wordIndex)}>
+        <Text key={item} style={styles.wordText}>{labelText}</Text>
       </TouchableHighlight>
+      );
+    }
     );
     var categoryTitle = category !== 'all' ? 
       <Text key={category} style={styles.categoryHeader}>{category}</Text>

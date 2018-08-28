@@ -49,6 +49,7 @@ export default class App extends Component {
                 component={Home}
                 title="Sentence Mosaics"
                 initial={true}
+                rightTitle="&#9776;" 
                 type="reset" // Clear navigation stack 
               />
               </Drawer>
