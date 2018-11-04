@@ -82,7 +82,7 @@ const SavedSentences = ({ uri,sentences,remove_sentence }) => (
       <Image
       source={{uri: uri.image}}
       style={styles.image}
-      resizeMode={Image.resizeMode.contain} />
+      resizeMode="contain" />
     <SentenceView
         uri={uri}
         sentences={sentences}

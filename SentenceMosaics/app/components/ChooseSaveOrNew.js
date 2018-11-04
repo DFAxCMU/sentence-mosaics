@@ -22,7 +22,7 @@ class ChooseSaveOrNew extends Component {
           <Image
             source={{uri: this.props.uri.image}}
             style={styles.image}
-            resizeMode={Image.resizeMode.contain} />
+            resizeMode="contain" />
 
           <TouchableHighlight
             onPress={() => this.props.newSentenceClick(this.props.index) }

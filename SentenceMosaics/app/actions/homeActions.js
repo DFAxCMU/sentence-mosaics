@@ -12,6 +12,7 @@ import {
 } from './index';
 import { Actions } from 'react-native-router-flux';
 import { Alert, ImagePickerIOS, AlertIOS } from 'react-native';
+import ImagePicker from 'react-native-image-picker';
 
 tapTimer = null
 ignoreTap = false
@@ -57,12 +58,23 @@ export function handleDeleteFolder() {
 }
 
 export function importImage(folder) {
-  return (dispatch) => {
-    ImagePickerIOS.openSelectDialog({}, imageUri => {
-      dispatch(add_image(imageUri, folder))
-    }, error => {})
-  }
+    return (dispatch) => {
+        ImagePicker.showImagePicker({}, response => {
+            if(response.uri) {
+                dispatch(add_image(response.uri, folder))
+            }
+        })
+    }
 }
+
+
+//export function importImage(folder) {
+//  return (dispatch) => {
+//    ImagePickerIOS.openSelectDialog({}, imageUri => {
+//      dispatch(add_image(imageUri, folder))
+//    }, error => {})
+//  }
+//}
 
 export function deleteAllPhotos() {
   return(dispatch) => {

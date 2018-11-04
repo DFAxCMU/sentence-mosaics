@@ -189,7 +189,7 @@ const RecordSentence = ({ uri, sentence, itemOrder, add_sentence, index }) => {
       <Image
         source={{uri: uri.image}}
         style={styles.image}
-        resizeMode={Image.resizeMode.contain} />
+        resizeMode="contain" />
       <View style={styles.sentenceContainer}>
         <Text style={styles.fullSentenceText}>{ sentenceString }</Text>
       </View>

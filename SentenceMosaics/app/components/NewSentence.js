@@ -32,7 +32,7 @@ const NewSentence = ({ uri, wordPicker, clearSentenceClick, takeScreenshotClick 
         <Image
           source={{uri: uri.image}}
           style={styles.image}
-          resizeMode={Image.resizeMode.contain} />
+          resizeMode="contain" />
         <SentenceContainer />
         { wordPicker ?
           <WordPicker /> :
