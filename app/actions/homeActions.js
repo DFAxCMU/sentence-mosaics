@@ -12,7 +12,8 @@ import {
 } from './index';
 import { Actions } from 'react-native-router-flux';
 import { Alert, ImagePickerIOS, AlertIOS } from 'react-native';
-import ImagePicker from 'react-native-image-picker';
+import * as ImagePicker from 'expo-image-picker';
+import { Alert } from 'expo';
 
 tapTimer = null
 ignoreTap = false
@@ -59,11 +60,19 @@ export function handleDeleteFolder() {
 
 export function importImage(folder) {
     return (dispatch) => {
-        ImagePicker.showImagePicker({}, response => {
+        ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        }).then(response => {
             if(response.uri) {
+                console.log(response.uri)
                 dispatch(add_image(response.uri, folder))
             }
         })
+            /*ImagePicker.showImagePicker({}, response => {
+            if(response.uri) {
+                dispatch(add_image(response.uri, folder))
+            }
+        })*/
     }
 }
 

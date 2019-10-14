@@ -26,7 +26,7 @@ import Home from './components/Home';
 import Help from './components/Help';
 import Info from './components/Info';
 import NewSentence from './components/NewSentence';
-//import RecordSentence from './components/RecordSentence';
+import RecordSentence from './components/RecordSentence';
 import SavedSentences from './components/SavedSentences';
 import ChooseSaveOrNew from './components/ChooseSaveOrNew';
 import HomeDrawer from './components/HomeDrawer.js';
@@ -69,7 +69,7 @@ export default class App extends Component {
                 rightTitle="Submit" />
               <Scene
                 key="recordSentence"
-                component={NewSentence}
+                component={RecordSentence}
                 title="Record Sentence"
                 onRight={() => Actions.homeDrawer()}
                 rightTitle="Done" />

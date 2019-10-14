@@ -9,23 +9,23 @@
   },
   "dependencies": {
     "expo": "^35.0.0",
+    "expo-image-picker": "^7.0.0",
     "react": "16.8.3",
     "react-dom": "16.8.3",
     "react-native": "https://github.com/expo/react-native/archive/sdk-35.0.0.tar.gz",
-    "react-native-web": "^0.11.7",
-    "react-native-audio-player-recorder": "^2.0.0",
-    "react-native-image-picker": "^0.26.10",
     "react-native-modal-dropdown": "^0.6.2",
     "react-native-router-flux": "^4.0.0-beta.21",
     "react-native-sortable-grid": "^2.0.0",
     "react-native-swiper": "^1.5.13",
     "react-native-vector-icons": "^4.0.1",
     "react-native-view-shot": "^2.4.0",
+    "react-native-web": "^0.11.7",
     "react-redux": "^5.0.2",
     "redux": "^3.6.0",
     "redux-form": "^6.5.0",
     "redux-persist": "^4.8.0",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "expo-av": "~7.0.0"
   },
   "devDependencies": {
     "babel-preset-expo": "^7.0.0"

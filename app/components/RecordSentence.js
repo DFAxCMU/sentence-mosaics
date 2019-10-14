@@ -16,47 +16,24 @@ import { connect } from 'react-redux';
 
 import { styles } from '../styles';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { AudioUtils } from 'react-native-audio-player-recorder'
-import {
-  AudioPlayer,
-  AudioRecorder,
-} from 'react-native-audio-player-recorder'
+import { Audio } from 'expo-av';
 
 import RecordButton from './RecordButton'
 import ActionButtons from './ActionButtons'
 import IconButton from './IconButton'
+import * as Permissions from 'expo-permissions';
 
 import { add_sentence } from '../actions'
-
-const Constants = {
-  MAX_AUDIO_LENGTH: 60,
-  AUDIO_PATH: AudioUtils.DocumentDirectoryPath + '/example.aac',
-  CUSTOM_RED: '#f22335',
-  ICON_GREY_COLOR: '#6b6b6b',
-}
 
 class Recorder extends Component {
   constructor(props) {
     super(props)
     this.state = {
       isRecording: false,
-      isFinishRecorded: false,
       isPlaying: false,
       isPaused: false,
-      currentTime: 0,
-      audioLength: 0
     }
     this.timer = null
-  }
-
-  prepareRecordingPath(){
-    AudioRecorder.prepareRecordingAtPath(Constants.AUDIO_PATH, {
-      SampleRate: 22050,
-      Channels: 1,
-      AudioQuality: 'Low',
-      AudioEncoding: 'aac',
-      AudioEncodingBitRate: 32000
-    })
   }
 
   record = () => {
@@ -64,64 +41,53 @@ class Recorder extends Component {
     if (isPlaying) {
       this.stopPlaying()
     }
-
-    this.prepareRecordingPath()
-    AudioRecorder.startRecording()
-    this.setState({
-      isPlaying: false,
-      isRecording: true,
-      isFinishRecorded: false,
-      audioLength: 0,
-      currentTime: 0
-    })
-
-    this.timer = setInterval(() => {
-      const time = this.state.currentTime + 1
-      this.setState({currentTime: time})
-      if (time === Constants.MAX_AUDIO_LENGTH) {
-        this.stopRecording()
-      }
-    }, 1000)
+    this.setState({ isRecording: true })
+    this.recording = new Audio.Recording()
+    Permissions.askAsync(Permissions.AUDIO_RECORDING)
+      .then(() => {
+        return this.recording.prepareToRecordAsync(Audio.RECORDING_OPTIONS_PRESET_HIGH_QUALITY)
+      }).then(status => {
+        return this.recording.startAsync()
+      })
   }
 
   stopRecording = () => {
     const { isRecording } = this.state
     if (!isRecording) return
 
-    AudioRecorder.stopRecording()
-    this.setState({audioLength: this.state.currentTime + 1})
-    clearInterval(this.timer)
-    this.setState({ isRecording: false, isFinishRecorded: true, currentTime: 0})
+    this.recording.stopAndUnloadAsync()
+      .then(status => {
+        this.setState({ isRecording: false })
+      })
   }
 
   startPlaying = () => {
     if (this.state.isPaused) {
-      AudioPlayer.unpause()
-      this.setState({isPlaying: true, isPaused: false})
+      this.setState({ isPlaying: true, isPaused: false})
+      this.sound.play
       return
     }
-    AudioPlayer.play(Constants.AUDIO_PATH)
+    this.recording.createNewLoadedSoundAsync().then(({ sound }) => {
+      this.setState({ isPlaying: true, isPaused: false })
+      this.sound = sound
+      sound.playAsync()
+      sound.setOnPlaybackStatusUpdate(status => {
+        if(status.didJustFinish) {
+          this.stopPlaying();
+        }
+      })
+    }) 
     this.setState({isPlaying: true})
-
-    this.timer = setInterval(() => {
-      const time = this.state.currentTime + 1
-      this.setState({currentTime: time})
-      if (time === this.state.audioLength) {
-        this.stopPlaying()
-        this.setState({ currentTime: 0})
-        clearInterval(this.timer)
-      }
-    }, 1000)
   }
 
   pausePlaying = () => {
-    AudioPlayer.pause()
     this.setState({isPaused: true, isPlaying: false})
+    this.sound.pauseAsync();
   }
 
-  stopPlaying() {
-    AudioPlayer.stop()
+  stopPlaying = () => {
     this.setState({isPlaying: false})
+    this.sound.stopAsync();
   }
 
   render() {
@@ -150,7 +116,7 @@ class Recorder extends Component {
             onPressHandler={this.stopRecording} />
           <IconButton
             iconName={playPauseIcon}
-            isDisabled={!isFinishRecorded || isRecording}
+            isDisabled={isRecording}
             onPressHandler={playPauseHandler} />
         </View>
       </ScrollView>
