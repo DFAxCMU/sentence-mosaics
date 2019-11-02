@@ -45,8 +45,21 @@ class Recorder extends Component {
     this.recording = new Audio.Recording()
     Permissions.askAsync(Permissions.AUDIO_RECORDING)
       .then(() => {
-        return this.recording.prepareToRecordAsync(Audio.RECORDING_OPTIONS_PRESET_HIGH_QUALITY)
-      }).then(status => {
+        return Audio.setAudioModeAsync({
+          allowsRecordingIOS: true,
+          interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
+          playsInSilentModeIOS: true,
+          playsInSilentLockedModeIOS: true,
+          shouldDuckAndroid: true,
+          interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
+          playThroughEarpieceAndroid: false,
+          staysActiveInBackground: true,
+        });
+      }).then(() => {
+        return this.recording.prepareToRecordAsync(Audio.RECORDING_OPTIONS_PRESET_LOW_QUALITY)
+      })
+      .then(status => {
+        console.log("second")
         return this.recording.startAsync()
       })
   }
@@ -58,24 +71,37 @@ class Recorder extends Component {
     this.recording.stopAndUnloadAsync()
       .then(status => {
         this.setState({ isRecording: false })
+
       })
   }
 
   startPlaying = () => {
     if (this.state.isPaused) {
       this.setState({ isPlaying: true, isPaused: false})
-      this.sound.play
+      //this.sound.play
       return
     }
     this.recording.createNewLoadedSoundAsync().then(({ sound }) => {
       this.setState({ isPlaying: true, isPaused: false })
       this.sound = sound
-      sound.playAsync()
-      sound.setOnPlaybackStatusUpdate(status => {
+      return Audio.setAudioModeAsync({
+        allowsRecordingIOS: false,
+        interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
+        playsInSilentModeIOS: true,
+        playsInSilentLockedModeIOS: true,
+        shouldDuckAndroid: true,
+        interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
+        playThroughEarpieceAndroid: false,
+        staysActiveInBackground: true,      });
+
+    }).then(()=> {
+      this.sound.playAsync()
+      this.sound.setOnPlaybackStatusUpdate(status => {
         if(status.didJustFinish) {
           this.stopPlaying();
         }
       })
+
     }) 
     this.setState({isPlaying: true})
   }
