@@ -9,7 +9,9 @@
   },
   "dependencies": {
     "expo": "^35.0.0",
+    "expo-av": "~7.0.0",
     "expo-image-picker": "^7.0.0",
+    "expo-permissions": "^7.0.0",
     "react": "16.8.3",
     "react-dom": "16.8.3",
     "react-native": "https://github.com/expo/react-native/archive/sdk-35.0.0.tar.gz",
@@ -24,8 +26,7 @@
     "redux": "^3.6.0",
     "redux-form": "^6.5.0",
     "redux-persist": "^4.8.0",
-    "redux-thunk": "^2.2.0",
-    "expo-av": "~7.0.0"
+    "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
     "babel-preset-expo": "^7.0.0"

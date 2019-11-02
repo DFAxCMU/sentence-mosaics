@@ -1,19 +1,20 @@
-import { 
+import {
   setFolder,
   createFolder,
   deleteFolder,
   renameFolder,
-  selectPhoto, 
-  showDefaultSentence, 
-  clearWordPicker, 
-  add_image, 
+  selectPhoto,
+  showDefaultSentence,
+  clearWordPicker,
+  add_image,
   delete_image,
   delete_all_images,
 } from './index';
 import { Actions } from 'react-native-router-flux';
 import { Alert, ImagePickerIOS, AlertIOS } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
-import { Alert } from 'expo';
+//import { Alert } from 'expo';
+import * as Permissions from 'expo-permissions';
 
 tapTimer = null
 ignoreTap = false
@@ -30,7 +31,7 @@ export function handleCreateFolder() {
     AlertIOS.prompt('New Folder Name', 'Remember to choose a name that is not already a folder!', name => {
       if (name.trim()) {
         dispatch(createFolder(name));
-        Actions.homeDrawer();  
+        Actions.homeDrawer();
       } else {
         AlertIOS.alert('Folder name cannot be empty!');
       }
@@ -60,19 +61,24 @@ export function handleDeleteFolder() {
 
 export function importImage(folder) {
     return (dispatch) => {
-        ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        Permissions.askAsync(Permissions.CAMERA_ROLL)
+          .then(function(response) {
+          if(response.status === 'granted') {
+            return ImagePicker.launchImageLibraryAsync({
+              mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            })
+          }
+          else {
+            throw "Error"
+          }
         }).then(response => {
             if(response.uri) {
                 console.log(response.uri)
                 dispatch(add_image(response.uri, folder))
             }
+        }).catch(function(error) {
+          console.log(error)
         })
-            /*ImagePicker.showImagePicker({}, response => {
-            if(response.uri) {
-                dispatch(add_image(response.uri, folder))
-            }
-        })*/
     }
 }
 
@@ -91,11 +97,11 @@ export function deleteAllPhotos() {
       'Delete All Photos?',
       'Are you sure you want to delete all photos?',
       [{
-        text: 'Yes', 
-        onPress: () => dispatch(delete_all_images()), 
+        text: 'Yes',
+        onPress: () => dispatch(delete_all_images()),
         style: 'cancel'
       }, {
-        text: 'No', 
+        text: 'No',
         onPress: () => console.log('No delete all images')
       }]
     )
@@ -110,11 +116,11 @@ export function handlePhotoTap(index) {
     }
     // This will be true if we see another tap before the tapTimer in
     // onPhotoSingleTap() runs out.
-    waitingForDoubleTap 
-      ? onPhotoDoubleTap(dispatch, index) 
+    waitingForDoubleTap
+      ? onPhotoDoubleTap(dispatch, index)
       : onPhotoSingleTap(dispatch, index);
   }
-} 
+}
 
 function onPhotoSingleTap(dispatch, index) {
   waitingForDoubleTap = true;
@@ -142,11 +148,11 @@ function onPhotoDoubleTap(dispatch, index) {
     'Delete Image?',
     'Are you sure you want to delete this image?',
     [{
-      text: 'Yes', 
-      onPress: () => dispatch(delete_image(index)), 
+      text: 'Yes',
+      onPress: () => dispatch(delete_image(index)),
       style: 'cancel'
     }, {
-      text: 'No', 
+      text: 'No',
       onPress: () => console.log('No delete image')
     }]
   )
