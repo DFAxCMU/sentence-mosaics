@@ -76,7 +76,6 @@ class Recorder extends Component {
   }
 
   startPlaying = () => {
-    console.log("starting...");
     if (this.recording === null) return;
     if (this.state.isPaused) {
       this.setState({ isPlaying: true, isPaused: false})
@@ -98,10 +97,7 @@ class Recorder extends Component {
 
     }).then(()=> {
       console.log("starting...");
-      this.sound.playAsync().then(status => {
-        console.log("Play status:");
-        console.log(status);
-      })
+      this.sound.playAsync()
       this.sound.setOnPlaybackStatusUpdate(status => {
         if(status.didJustFinish) {
           this.stopPlaying();
@@ -114,9 +110,7 @@ class Recorder extends Component {
 
   pausePlaying = () => {
     this.setState({isPaused: true, isPlaying: false})
-    this.sound.pauseAsync().then((status) => {
-      console.log("Paused status:");
-      console.log(status);
+    this.sound.pauseAsync();
     });
   }
 
