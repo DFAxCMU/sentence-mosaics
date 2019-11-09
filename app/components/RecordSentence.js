@@ -59,7 +59,7 @@ class Recorder extends Component {
         return this.recording.prepareToRecordAsync(Audio.RECORDING_OPTIONS_PRESET_LOW_QUALITY)
       })
       .then(status => {
-        console.log("second")
+        console.log("")
         return this.recording.startAsync()
       })
   }
@@ -76,10 +76,12 @@ class Recorder extends Component {
   }
 
   startPlaying = () => {
+    console.log("starting...");
+    if (this.recording === null) return;
     if (this.state.isPaused) {
       this.setState({ isPlaying: true, isPaused: false})
       //this.sound.play
-      return
+      //return
     }
     this.recording.createNewLoadedSoundAsync().then(({ sound }) => {
       this.setState({ isPlaying: true, isPaused: false })
@@ -95,7 +97,11 @@ class Recorder extends Component {
         staysActiveInBackground: true,      });
 
     }).then(()=> {
-      this.sound.playAsync()
+      console.log("starting...");
+      this.sound.playAsync().then(status => {
+        console.log("Play status:");
+        console.log(status);
+      })
       this.sound.setOnPlaybackStatusUpdate(status => {
         if(status.didJustFinish) {
           this.stopPlaying();
@@ -108,7 +114,10 @@ class Recorder extends Component {
 
   pausePlaying = () => {
     this.setState({isPaused: true, isPlaying: false})
-    this.sound.pauseAsync();
+    this.sound.pauseAsync().then((status) => {
+      console.log("Paused status:");
+      console.log(status);
+    });
   }
 
   stopPlaying = () => {
