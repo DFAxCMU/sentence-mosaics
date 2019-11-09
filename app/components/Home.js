@@ -18,6 +18,7 @@ import {
   importImage,
   handlePhotoTap,
   handleSetFolder,
+  takePicture
 } from '../actions/homeActions';
 
 import { styles } from '../styles'
@@ -33,7 +34,7 @@ class Home extends Component  {
         <Dropdown onSelect={i => {
             this.props.handleSetFolder(options[i])
           }} 
-          animated={false} 
+          animated={true} 
           defaultValue={label}
           options={options}
           style={styles.dropdownButton}
@@ -74,10 +75,14 @@ class Home extends Component  {
             </TouchableHighlight>
 
             <TouchableHighlight
-                onPress={() => this.props.importImage(this.props.folder) }
-                  style={styles.button}
-                  accessibilityLabel="Import Photos">
-                <Text style={styles.wordText}>Import Photos</Text>
+                onPress={ this.props.takePicture }
+                style={styles.smallIconButton}>
+                <Icon name="ios-camera" style={styles.icon}> </Icon>
+            </TouchableHighlight>
+            <TouchableHighlight
+                onPress={ this.props.importImage }
+                style={styles.smallIconButton}>
+                <Icon name="md-photos" style={styles.icon}> </Icon>
             </TouchableHighlight>
 
             <TouchableHighlight
@@ -97,6 +102,7 @@ const mapDispatchToProps = {
   importImage,
   handlePhotoTap,
   handleSetFolder,
+  takePicture
 } 
 
 const mapStateToProps = (state) => {
