@@ -59,7 +59,7 @@ export function handleDeleteFolder() {
   }
 }
 
-export function importImage(folder) {
+export function importImage() {
     return (dispatch) => {
         Permissions.askAsync(Permissions.CAMERA_ROLL)
           .then(function(response) {
@@ -74,19 +74,18 @@ export function importImage(folder) {
         }).then(response => {
             if(response.uri) {
                 console.log(response.uri)
-                dispatch(add_image(response.uri, folder))
+                dispatch(add_image(response.uri))
             }
         }).catch(function(error) {
           console.log(error)
         })
     }
 }
-export function takePicture(folder) {
+export function takePicture() {
   return (dispatch) => {
       Permissions.askAsync(Permissions.CAMERA, Permissions.CAMERA_ROLL)
         .then(function(response) {
         if(response.status === 'granted') {
-        
           return ImagePicker.launchCameraAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
           })
@@ -97,7 +96,7 @@ export function takePicture(folder) {
       }).then(response => {
           if(response.uri) {
               console.log(response.uri)
-              dispatch(add_image(response.uri, folder))
+              dispatch(add_image(response.uri))
           }
       }).catch(function(error) {
         console.log(error)
