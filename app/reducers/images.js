@@ -74,10 +74,17 @@ console.log("images reducer: ", state)
         image_count: Math.max(state.image_count - 1, 0),
       });
     case Actions.DELETE_ALL_IMAGES:
+      var new_image_list = state.image_list.filter(image => {
+        console.log(image['folder'])
+        console.log(image['folder']==state.folder)
+        return image["folder"]!=state.folder
+    })
+      console.log(state.folder)
+      console.log(new_image_list)
       return ({
         ...state,
-        image_list: [],
-        image_count: 0,
+        image_list: new_image_list,
+        image_count: new_image_list.length, 
       });
     case Actions.ADD_SENTENCE:
         console.log("add sentence", action, action.image_index);
