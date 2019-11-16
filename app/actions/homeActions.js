@@ -11,7 +11,7 @@ import {
   delete_all_images,
 } from './index';
 import { Actions } from 'react-native-router-flux';
-import { Alert, ImagePickerIOS, AlertIOS } from 'react-native';
+import { Alert, ImagePickerIOS, AlertIOS, CameraRoll } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 //import { Alert } from 'expo';
 import * as Permissions from 'expo-permissions';
@@ -94,24 +94,16 @@ export function takePicture() {
           throw "Error"
         }
       }).then(response => {
-          if(response.uri) {
-              console.log(response.uri)
-              dispatch(add_image(response.uri))
+        return CameraRoll.saveToCameraRoll(response.uri)
+      }).then(uri => {
+          if(uri) {
+              dispatch(add_image(uri))
           }
       }).catch(function(error) {
         console.log(error)
       })
   }
 }
-
-
-//export function importImage(folder) {
-//  return (dispatch) => {
-//    ImagePickerIOS.openSelectDialog({}, imageUri => {
-//      dispatch(add_image(imageUri, folder))
-//    }, error => {})
-//  }
-//}
 
 export function deleteAllPhotos() {
   return(dispatch) => {
