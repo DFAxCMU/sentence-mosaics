@@ -104,14 +104,13 @@ class Recorder extends Component {
         }
       })
 
-    }) 
+    })
     this.setState({isPlaying: true})
   }
 
   pausePlaying = () => {
     this.setState({isPaused: true, isPlaying: false})
     this.sound.pauseAsync();
-    });
   }
 
   stopPlaying = () => {
