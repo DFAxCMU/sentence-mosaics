@@ -25,6 +25,27 @@ console.log(state)
     case Actions.CREATE_FOLDER:
       var newFolderList = state.folder_list.slice();
       newFolderList.push(action.folderName);
+      newFolderList.sort(function(a, b) {
+
+        if(a === "Home Folder") return -100;
+	if(b === "Home Folder") return 100;
+
+	if(a.toUpperCase() === b.toUpperCase()) {
+	  // a and b are either both uppercase or both lowercase
+	  if(a === a.toUpperCase() && b === b.toUpperCase()) return 0;
+	  if(a !== a.toUpperCase() && b !== b.toUpperCase()) return 0;
+	  
+	  // a is uppercase (should be higher up)
+	  if(a === a.toUpperCase()) return -1;
+	  // b is uppercase (should be higher up)
+	  return 1;
+
+	} else if(a.toUpperCase() < b.toUpperCase()) {
+	  return -1;
+	} else {
+	  return 1;
+	}
+      });
       return ({
         ...state, 
         folder: action.folderName,
