@@ -6,7 +6,7 @@ import {
   Image,
   Text,
   TouchableHighlight,
-  ListView,
+  FlatList
 } from 'react-native'
 
 import { Actions } from 'react-native-router-flux'
@@ -28,7 +28,7 @@ class Home extends Component  {
     let options = this.props.folderList.slice();
     let label = this.props.folder;
     if (!label) label = "Select Folder...";
-    
+    console.log(this.props.filteredImages)
     return (
       <View style={styles.lightContainer}>
         <Dropdown onSelect={i => {
@@ -44,24 +44,25 @@ class Home extends Component  {
           />
 
         <View style={styles.topContainer}>
-          <ListView contentContainerStyle={styles.list}
+          <FlatList numColumns = {4}
             enableEmptySections={true}
-            dataSource={this.props.ds}
+            data = {this.props.filteredImages}
             pageSize={9} // Needs to be a multiple of the number of
             // cells per row or else they will be gaps
             // when the rows are loaded
-            renderRow={(rowData, sectionID, rowID, highlightRow) =>
-                <TouchableHighlight
+            renderItem={({ item, index }) => {
+              console.log("kslf", item)
+                return <TouchableHighlight
                   underlayColor='transparent'
                   onPress={ () => {
                     console.log("here", this.props.unfilteredImages);
-                    this.props.handlePhotoTap(rowData.image_index) 
+                    this.props.handlePhotoTap(item.image_index) 
                   }}>
                   <Image
                     style={styles.item}
                     resizeMode='cover'
-                    source={{uri: rowData.image}} />
-                </TouchableHighlight>
+                    source={{uri: item.image}} />
+                </TouchableHighlight>}
             } />    
 
         </View>
@@ -106,16 +107,46 @@ const mapDispatchToProps = {
 } 
 
 const mapStateToProps = (state) => {
-  const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-  ds.removeClippedSubviews = false;
   var filtered_images = state.images.image_list.filter(image => image.folder === state.images.folder);
-  var images = ds.cloneWithRows(filtered_images);
   return {
-    "ds": images, 
     "unfilteredImages": state.images.image_list,
     "folder": state.images.folder,
     "folderList": state.images.folder_list,
+    'filteredImages': filtered_images
   }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
+/*<ListView contentContainerStyle={styles.list}
+            enableEmptySections={true}
+            dataSource={this.props.ds}
+            pageSize={9} // Needs to be a multiple of the number of
+            // cells per row or else they will be gaps
+            // when the rows are loaded
+            renderRow={(rowData, sectionID, rowID, highlightRow) =>
+                <TouchableHighlight
+                  underlayColor='transparent'
+                  onPress={ () => {
+                    console.log("here", this.props.unfilteredImages);
+                    this.props.handlePhotoTap(rowData.image_index) 
+                  }}>
+                  <Image
+                    style={styles.item}
+                    resizeMode='cover'
+                    source={{uri: rowData.image}} />
+                </TouchableHighlight>
+            } />    */
+            /*
+            renderRow={(rowData, sectionID, rowID, highlightRow) =>
+              <TouchableHighlight
+                underlayColor='transparent'
+                onPress={ () => {
+                  console.log("here", this.props.unfilteredImages);
+                  this.props.handlePhotoTap(rowData.image_index) 
+                }}>
+                <Image
+                  style={styles.item}
+                  resizeMode='cover'
+                  source={{uri: rowData.image}} />
+              </TouchableHighlight>
+          } />  */
