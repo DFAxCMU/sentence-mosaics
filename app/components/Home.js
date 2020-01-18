@@ -4,6 +4,7 @@ import React, { Component } from 'react'
 import {
   View,
   Image,
+  ImageBackground,
   Text,
   TouchableHighlight,
   FlatList
@@ -58,10 +59,11 @@ class Home extends Component  {
                     console.log("here", this.props.unfilteredImages);
                     this.props.handlePhotoTap(item.image_index) 
                   }}>
-                  <Image
+                  <ImageBackground
                     style={styles.item}
                     resizeMode='cover'
-                    source={{uri: item.image}} />
+                    source={{uri: item.image}}
+                    backgroundColor = 'gray' />
                 </TouchableHighlight>}
             } />    
 
