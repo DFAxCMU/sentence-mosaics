@@ -22,18 +22,22 @@ export default function RecordButton(props) {
   if (isFinishRecorded) {
     text = 'Tap to record'
   }
-  
+ 
   if (isRecording) {
     return (
-      <View style={styles.button}>
-        <Icon name='microphone' size={80} color={Constants.CUSTOM_RED}/>
+    <TouchableOpacity style={styles.button} onPress={onPressHandler}>
+      <Icon name='stop' size={50} color={Constants.CUSTOM_RED}/>
+      <Text style={styles.text}>{ text }</Text>
+    </TouchableOpacity>
+      /*<View style={styles.button}>
+        <Icon name='microphone' size={50} color={Constants.CUSTOM_RED}/>
         <Text style={styles.text}>{ text }</Text>
-      </View>
+      </View>*/
     )
   }
   return (
     <TouchableOpacity style={styles.button} onPress={onPressHandler}>
-      <Icon name='microphone' size={80} color={Constants.CUSTOM_RED}/>
+      <Icon name='microphone' size={50} color={Constants.CUSTOM_RED}/>
       <Text style={styles.text}>{ text }</Text>
     </TouchableOpacity>
   )
@@ -41,8 +45,8 @@ export default function RecordButton(props) {
 
 const styles = StyleSheet.create({
   button: {
-    width: 150,
-    height: 150,
+    width: 200,
+    height: 100,
     borderRadius: 90,
     alignItems: 'center',
     justifyContent: 'center',
@@ -53,7 +57,7 @@ const styles = StyleSheet.create({
   },
   text: {
     paddingTop: 5,
-    fontSize: 16,
+    fontSize: 12,
     color: Constants.CUSTOM_RED,
   },
 })

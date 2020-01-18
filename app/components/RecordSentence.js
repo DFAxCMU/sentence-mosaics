@@ -37,9 +37,13 @@ class Recorder extends Component {
   }
 
   record = () => {
-    const { isPlaying } = this.state
+    const { isPlaying, isRecording } = this.state
     if (isPlaying) {
       this.stopPlaying()
+    }
+    if (isRecording) {
+      this.stopRecording()
+      return
     }
     this.setState({ isRecording: true })
     this.recording = new Audio.Recording()
@@ -188,6 +192,8 @@ const RecordSentence = ({ uri, sentence, itemOrder, add_sentence, index }) => {
         <Text style={styles.fullSentenceText}>{ sentenceString }</Text>
       </View>
 
+      <Recorder/>
+
       <TouchableHighlight
           onPress={() => {
               if (sentenceString == "") {
@@ -199,10 +205,8 @@ const RecordSentence = ({ uri, sentence, itemOrder, add_sentence, index }) => {
             }}
           style={styles.button}
           accessibilityLabel="Save Sentence Text">
-          <Text style={styles.wordText}>Save Sentence Text</Text>
+          <Text style={styles.wordText}>Save</Text>
       </TouchableHighlight>
-
-      <Recorder/>
     </View>
   )
 }
