@@ -84,8 +84,8 @@ class Recorder extends Component {
     if (this.recording === null) return;
     if (this.state.isPaused) {
       this.setState({ isPlaying: true, isPaused: false})
-      //this.sound.play
-      //return
+      this.sound.playAsync()
+      return
     }
     this.recording.createNewLoadedSoundAsync().then(({ sound }) => {
       this.setState({ isPlaying: true, isPaused: false })
@@ -153,7 +153,7 @@ class Recorder extends Component {
     )
   }
 }
-/* old stop button: 
+/* old stop button:
           <IconButton
             iconName='stop'
             isDisabled={isFinishRecorded || !isRecording}
