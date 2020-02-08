@@ -7,32 +7,30 @@ import {
   ProgressViewIOS
 } from 'react-native'
 
-export default class ProgressBar extends Component {
-  constructor(props) {
-    super(props)
+const Constants = {
+  progressColor: '#f22335'
+}
 
-    this.state = {
-      Progress_Value: 0.00
-    }
-  }
+export default function RecordButton(props) {
+  const {progressVal} = props
 
-  render()
-  {
-    return(
-      <View style={styles.MainContainer}>
+  return(
+    <View style={styles.MainContainer}>
 	{
-	  (Platform.OS === 'android')
-	  ?
-          (<ProgressBarAndroid
-	    styleAttr="Horizontal"
-	    progress={this.state.Progress_Value}
-	    indeterminate={false}/>)
-	  :
-	  (<ProgressViewIOS progress={this.state.Progress_Value}/>)
-	}
-      </View>
-    )
-  }
+	(Platform.OS === 'android')
+	?
+        (<ProgressBarAndroid
+	  color={Constants.progressColor}
+	  styleAttr="Horizontal"
+	  progress={progressVal}
+	  indeterminate={false}/>)
+	:
+	(<ProgressViewIOS
+	  progress={progressVal}
+	  progressTintColor={Constants.progressColor}/>)
+      }
+    </View>
+  )
 }
 
 const styles = StyleSheet.create(

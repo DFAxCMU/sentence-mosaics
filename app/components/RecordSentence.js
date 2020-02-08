@@ -147,6 +147,7 @@ class Recorder extends Component {
             iconName={playPauseIcon}
             isDisabled={isRecording}
             onPressHandler={playPauseHandler} />
+	  <ProgressBar progressVal={0.50}/>
         </View>
       </ScrollView>
     )
@@ -157,7 +158,6 @@ class Recorder extends Component {
             iconName='stop'
             isDisabled={isFinishRecorded || !isRecording}
             onPressHandler={this.stopRecording} />
-	  <ProgressBar Progress_Value="0.50"/>
 */
 
 const RecordSentence = ({ uri, sentence, itemOrder, add_sentence, index }) => {
