@@ -21,6 +21,7 @@ import { Audio } from 'expo-av';
 import RecordButton from './RecordButton'
 import ActionButtons from './ActionButtons'
 import IconButton from './IconButton'
+import ProgressBar from './ProgressBar'
 import * as Permissions from 'expo-permissions';
 
 import { add_sentence } from '../actions'
@@ -83,8 +84,8 @@ class Recorder extends Component {
     if (this.recording === null) return;
     if (this.state.isPaused) {
       this.setState({ isPlaying: true, isPaused: false})
-      //this.sound.play
-      //return
+      this.sound.playAsync()
+      return
     }
     this.recording.createNewLoadedSoundAsync().then(({ sound }) => {
       this.setState({ isPlaying: true, isPaused: false })
@@ -143,18 +144,21 @@ class Recorder extends Component {
           flexDirection: 'row',
         }}>
           <IconButton
-            iconName='stop'
-            isDisabled={isFinishRecorded || !isRecording}
-            onPressHandler={this.stopRecording} />
-          <IconButton
             iconName={playPauseIcon}
             isDisabled={isRecording}
             onPressHandler={playPauseHandler} />
+	  <ProgressBar progressVal={0.50}/>
         </View>
       </ScrollView>
     )
   }
 }
+/* old stop button:
+          <IconButton
+            iconName='stop'
+            isDisabled={isFinishRecorded || !isRecording}
+            onPressHandler={this.stopRecording} />
+*/
 
 const RecordSentence = ({ uri, sentence, itemOrder, add_sentence, index }) => {
   var sentenceString = ""
