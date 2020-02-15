@@ -9,50 +9,46 @@ import {
   Button,
   AsyncStorage,
   TouchableHighlight,
-  ListView,
-  ScrollView
+  FlatList,
+  ScrollView,
+  TouchableOpacity,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { styles } from '../styles';
+import Icon from 'react-native-vector-icons/FontAwesome'
+
 
 import { remove_sentence } from '../actions'
 
 class SentenceView extends Component {
-  constructor(props) {
-    super(props);
-    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-    this.state = {
-      uri: this.props.uri, 
-      ds: ds, 
-      dataSource: ds.cloneWithRows(this.props.sentences),
-    };
+  constructor(props){
+    super(props)
+    this.state = {currentlyPlaying: null}
   }
-
-  componentWillReceiveProps(props) {
-    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-    this.setState({
-      ds: ds, 
-      dataSource: ds.cloneWithRows(props.sentences),
-    });
-  }
-
   render() {
     var sentenceTextStyle = ([
       styles.wordText,
       { paddingBottom: 20}
     ]);
     var comp = this; 
-    console.log("saved sentences:" + JSON.stringify(this.state.dataSource));
-    var sentenceList = (this.state.dataSource._dataBlob.s1.length == 0) ? 
+    //console.log("saved sentences:" + JSON.stringify(this.state.dataSource));
+    return (this.props.sentences.length == 0) ? 
       <Text style={styles.wordsHeader}>No Sentences Saved</Text>
-      : (<ListView
+      : (<FlatList
             style={{paddingTop:10, }}
             enableEmptySections={true}
-            dataSource={this.state.dataSource}
-            renderRow={ (rowData,sectionID, rowID) => {
+            data = {this.props.sentences}
+            renderItem={({ item, index }) => {
               return(
                   <View style={{flexDirection:'row'}}>
-                    <Text style={{fontSize: 24}}>{rowData}</Text>
+                    <TouchableOpacity style= {{marginRight: 10}}
+                    onPress={ () => {this.state.currentlyPlaying==index ? this.setState({currentlyPlaying : null}): 
+                    this.setState({currentlyPlaying : index})}}>
+      <Icon name={this.state.currentlyPlaying==index ? 'pause' : 'play'} size={24} color={'gray'} />
+
+    </TouchableOpacity>
+                    <Text style={{fontSize: 24}}>{item}</Text>
+                    
                     <Text style={{fontSize: 24, color: "red"}}
                       onPress={ () => { 
                         Alert.alert(
@@ -60,7 +56,7 @@ class SentenceView extends Component {
                           'Are you sure you want to delete this sentence?',
                           [
                               {text: 'Yes', onPress: () =>  {
-                                  comp.props.remove_sentence(comp.props.uri.image_index,parseInt(rowID)); 
+                                  comp.props.remove_sentence(comp.props.uri.image_index,parseInt(index)); 
                                 }
                               , style: 'cancel'},
                               {text: 'No', onPress: () => console.log('No delete sentence')},
@@ -73,7 +69,6 @@ class SentenceView extends Component {
               }}
         />
       );
-      return sentenceList;
   }
 }
 

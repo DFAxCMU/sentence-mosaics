@@ -15,6 +15,8 @@
     "react": "16.8.3",
     "react-dom": "16.8.3",
     "react-native": "https://github.com/expo/react-native/archive/sdk-35.0.0.tar.gz",
+    "react-native-dialog": "^5.6.0",
+    "react-native-modal": "^11.5.3",
     "react-native-modal-dropdown": "^0.6.2",
     "react-native-router-flux": "^4.0.0-beta.21",
     "react-native-sortable-grid": "^2.0.0",
