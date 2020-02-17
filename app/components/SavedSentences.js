@@ -31,7 +31,7 @@ class SentenceView extends Component {
       { paddingBottom: 20}
     ]);
     var comp = this; 
-    //console.log("saved sentences:" + JSON.stringify(this.state.dataSource));
+    console.log("saved sentences:" + JSON.stringify(this.props.sentences));
     return (this.props.sentences.length == 0) ? 
       <Text style={styles.wordsHeader}>No Sentences Saved</Text>
       : (<FlatList
@@ -47,7 +47,7 @@ class SentenceView extends Component {
       <Icon name={this.state.currentlyPlaying==index ? 'pause' : 'play'} size={24} color={'gray'} />
 
     </TouchableOpacity>
-                    <Text style={{fontSize: 24}}>{item}</Text>
+                    <Text style={{fontSize: 24}}>{item.text}</Text>
                     
                     <Text style={{fontSize: 24, color: "red"}}
                       onPress={ () => { 
@@ -56,7 +56,7 @@ class SentenceView extends Component {
                           'Are you sure you want to delete this sentence?',
                           [
                               {text: 'Yes', onPress: () =>  {
-                                  comp.props.remove_sentence(comp.props.uri.image_index,parseInt(index)); 
+                                  comp.props.remove_sentence(item.id); 
                                 }
                               , style: 'cancel'},
                               {text: 'No', onPress: () => console.log('No delete sentence')},
@@ -90,8 +90,8 @@ const SavedSentences = ({ uri,sentences,remove_sentence }) => (
 
 const mapDispatchToProps = (dispatch) => {
   return {
-      remove_sentence: (image_index, sentence_index ) => {
-        dispatch(remove_sentence(image_index,sentence_index));
+      remove_sentence: (sentence_id) => {
+        dispatch(remove_sentence(sentence_id));
       }
   }
 }
@@ -99,10 +99,17 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = (state) => {
   var index = state.sentences.activeImageIndex;
   var correct_image = state.images.image_list[index];
-  var sentences = correct_image.sentence_strings;
+  var sentences = [];
+  for (var i=0; i < state.savedSentences.sentence_list.length; i++)
+  {
+    if (state.savedSentences.sentence_list[i].image_id === index)
+    {
+      sentences.push(state.savedSentences.sentence_list[i]);
+    }
+  }
   return {
     sentences: sentences, 
-    uri: correct_image,
+    uri: correct_image
   }
 }
 

@@ -179,12 +179,10 @@ export function add_sentence(image_index,sentence) {
   }
 }
 
-export function remove_sentence(image_index,sentence_index) {
-  image_index = parseInt(image_index);
-  sentence_index = parseInt(sentence_index);
+export function remove_sentence(sentence_id) {
+  sentence_id = parseInt(sentence_id);
   return  {
     type: REMOVE_SENTENCE,
-    image_index,
-    sentence_index
+    sentence_id
   }
 }
