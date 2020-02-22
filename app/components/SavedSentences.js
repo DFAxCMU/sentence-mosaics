@@ -22,8 +22,8 @@ class SentenceView extends Component {
     super(props);
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
-      uri: this.props.uri, 
-      ds: ds, 
+      uri: this.props.uri,
+      ds: ds,
       dataSource: ds.cloneWithRows(this.props.sentences),
     };
   }
@@ -31,7 +31,7 @@ class SentenceView extends Component {
   componentWillReceiveProps(props) {
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.setState({
-      ds: ds, 
+      ds: ds,
       dataSource: ds.cloneWithRows(props.sentences),
     });
   }
@@ -41,9 +41,9 @@ class SentenceView extends Component {
       styles.wordText,
       { paddingBottom: 20}
     ]);
-    var comp = this; 
+    var comp = this;
     console.log("saved sentences:" + JSON.stringify(this.state.dataSource));
-    var sentenceList = (this.state.dataSource._dataBlob.s1.length == 0) ? 
+    var sentenceList = (this.state.dataSource._dataBlob.s1.length == 0) ?
       <Text style={styles.wordsHeader}>No Sentences Saved</Text>
       : (<ListView
             style={{paddingTop:10, }}
@@ -54,13 +54,13 @@ class SentenceView extends Component {
                   <View style={{flexDirection:'row'}}>
                     <Text style={{fontSize: 24}}>{rowData}</Text>
                     <Text style={{fontSize: 24, color: "red"}}
-                      onPress={ () => { 
+                      onPress={ () => {
                         Alert.alert(
                           'Delete Sentence?',
                           'Are you sure you want to delete this sentence?',
                           [
                               {text: 'Yes', onPress: () =>  {
-                                  comp.props.remove_sentence(comp.props.uri.image_index,parseInt(rowID)); 
+                                  comp.props.remove_sentence(comp.props.uri.image_index,parseInt(rowID));
                                 }
                               , style: 'cancel'},
                               {text: 'No', onPress: () => console.log('No delete sentence')},
@@ -106,7 +106,7 @@ const mapStateToProps = (state) => {
   var correct_image = state.images.image_list[index];
   var sentences = correct_image.sentence_strings;
   return {
-    sentences: sentences, 
+    sentences: sentences,
     uri: correct_image,
   }
 }
