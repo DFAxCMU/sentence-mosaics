@@ -71,6 +71,8 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = (state, props) => {
   var index = props.index;
   var image = state.images.image_list[index];
+  console.log("current image: " + index)
+  console.log(state)
   return {
     uri: image,
   }

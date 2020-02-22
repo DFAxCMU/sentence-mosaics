@@ -37,14 +37,21 @@ console.log("saved sentences reducer: ", state)
 	  console.log("sentence id does not exist")
 	} else {
 	  console.log(sentence_index)
-	  new_list = state.sentence_list.slice().splice(sentence_index, 1)
+	  new_list = state.sentence_list.slice()
+	  new_list.splice(sentence_index, 1)
 	}
         return ({
           ...state,
-	  sentence_list: new_list,
-	  sentence_count: Math.max(state.sentence_count - 1, 0)
+	  sentence_list: new_list
         });
+    case Actions.DELETE_IMAGE:
+        return ({
+	  ...state,
+	  sentence_list: state.sentence_list.filter(function(a) {
+	    return (a.image_id !== action.image_index)
+	  })
+	});
     default:
-      return state
+        return state
   }
 }

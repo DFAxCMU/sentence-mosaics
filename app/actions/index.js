@@ -165,8 +165,14 @@ export function delete_image(image_index) {
 }
 
 export function delete_all_images() {
-  return {
-    type: DELETE_ALL_IMAGES
+  return (dispatch, getState) => {
+    const state = getState().images
+    state.image_list.forEach(function(image) {
+      if (image.folder === state.folder) {
+        dispatch(delete_image(image.image_index))
+      }
+    })
+    dispatch({ type: DELETE_ALL_IMAGES })
   }
 }
 

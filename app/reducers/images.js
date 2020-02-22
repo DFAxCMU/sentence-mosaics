@@ -90,8 +90,7 @@ console.log("images reducer: ", state)
       }
       return ({
         ...state,
-        image_list: left_half.concat(right_half),
-        image_count: Math.max(state.image_count - 1, 0),
+        image_list: left_half.concat(right_half)
       });
     case Actions.DELETE_ALL_IMAGES:
       var new_image_list = state.image_list.filter(image => {
@@ -104,7 +103,6 @@ console.log("images reducer: ", state)
       return ({
         ...state,
         image_list: new_image_list,
-        image_count: new_image_list.length, 
       });
     /*case Actions.ADD_SENTENCE:
         console.log("add sentence", action, action.image_index);
