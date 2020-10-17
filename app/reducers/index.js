@@ -9,7 +9,7 @@ import savedSentences from './savedSentences';
 const allReducers = combineReducers({
   sentences,
   images,
-  savedSentences
+  savedSentences,
 });
 
 export default allReducers

@@ -20,7 +20,6 @@ const initialState = {
 };
 
 export default function sentences(state = initialState, action) {
-  console.log(action);
   switch (action.type) {
     case Actions.ADD_WORD:
       return {
@@ -63,7 +62,6 @@ export default function sentences(state = initialState, action) {
       })
       .then(
         uri => {
-          console.log("Image saved:", uri);
           CameraRoll.saveToCameraRoll(uri, 'photo');
       },
         error => console.error("Snapshot failed:", error)

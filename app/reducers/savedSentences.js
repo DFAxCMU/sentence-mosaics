@@ -1,57 +1,63 @@
 'use strict';
+import {
+  ADD_SENTENCE,
+  REMOVE_SENTENCE
+} from '../actions/savedSentenceActions.js';
+
+import {
+  DELETE_IMAGE,
+} from '../actions/imageActions.js'
 
 const initialState = {
-  sentence_list: [],
-  sentence_count: 0
+  byId: { },
+  allIds: [],
+  nextId: 0,
 };
 
-import {persistStore} from 'redux-persist'
-import * as Actions from '../actions/index';
-
 export default function savedSentences(state=initialState, action) {
-console.log("saved sentences reducer: ", state)
   switch (action.type) {
-    case Actions.ADD_SENTENCE:
-        console.log("add sentence", action, action.image_index);
-        return ({
-          ...state,
-          sentence_list: state.sentence_list.concat([{
-	    image_id: action.image_index,
-	    text: action.sentence,
-	    // recording: action.recording_url
-	    id: state.sentence_count
-	  }]),
-	  sentence_count: state.sentence_count + 1
-        });
-    case Actions.REMOVE_SENTENCE:
-        var sentence_id = action.sentence_id;
-	var new_list = state.sentence_list
-	var sentence_index = -1
-        for (var i=0; i < state.sentence_list.length; i++) {
-	  if (state.sentence_list[i].id === action.sentence_id) {
-	    sentence_index = i;
-	    break;
-	  }
-	}
-	if (sentence_index === -1) {
-	  console.log("sentence id does not exist")
-	} else {
-	  console.log(sentence_index)
-	  new_list = state.sentence_list.slice()
-	  new_list.splice(sentence_index, 1)
-	}
-        return ({
-          ...state,
-	  sentence_list: new_list
-        });
-    case Actions.DELETE_IMAGE:
-        return ({
-	  ...state,
-	  sentence_list: state.sentence_list.filter(function(a) {
-	    return (a.image_id !== action.image_index)
-	  })
-	});
+    case ADD_SENTENCE: {
+      const id = 'sentence' + state.nextId;
+      return {
+        byId: {
+          ...state.byId,
+          [id]: {
+            image: action.image,
+            text: action.text,
+            recordingUri: action.recordingUri,
+          }
+        },
+        allIds: state.allIds.concat([id]),
+        nextId: state.nextId + 1,
+      }
+    }
+    case REMOVE_SENTENCE: {
+      const updatedById = { ...state.byId }
+      delete updatedById[action.id]
+      return {
+        ...state,
+        byId: updatedById,
+        allIds: state.allIds.filter(id => id !== action.id),
+      }
+    }
+    case DELETE_IMAGE: {
+      const updatedById = { ...state.byId }
+      let updatedAllIds = []
+      for(let id of state.byId) {
+        if(updatedById[id].image === actions.id) {
+          delete updatedById[id]
+        }
+        else {
+          updatedAllIds.push(id)
+        }
+      }
+      return {
+        ...state,
+        byId: updatedById,
+        allIds: updatedAllIds,
+      }
+    }
     default:
-        return state
+      return state
   }
 }

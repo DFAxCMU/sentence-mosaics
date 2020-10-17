@@ -59,51 +59,6 @@ export function handleDeleteFolder() {
   }
 }
 
-export function importImage() {
-    return (dispatch) => {
-        Permissions.askAsync(Permissions.CAMERA_ROLL)
-          .then(function(response) {
-          if(response.status === 'granted') {
-            return ImagePicker.launchImageLibraryAsync({
-              mediaTypes: ImagePicker.MediaTypeOptions.Images,
-            })
-          }
-          else {
-            throw "Error"
-          }
-        }).then(response => {
-            if(response.uri) {
-                console.log(response.uri)
-                dispatch(add_image(response.uri))
-            }
-        }).catch(function(error) {
-          console.log(error)
-        })
-    }
-}
-export function takePicture() {
-  return (dispatch) => {
-      Permissions.askAsync(Permissions.CAMERA, Permissions.CAMERA_ROLL)
-        .then(function(response) {
-        if(response.status === 'granted') {
-          return ImagePicker.launchCameraAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.Images,
-          })
-        }
-        else {
-          throw "Error"
-        }
-      }).then(response => {
-        return CameraRoll.saveToCameraRoll(response.uri)
-      }).then(uri => {
-          if(uri) {
-              dispatch(add_image(uri))
-          }
-      }).catch(function(error) {
-        console.log(error)
-      })
-  }
-}
 
 export function deleteAllPhotos() {
   return(dispatch) => {
@@ -143,7 +98,6 @@ function onPhotoSingleTap(dispatch, index) {
 
     waitingForDoubleTap = false;
     // Do the single click action
-    console.log("single click", index);
     dispatch(selectPhoto(index));
     Actions.chooseSaveOrNew({ index: index });
     dispatch(showDefaultSentence());

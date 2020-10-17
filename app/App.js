@@ -18,6 +18,7 @@ const store = createStore(
     autoRehydrate()
   )
 )
+
 persistStore(store, {storage: AsyncStorage});
 
 import { styles } from './styles';
