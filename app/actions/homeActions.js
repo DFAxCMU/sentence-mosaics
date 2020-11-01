@@ -15,6 +15,7 @@ import { Alert, ImagePickerIOS, AlertIOS, CameraRoll } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 //import { Alert } from 'expo';
 import * as Permissions from 'expo-permissions';
+import Constants from 'expo-constants';
 
 tapTimer = null
 ignoreTap = false
@@ -26,29 +27,17 @@ export function handleSetFolder(folder) {
   }
 }
 
-export function handleCreateFolder() {
+export function handleCreateFolder(name) {
   return (dispatch) => {
-    AlertIOS.prompt('New Folder Name', 'Remember to choose a name that is not already a folder!', name => {
-      if (name.trim()) {
-        dispatch(createFolder(name));
-        Actions.homeDrawer();
-      } else {
-        AlertIOS.alert('Folder name cannot be empty!');
-      }
-    });
+    dispatch(createFolder(name));
+    Actions.homeDrawer();
   }
 }
 
-export function handleRenameFolder() {
+export function handleRenameFolder(name) {
   return dispatch => {
-    AlertIOS.prompt('Rename Folder',  'Remember to choose a name that is not already a folder!', name => {
-      if (name.trim()) {
-        dispatch(renameFolder(name));
-        Actions.homeDrawer();
-      } else {
-        AlertIOS.alert('Folder name cannot be empty!');
-      }
-    })
+    dispatch(renameFolder(name));
+    Actions.homeDrawer();
   }
 }
 
@@ -60,26 +49,27 @@ export function handleDeleteFolder() {
 }
 
 export function importImage() {
-    return (dispatch) => {
-        Permissions.askAsync(Permissions.CAMERA_ROLL)
-          .then(function(response) {
-          if(response.status === 'granted') {
-            return ImagePicker.launchImageLibraryAsync({
-              mediaTypes: ImagePicker.MediaTypeOptions.Images,
-            })
-          }
-          else {
-            throw "Error"
-          }
-        }).then(response => {
-            if(response.uri) {
-                console.log(response.uri)
-                dispatch(add_image(response.uri))
-            }
-        }).catch(function(error) {
-          console.log(error)
-        })
-    }
+  return (dispatch) => {
+    Permissions.askAsync(Permissions.CAMERA_ROLL) // ask permissions to change camera roll
+      .then(function(response) {
+        if(response.status === 'granted') {
+          //console.log(here)
+          return ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+          })
+        }
+        else {
+          throw "Error"
+        }
+      }).then(response => {
+        if(response.uri) {
+          console.log(response.uri)
+          dispatch(add_image(response.uri))
+        }
+    }).catch(function(error) {
+      console.log(error)
+    })
+  }
 }
 export function takePicture() {
   return (dispatch) => {
