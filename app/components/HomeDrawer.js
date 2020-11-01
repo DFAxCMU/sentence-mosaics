@@ -1,12 +1,23 @@
+'use strict';
+
 import React, { Component} from 'react';
 import {
+  Modal,
   View,
   Text,
+  TextInput,
+  TouchableOpacity,
   TouchableHighlight,
+  Alert,
 } from 'react-native'
 import { styles } from '../styles';
 import { connect } from 'react-redux'
-import Dialog from 'react-native-dialog'
+
+import { editWord, inputWord, setModal } from '../actions';
+
+//import Dialog from 'react-native-dialog'
+import Icon from 'react-native-vector-icons/Ionicons';
+
 import {
   deleteAllPhotos,
   handleCreateFolder,
@@ -15,25 +26,46 @@ import {
 } from '../actions/homeActions';
 
 class HomeDrawer extends Component  {
+
     constructor(props){
       super(props)
       this.state = {creatingFolder: false, folderName: '', renamingFolder: false}
     }
     handleInputChange(event){
-      this.setState({folderName: event.nativeEvent.text})
+      this.setState({folderName: event})
     }
-    handleCancelButton(){
+    handleCloseButton(){
       this.setState({creatingFolder: false, folderName: '', renamingFolder: false})
     }
     handleOKButton(){
-      if(this.state.creatingFolder){
+      if(this.state.folderName === ''){
+        Alert.alert(
+          "Whoops!",
+          "Folder name cannot be empty!",
+          [
+            { text: "OK", onPress: () => console.log("OK Pressed") }
+          ],
+          { cancelable: false }
+        );
+      } else if (this.props.folderList.slice().includes(this.state.folderName)) {
+        Alert.alert(
+          "Whoops!",
+          "Remember to choose a name that is not already a folder!",
+          [
+            { text: "OK", onPress: () => console.log("OK Pressed") }
+          ],
+          { cancelable: false }
+        );
+      } else if(this.state.creatingFolder){
         this.props.handleCreateFolder(this.state.folderName)
-      }
-      if(this.state.renamingFolder){
+        this.setState({creatingFolder: false, folderName: '', renamingFolder: false})
+      } else if(this.state.renamingFolder){
         this.props.handleRenameFolder(this.state.folderName)
+        this.setState({creatingFolder: false, folderName: '', renamingFolder: false})
+        //repetitive...any other way?
       }
-      this.setState({creatingFolder: false, folderName: '', renamingFolder: false})
     }
+
     render() {
       var separationLine = <View style={{
         height: 1, 
@@ -60,25 +92,52 @@ class HomeDrawer extends Component  {
               { separationLine }
             </View>
           );
-        }
-
+        } 
 
         return (
             <View style={styles.homeDrawer}>
-      <View>
-        <Dialog.Container visible={this.state.creatingFolder || this.state.renamingFolder}>
-          <Dialog.Title>New Folder Name</Dialog.Title>
-          <Dialog.Description>
-            Remember to choose a name that is not already a folder name!
-          </Dialog.Description>
-          <Dialog.Input
-              onChange = {this.handleInputChange.bind(this)}/>
-          <Dialog.Button label="Cancel" 
-            onPress = {this.handleCancelButton.bind(this)}/>
-          <Dialog.Button label="OK"
-           onPress= {this.handleOKButton.bind(this)} />
-        </Dialog.Container>
-      </View>
+            
+            { this.state.creatingFolder || this.state.renamingFolder ? 
+             <Modal
+             //animationType={'fade'} // Was slow and annoying 
+                                      // but consider putting back later
+               transparent={true}>
+               <View style={styles.modalContainer}>
+     
+                 <View style={styles.modalRow}>
+               
+                   <Text style={styles.modalText}> 
+                    {this.state.creatingFolder ? 
+                    "Create new folder" : "Rename folder" }</Text>
+                   
+                   <TouchableOpacity
+                     onPress={() => {this.handleCloseButton()}}>
+                       <Icon name="ios-close" style={styles.closeModalButton}> </Icon>
+                   </TouchableOpacity>
+                 </View>
+     
+                 <View style={styles.modalRow}>
+                   <TextInput
+                     value={inputWord}
+                     autoCapitalize="none"
+                     onChangeText={this.handleInputChange.bind(this)}
+                     style={styles.modalInput}
+                     autoFocus = {true}
+                     onSubmitEditing={this.handleOKButton.bind(this)}
+                     placeholder={'Choose a new folder name!'} 
+                   />
+     
+                   <TouchableOpacity
+                     onPress= {this.handleOKButton.bind(this)}
+                     style={styles.modalButton}>
+                       <Text style={styles.modalText}>Enter</Text>
+                   </TouchableOpacity>
+                 </View>
+     
+               </View>
+             </Modal> : null
+            }
+
             { currentFolderOptions }
             <TouchableHighlight
                 onPress={ ()=>this.setState({creatingFolder:true}) }
@@ -93,7 +152,7 @@ class HomeDrawer extends Component  {
                   accessibilityLabel="Delete All Photos">
                 <Text style={styles.wordText}>Delete All Photos</Text>
             </TouchableHighlight>
-            </View>
+          </View>
         );
     }
 }
@@ -108,6 +167,7 @@ const mapDispatchToProps = {
 const mapStateToProps = (state) => {
   return {
     "folder": state.images.folder,
+    "folderList": state.images.folder_list,
   }
 }
 
