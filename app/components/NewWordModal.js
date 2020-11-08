@@ -78,9 +78,9 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
   return {
-    modalType: state.sentences.modalType,
-    wordIndex: state.sentences.editIndex,
-    inputWord: state.sentences.inputWord
+    modalType: state.currentSentence.modalType,
+    wordIndex: state.currentSentence.editIndex,
+    inputWord: state.currentSentence.inputWord
   }
 }
 

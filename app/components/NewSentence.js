@@ -92,7 +92,7 @@ const mapStateToProps = (state, props) => {
   var correct_image = state.images.image_list[index];
   return {
     uri: correct_image,
-    wordPicker: state.sentences.wordPicker
+    wordPicker: state.currentSentence.wordPicker
   }
 }
 

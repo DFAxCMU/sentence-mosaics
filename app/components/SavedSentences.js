@@ -102,7 +102,7 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 const mapStateToProps = (state) => {
-  var index = state.sentences.activeImageIndex;
+  var index = state.currentSentence.activeImageIndex;
   var correct_image = state.images.image_list[index];
   var sentences = correct_image.sentence_strings;
   return {
