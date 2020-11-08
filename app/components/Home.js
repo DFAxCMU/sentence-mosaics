@@ -13,7 +13,8 @@ import {
 import { Actions } from 'react-native-router-flux'
 import Icon from 'react-native-vector-icons/Ionicons';
 import { connect } from 'react-redux'
-import Dropdown from 'react-native-modal-dropdown';
+import Dropdown from './Dropdown.js';
+import DropDownPicker from 'react-native-dropdown-picker';
 
 import {
   importImage,
@@ -26,37 +27,31 @@ import { styles } from '../styles'
 
 class Home extends Component  {
   render() {
-    let options = this.props.folderList.slice();
+      let options = this.props.folderList.map(x => { return { label: x, value: x } });
     let label = this.props.folder;
     if (!label) label = "Select Folder...";
     console.log(this.props.filteredImages)
     return (
       <View style={styles.lightContainer}>
-        <Dropdown onSelect={i => {
-            this.props.handleSetFolder(options[i])
-          }} 
-          animated={true} 
-          defaultValue={label}
-          options={options}
-          style={styles.dropdownButton}
-          textStyle={styles.dropdownText}
-          dropdownStyle={styles.dropdownOptions}
-          dropdownTextStyle={styles.dropdownOptionsText}
-          />
+        <DropDownPicker 
+            searchable={true}
+
+          items={ options } 
+          defaultValue={ label } 
+          containerStyle={{height: 40}} 
+          onChangeItem={ item => {
+              this.props.handleSetFolder(item.value)
+          }}
+        />
 
         <View style={styles.topContainer}>
-          <FlatList numColumns = {4}
-            enableEmptySections={true}
+          <FlatList 
+            numColumns={ 3 }
             data = {this.props.filteredImages}
-            pageSize={9} // Needs to be a multiple of the number of
-            // cells per row or else they will be gaps
-            // when the rows are loaded
             renderItem={({ item, index }) => {
-              console.log("kslf", item)
                 return <TouchableHighlight
                   underlayColor='transparent'
                   onPress={ () => {
-                    console.log("here", this.props.unfilteredImages);
                     this.props.handlePhotoTap(item.image_index) 
                   }}>
                   <ImageBackground
@@ -119,36 +114,3 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
-/*<ListView contentContainerStyle={styles.list}
-            enableEmptySections={true}
-            dataSource={this.props.ds}
-            pageSize={9} // Needs to be a multiple of the number of
-            // cells per row or else they will be gaps
-            // when the rows are loaded
-            renderRow={(rowData, sectionID, rowID, highlightRow) =>
-                <TouchableHighlight
-                  underlayColor='transparent'
-                  onPress={ () => {
-                    console.log("here", this.props.unfilteredImages);
-                    this.props.handlePhotoTap(rowData.image_index) 
-                  }}>
-                  <Image
-                    style={styles.item}
-                    resizeMode='cover'
-                    source={{uri: rowData.image}} />
-                </TouchableHighlight>
-            } />    */
-            /*
-            renderRow={(rowData, sectionID, rowID, highlightRow) =>
-              <TouchableHighlight
-                underlayColor='transparent'
-                onPress={ () => {
-                  console.log("here", this.props.unfilteredImages);
-                  this.props.handlePhotoTap(rowData.image_index) 
-                }}>
-                <Image
-                  style={styles.item}
-                  resizeMode='cover'
-                  source={{uri: rowData.image}} />
-              </TouchableHighlight>
-          } />  */

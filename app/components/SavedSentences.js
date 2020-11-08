@@ -21,17 +21,6 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import { remove_sentence } from '../actions'
 
 class SentenceView extends Component {
-<<<<<<< HEAD
-  constructor(props) {
-    super(props);
-    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-    this.state = {
-      uri: this.props.uri,
-      ds: ds,
-      dataSource: ds.cloneWithRows(this.props.sentences),
-    };
-  }
-
   constructor(props){
     super(props)
     this.state = {currentlyPlaying: null}
@@ -50,7 +39,7 @@ class SentenceView extends Component {
             enableEmptySections={true}
             data = {this.props.sentences}
             renderItem={({ item, index }) => {
-              return(
+              return (
                   <View style={{flexDirection:'row'}}>
                     <TouchableOpacity style= {{marginRight: 10}}
                     onPress={ () => {this.state.currentlyPlaying==index ? this.setState({currentlyPlaying : null}): 
