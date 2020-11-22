@@ -19,8 +19,7 @@ const initialState = {
   sentenceScrollEnabled: true,
 };
 
-export default function currentSentence(state = initialState, action) {
-  console.log(action);
+export default function sentences(state = initialState, action) {
   switch (action.type) {
     case Actions.ADD_WORD:
       return {
@@ -63,7 +62,6 @@ export default function currentSentence(state = initialState, action) {
       })
       .then(
         uri => {
-          console.log("Image saved:", uri);
           CameraRoll.saveToCameraRoll(uri, 'photo');
       },
         error => console.error("Snapshot failed:", error)

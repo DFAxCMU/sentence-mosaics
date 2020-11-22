@@ -14,13 +14,19 @@ import { Actions } from 'react-native-router-flux'
 import Icon from 'react-native-vector-icons/Ionicons';
 import { connect } from 'react-redux'
 import Dropdown from 'react-native-modal-dropdown';
+import * as ImagePicker from 'expo-image-picker';
+//import { Alert } from 'expo';
+import * as Permissions from 'expo-permissions';
 
 import {
-  importImage,
   handlePhotoTap,
   handleSetFolder,
   takePicture
 } from '../actions/homeActions';
+
+import {
+  addImage
+} from '../actions/imageActions.js';
 
 import { styles } from '../styles'
 
@@ -29,7 +35,7 @@ class Home extends Component  {
     let options = this.props.folderList.slice();
     let label = this.props.folder;
     if (!label) label = "Select Folder...";
-    console.log(this.props.filteredImages)
+    console.log(this.props)
     return (
       <View style={styles.lightContainer}>
         <Dropdown onSelect={i => {
@@ -47,22 +53,20 @@ class Home extends Component  {
         <View style={styles.topContainer}>
           <FlatList numColumns = {4}
             enableEmptySections={true}
-            data = {this.props.filteredImages}
+            data = {this.props.images}
             pageSize={9} // Needs to be a multiple of the number of
             // cells per row or else they will be gaps
             // when the rows are loaded
-            renderItem={({ item, index }) => {
-              console.log("kslf", item)
+            renderItem={ ({ item }) => {
                 return <TouchableHighlight
                   underlayColor='transparent'
                   onPress={ () => {
-                    console.log("here", this.props.unfilteredImages);
-                    this.props.handlePhotoTap(item.image_index) 
+                    this.props.handlePhotoTap(item.id) 
                   }}>
                   <ImageBackground
                     style={styles.item}
                     resizeMode='cover'
-                    source={{uri: item.image}}
+                    source={{uri: item.uri }}
                     backgroundColor = 'gray' />
                 </TouchableHighlight>}
             } />    
@@ -83,7 +87,7 @@ class Home extends Component  {
                 <Icon name="ios-camera" style={styles.icon}> </Icon>
             </TouchableHighlight>
             <TouchableHighlight
-                onPress={ this.props.importImage }
+                onPress={ this.importImage.bind(this) }
                 style={styles.smallIconButton}>
                 <Icon name="md-photos" style={styles.icon}> </Icon>
             </TouchableHighlight>
@@ -99,56 +103,63 @@ class Home extends Component  {
         </View>
     );
   }
+
+  importImage() {
+    Permissions.askAsync(Permissions.CAMERA_ROLL)
+      .then(response => {
+        if(response.status === 'granted') {
+          return ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+          })
+        }
+        else {
+          throw "Error"
+        }
+      }).then(response => {
+        if(response.uri) {
+          console.log(response.uri)
+          this.props.addImage(response.uri)
+        }
+      }).catch(error => {
+        console.log(error)
+      })
+  }
+  takePicture() {
+    Permissions.askAsync(Permissions.CAMERA, Permissions.CAMERA_ROLL)
+      .then(response => {
+        if(response.status === 'granted') {
+          return ImagePicker.launchCameraAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+          })
+        }
+        else {
+          throw "Error"
+        }
+      }).then(response => {
+        return CameraRoll.saveToCameraRoll(response.uri)
+      }).then(uri => {
+        if(uri) {
+          this.props.addImage(uri)
+        }
+      }).catch(error => {
+        console.log(error)
+      })
+  }
 }
 
 const mapDispatchToProps = {
-  importImage,
+  addImage,
   handlePhotoTap,
   handleSetFolder,
   takePicture
 } 
 
 const mapStateToProps = (state) => {
-  var filtered_images = state.images.image_list.filter(image => image.folder === state.images.folder);
   return {
-    "unfilteredImages": state.images.image_list,
-    "folder": state.images.folder,
-    "folderList": state.images.folder_list,
-    'filteredImages': filtered_images
+    images: state.images.allIds.map(id => ({ ...state.images.byId[id], id })),
+    folder: state.images.currentFolder,
+    folderList: state.images.folders,
   }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
-/*<ListView contentContainerStyle={styles.list}
-            enableEmptySections={true}
-            dataSource={this.props.ds}
-            pageSize={9} // Needs to be a multiple of the number of
-            // cells per row or else they will be gaps
-            // when the rows are loaded
-            renderRow={(rowData, sectionID, rowID, highlightRow) =>
-                <TouchableHighlight
-                  underlayColor='transparent'
-                  onPress={ () => {
-                    console.log("here", this.props.unfilteredImages);
-                    this.props.handlePhotoTap(rowData.image_index) 
-                  }}>
-                  <Image
-                    style={styles.item}
-                    resizeMode='cover'
-                    source={{uri: rowData.image}} />
-                </TouchableHighlight>
-            } />    */
-            /*
-            renderRow={(rowData, sectionID, rowID, highlightRow) =>
-              <TouchableHighlight
-                underlayColor='transparent'
-                onPress={ () => {
-                  console.log("here", this.props.unfilteredImages);
-                  this.props.handlePhotoTap(rowData.image_index) 
-                }}>
-                <Image
-                  style={styles.item}
-                  resizeMode='cover'
-                  source={{uri: rowData.image}} />
-              </TouchableHighlight>
-          } />  */

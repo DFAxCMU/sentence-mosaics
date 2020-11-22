@@ -9,31 +9,23 @@ import {
   Button,
   AsyncStorage,
   TouchableHighlight,
-  ListView,
-  ScrollView
+  FlatList,
+  ScrollView,
+  TouchableOpacity,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { styles } from '../styles';
+import Icon from 'react-native-vector-icons/FontAwesome'
+import { Audio } from 'expo-av';
+import * as FileSystem from 'expo-file-system';
 
-import { remove_sentence } from '../actions'
+
+import { removeSentence } from '../actions/savedSentenceActions.js'
 
 class SentenceView extends Component {
-  constructor(props) {
-    super(props);
-    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-    this.state = {
-      uri: this.props.uri, 
-      ds: ds, 
-      dataSource: ds.cloneWithRows(this.props.sentences),
-    };
-  }
-
-  componentWillReceiveProps(props) {
-    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-    this.setState({
-      ds: ds, 
-      dataSource: ds.cloneWithRows(props.sentences),
-    });
+  constructor(props){
+    super(props)
+    this.state = {currentlyPlaying: null}
   }
 
   render() {
@@ -42,25 +34,66 @@ class SentenceView extends Component {
       { paddingBottom: 20}
     ]);
     var comp = this; 
-    console.log("saved sentences:" + JSON.stringify(this.state.dataSource));
-    var sentenceList = (this.state.dataSource._dataBlob.s1.length == 0) ? 
+    return (this.props.sentences.length == 0) ? 
       <Text style={styles.wordsHeader}>No Sentences Saved</Text>
-      : (<ListView
+      : (<FlatList
             style={{paddingTop:10, }}
             enableEmptySections={true}
-            dataSource={this.state.dataSource}
-            renderRow={ (rowData,sectionID, rowID) => {
+            data = {this.props.sentences}
+            renderItem={({ item, index }) => {
               return(
                   <View style={{flexDirection:'row'}}>
-                    <Text style={{fontSize: 24}}>{rowData}</Text>
+                    <TouchableOpacity style= {{marginRight: 10}}
+                      onPress={ () => {
+                        if(this.state.currentlyPlaying === index) {
+                          this.setState({currentlyPlaying : null})
+                        }
+                        else {
+                          this.setState({currentlyPlaying : index})
+                          const sound = new Audio.Sound()
+                          sound.loadAsync({ 
+                            uri: item.recordingUri 
+                          }).then(() => {
+                            return Audio.setAudioModeAsync({
+                              allowsRecordingIOS: false,
+                              interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
+                              playsInSilentModeIOS: true,
+                              playsInSilentLockedModeIOS: true,
+                              shouldDuckAndroid: true,
+                              interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
+                              playThroughEarpieceAndroid: false,
+                              staysActiveInBackground: true,
+                            })
+                          }).then(()=> {
+                            console.log("starting...");
+                            sound.playAsync()
+                            sound.setOnPlaybackStatusUpdate(status => {
+                              if(status.didJustFinish) {
+                                console.log('done');
+                                sound.stopAsync();
+                                this.setState({currentlyPlaying : null})
+                              }
+                            })
+                          }).catch(error => {
+                            console.log(error)
+                          })
+                        }
+                    }}>
+                      <Icon 
+                        name={this.state.currentlyPlaying==index ? 'pause' : 'play'} 
+                        size={24} 
+                        color={'gray'} />
+                    </TouchableOpacity>
+                    <Text style={{fontSize: 24}}>{item.text}</Text>
+                    
                     <Text style={{fontSize: 24, color: "red"}}
-                      onPress={ () => { 
+                      onPress={ () => {
                         Alert.alert(
                           'Delete Sentence?',
                           'Are you sure you want to delete this sentence?',
                           [
                               {text: 'Yes', onPress: () =>  {
-                                  comp.props.remove_sentence(comp.props.uri.image_index,parseInt(rowID)); 
+                                  comp.props.removeSentence(item.id); 
                                 }
                               , style: 'cancel'},
                               {text: 'No', onPress: () => console.log('No delete sentence')},
@@ -73,41 +106,39 @@ class SentenceView extends Component {
               }}
         />
       );
-      return sentenceList;
   }
 }
 
-const SavedSentences = ({ uri,sentences,remove_sentence }) => (
+const SavedSentences = ({ image,sentences,removeSentence }) => (
   <View style={styles.container}>
       <Image
-      source={{uri: uri.image}}
+      source={{uri: image.uri}}
       style={styles.image}
       resizeMode="contain" />
     <SentenceView
-        uri={uri}
+        uri={image}
         sentences={sentences}
-        remove_sentence={remove_sentence}
+        removeSentence={removeSentence}
         />
   </View>
 )
 
 /* Container Component */
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-      remove_sentence: (image_index, sentence_index ) => {
-        dispatch(remove_sentence(image_index,sentence_index));
-      }
-  }
+const mapDispatchToProps = {
+  removeSentence,
 }
 
 const mapStateToProps = (state) => {
   var index = state.currentSentence.activeImageIndex;
-  var correct_image = state.images.image_list[index];
-  var sentences = correct_image.sentence_strings;
+  var image = state.images.byId[index];
+  const sentences = state.savedSentences.allIds
+    .filter(id => state.savedSentences.byId[id].image === index) 
+    .map(id => ({ ...state.savedSentences.byId[id], id }))
+  console.log(sentences)
   return {
-    sentences: sentences, 
-    uri: correct_image,
+    sentences: sentences,  
+    image: image
   }
 }
 
