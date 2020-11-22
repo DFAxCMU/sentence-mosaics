@@ -19,7 +19,7 @@ const initialState = {
   sentenceScrollEnabled: true,
 };
 
-export default function sentences(state = initialState, action) {
+export default function currentSentence(state = initialState, action) {
   console.log(action);
   switch (action.type) {
     case Actions.ADD_WORD:

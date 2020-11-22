@@ -2,11 +2,11 @@
 
 import { combineReducers } from 'redux';
 
-import sentences from './sentences';
-import images from './images';
+import currentSentence from './currentSentence.js';
+import images from './images.js';
 
 const allReducers = combineReducers({
-  sentences,
+  currentSentence,
   images,
 });
 

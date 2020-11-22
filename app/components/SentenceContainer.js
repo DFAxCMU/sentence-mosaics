@@ -82,9 +82,9 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
   return {
-    sentence: state.sentences.activeSentence,
-    itemOrder: state.sentences.itemOrder,
-    sentenceScrollEnabled: state.sentences.sentenceScrollEnabled,
+    sentence: state.currentSentence.activeSentence,
+    itemOrder: state.currentSentence.itemOrder,
+    sentenceScrollEnabled: state.currentSentence.sentenceScrollEnabled,
   }
 }
 

@@ -95,8 +95,8 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
   return {
-    wordType: state.sentences.wordPicker,
-    wordIndex: state.sentences.editIndex,
+    wordType: state.currentSentence.wordPicker,
+    wordIndex: state.currentSentence.editIndex,
   }
 }
 

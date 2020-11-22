@@ -226,12 +226,12 @@ return {
 }
 
 const mapStateToProps = (state) => {
-  var index = state.sentences.activeImageIndex;
+  var index = state.currentSentence.activeImageIndex;
   var correct_image = state.images.image_list[index];
   return {
     uri: correct_image,
-    sentence: state.sentences.activeSentence,
-    itemOrder: state.sentences.itemOrder,
+    sentence: state.currentSentence.activeSentence,
+    itemOrder: state.currentSentence.itemOrder,
     index,
   }
 }
