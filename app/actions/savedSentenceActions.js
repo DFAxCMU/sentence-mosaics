@@ -1,4 +1,5 @@
 import * as FileSystem from 'expo-file-system';
+import * as MediaLibrary from 'expo-media-library';
 
 /* Action Types */
 export const ADD_SENTENCE = 'ADD_SENTENCE';
@@ -8,15 +9,15 @@ export const REMOVE_SENTENCE = 'REMOVE_SENTENCE';
 export function addSentence(image, text, recording) {
     return (dispatch, getState) => {
       if(recording) {
-        const fileName = `${ FileSystem.documentDirectory }/recordings/recording${ getState().savedSentences.nextId }.caf`;
-        FileSystem.copyAsync({ from: recording, to: fileName }).then(() => {
+        MediaLibrary.createAssetAsync(recording).then(asset => {
+          console.log(asset)
           dispatch({
             type: ADD_SENTENCE,
             image,
             text,
-            recordingUri: fileName,
+            recordingUri: asset.uri,
           })
-        }).catch(x => console.log("didnt save cuz", x)) 
+        }).catch(x => console.error("didnt save cuz", x)) 
       }
       else {
         dispatch({
@@ -29,7 +30,6 @@ export function addSentence(image, text, recording) {
 }
 
 export function removeSentence(id) {
-  console.log(id)
   return  {
     type: REMOVE_SENTENCE,
     id,

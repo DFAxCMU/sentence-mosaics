@@ -1,10 +1,16 @@
 'use strict';
-import * as Actions from '../actions/index';
 import { 
-    ADD_IMAGE, 
-    DELETE_IMAGE, 
-    DELETE_ALL_IMAGES 
-} from '../actions/imageActions.js'
+  ADD_IMAGE, 
+  DELETE_IMAGE, 
+  DELETE_ALL_IMAGES 
+} from '../actions/imageActions.js';
+
+import { 
+  SET_FOLDER,
+  CREATE_FOLDER,
+  RENAME_FOLDER,
+  DELETE_FOLDER,
+} from '../actions/folderActions.js';
 
 const homeFolder = 'Home Folder';
 
@@ -17,30 +23,44 @@ const initialState = {
 };
 
 export default function images(state=initialState, action) {
-    console.log(action)
   switch (action.type) {
-    case Actions.SET_FOLDER: {
+    case SET_FOLDER: {
       return {
         ...state,
         currentFolder: action.id,
       }
     }
-    case Actions.CREATE_FOLDER: {
+    case CREATE_FOLDER: {
       return {
         ...state,
         currentFolder: action.name,
         folders: state.folders.concat([action.name]),
       }
     }
-    case Actions.RENAME_FOLDER: {
+    case RENAME_FOLDER: {
       const index = state.folders.indexOf(state.currentFolder);
+      let byId = {}
+      state.allIds.forEach(id => {
+        if(state.byId[id].folder === state.currentFolder) {
+          byId[id] = {
+            ...state.byId[id],
+            folder: state.currentFolder
+          }
+        }
+        else {
+          byId[id] = {
+            ...state.byId[id]
+          }
+        }
+      })
       return {
         ...state,
         currentFolder: action.name,
         folders: state.folders.map(folder => folder === state.currentFolder ? action.name : folder),
+        byId,
       }
     }
-    case Actions.DELETE_FOLDER:
+    case DELETE_FOLDER:
       return {
         ...state,
         currentFolder: homeFolder,

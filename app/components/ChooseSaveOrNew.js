@@ -71,7 +71,6 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = (state, props) => {
   var index = props.index;
   var image = state.images.byId[index];
-  console.log(image)
   return {
     uri: image.uri,
   }

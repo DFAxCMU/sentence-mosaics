@@ -75,7 +75,7 @@ class SentenceView extends Component {
                               }
                             })
                           }).catch(error => {
-                            console.log(error)
+                            console.error(error)
                           })
                         }
                     }}>
@@ -135,7 +135,6 @@ const mapStateToProps = (state) => {
   const sentences = state.savedSentences.allIds
     .filter(id => state.savedSentences.byId[id].image === index) 
     .map(id => ({ ...state.savedSentences.byId[id], id }))
-  console.log(sentences)
   return {
     sentences: sentences,  
     image: image
