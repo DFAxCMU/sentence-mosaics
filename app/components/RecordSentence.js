@@ -24,7 +24,7 @@ import IconButton from './IconButton'
 import ProgressBar from './ProgressBar'
 import * as Permissions from 'expo-permissions';
 
-import { add_sentence } from '../actions'
+import { addSentence } from '../actions/savedSentenceActions.js'
 
 class Recorder extends Component {
   constructor(props) {
@@ -76,12 +76,12 @@ class Recorder extends Component {
     this.recording.stopAndUnloadAsync()
       .then(status => {
         this.setState({ isRecording: false })
-
+        this.props.onRecorded(this.recording.getURI())
       })
   }
 
   startPlaying = () => {
-    if (this.recording === null) return;
+    if (!this.recording) return;
     if (this.state.isPaused) {
       this.setState({ isPlaying: true, isPaused: false})
       this.sound.playAsync()
@@ -160,76 +160,78 @@ class Recorder extends Component {
             onPressHandler={this.stopRecording} />
 */
 
-const RecordSentence = ({ uri, sentence, itemOrder, add_sentence, index }) => {
-  var sentenceString = ""
-  var curr = ""
-  var capitalizeNext = false
-  var addSpace = true
+class RecordSentence extends React.Component {
 
-  for (var i = 0; i < itemOrder.length; i++) {
-    curr = sentence[itemOrder[i]].word
-    if (curr) {
+    constructor(props) {
+      super(props)
+      this.sentenceString = ""
+      var curr = ""
+      var capitalizeNext = false
+      var addSpace = true
 
-      if (i == 0 || capitalizeNext) {
-        curr = curr[0].toUpperCase() + curr.slice(1);
+      for (var i = 0; i < props.itemOrder.length; i++) {
+        curr = props.sentence[props.itemOrder[i]].word
+        if (curr) {
+          if (i == 0 || capitalizeNext) {
+            curr = curr[0].toUpperCase() + curr.slice(1);
+          }
+
+          capitalizeNext = (curr == "." || curr == "!" || curr == "?")
+
+          addSpace = (props.sentence[props.itemOrder[i]].type != "punctuation" &&
+                      props.sentence[props.itemOrder[i]].type != "inflection")
+
+          if (addSpace) this.sentenceString = this.sentenceString.concat(" ");
+
+          this.sentenceString = this.sentenceString.concat(curr);
+          addSpace = true
+        }
       }
-
-      capitalizeNext = (curr == "." || curr == "!" || curr == "?")
-
-      addSpace = (sentence[itemOrder[i]].type != "punctuation" &&
-                  sentence[itemOrder[i]].type != "inflection")
-
-      if (addSpace) sentenceString = sentenceString.concat(" ");
-
-      sentenceString = sentenceString.concat(curr);
-      addSpace = true
     }
-  }
 
-  return (
-    <View style={styles.container}>
-      <Image
-        source={{uri: uri.image}}
-        style={styles.image}
-        resizeMode="contain" />
-      <View style={styles.sentenceContainer}>
-        <Text style={styles.fullSentenceText}>{ sentenceString }</Text>
-      </View>
+    render() {
+        return (
+            <View style={styles.container}>
+              <Image
+                source={{uri: this.props.uri}}
+                style={styles.image}
+                resizeMode="contain" />
+              <View style={styles.sentenceContainer}>
+                <Text style={styles.fullSentenceText}>{ this.sentenceString }</Text>
+              </View>
 
-      <Recorder/>
+                  <Recorder onRecorded={ (uri => {
+                      this.recordingURI = uri
+                  })}/>
 
-      <TouchableHighlight
-          onPress={() => {
-              if (sentenceString == "") {
-                Alert.alert("This sentence is empty!");
-                return;
-              }
-              add_sentence(index, sentenceString);
-              Alert.alert("Saved!");
-            }}
-          style={styles.button}
-          accessibilityLabel="Save Sentence Text">
-          <Text style={styles.wordText}>Save</Text>
-      </TouchableHighlight>
-    </View>
-  )
+              <TouchableHighlight
+                  onPress={() => {
+                      if (this.sentenceString == "") {
+                        Alert.alert("This sentence is empty!");
+                        return;
+                      }
+                      this.props.addSentence(this.props.index, this.sentenceString, this.recordingURI);
+                      Alert.alert("Saved!");
+                    }}
+                  style={styles.button}
+                  accessibilityLabel="Save Sentence Text">
+                  <Text style={styles.wordText}>Save</Text>
+              </TouchableHighlight>
+            </View>
+          )
+    }
 }
 
 /* Container Component */
 
-const mapDispatchToProps = (dispatch) => {
-return {
-      add_sentence: (image_index, sentence) => {
-        dispatch(add_sentence(image_index,sentence));
-      }
-  }
+const mapDispatchToProps = {
+  addSentence,
 }
-
 const mapStateToProps = (state) => {
-  var index = state.currentSentence.activeImageIndex;
-  var correct_image = state.images.image_list[index];
+  var index = state.sentences.activeImageIndex;
+  var image = state.images.byId[index];
   return {
-    uri: correct_image,
+    uri: image.uri,
     sentence: state.currentSentence.activeSentence,
     itemOrder: state.currentSentence.itemOrder,
     index,

@@ -17,11 +17,14 @@ import Dropdown from './Dropdown.js';
 import DropDownPicker from 'react-native-dropdown-picker';
 
 import {
-  importImage,
   handlePhotoTap,
   handleSetFolder,
   takePicture
 } from '../actions/homeActions';
+
+import {
+  addImage
+} from '../actions/imageActions.js';
 
 import { styles } from '../styles'
 
@@ -30,7 +33,7 @@ class Home extends Component  {
       let options = this.props.folderList.map(x => { return { label: x, value: x } });
     let label = this.props.folder;
     if (!label) label = "Select Folder...";
-    console.log(this.props.filteredImages)
+    console.log(this.props)
     return (
       <View style={styles.lightContainer}>
         <DropDownPicker 
@@ -57,7 +60,7 @@ class Home extends Component  {
                   <ImageBackground
                     style={styles.item}
                     resizeMode='cover'
-                    source={{uri: item.image}}
+                    source={{uri: item.uri }}
                     backgroundColor = 'gray' />
                 </TouchableHighlight>}
             } />    
@@ -78,7 +81,7 @@ class Home extends Component  {
                 <Icon name="ios-camera" style={styles.icon}> </Icon>
             </TouchableHighlight>
             <TouchableHighlight
-                onPress={ this.props.importImage }
+                onPress={ this.importImage.bind(this) }
                 style={styles.smallIconButton}>
                 <Icon name="md-photos" style={styles.icon}> </Icon>
             </TouchableHighlight>
@@ -94,22 +97,62 @@ class Home extends Component  {
         </View>
     );
   }
+
+  importImage() {
+    Permissions.askAsync(Permissions.CAMERA_ROLL)
+      .then(response => {
+        if(response.status === 'granted') {
+          return ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+          })
+        }
+        else {
+          throw "Error"
+        }
+      }).then(response => {
+        if(response.uri) {
+          console.log(response.uri)
+          this.props.addImage(response.uri)
+        }
+      }).catch(error => {
+        console.log(error)
+      })
+  }
+  takePicture() {
+    Permissions.askAsync(Permissions.CAMERA, Permissions.CAMERA_ROLL)
+      .then(response => {
+        if(response.status === 'granted') {
+          return ImagePicker.launchCameraAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+          })
+        }
+        else {
+          throw "Error"
+        }
+      }).then(response => {
+        return CameraRoll.saveToCameraRoll(response.uri)
+      }).then(uri => {
+        if(uri) {
+          this.props.addImage(uri)
+        }
+      }).catch(error => {
+        console.log(error)
+      })
+  }
 }
 
 const mapDispatchToProps = {
-  importImage,
+  addImage,
   handlePhotoTap,
   handleSetFolder,
   takePicture
 } 
 
 const mapStateToProps = (state) => {
-  var filtered_images = state.images.image_list.filter(image => image.folder === state.images.folder);
   return {
-    "unfilteredImages": state.images.image_list,
-    "folder": state.images.folder,
-    "folderList": state.images.folder_list,
-    'filteredImages': filtered_images
+    images: state.images.allIds.map(id => ({ ...state.images.byId[id], id })),
+    folder: state.images.currentFolder,
+    folderList: state.images.folders,
   }
 }
 

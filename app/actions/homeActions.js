@@ -6,9 +6,6 @@ import {
   selectPhoto,
   showDefaultSentence,
   clearWordPicker,
-  add_image,
-  delete_image,
-  delete_all_images,
 } from './index';
 import { Actions } from 'react-native-router-flux';
 import { Alert, ImagePickerIOS, AlertIOS, CameraRoll } from 'react-native';
@@ -16,6 +13,12 @@ import * as ImagePicker from 'expo-image-picker';
 //import { Alert } from 'expo';
 import * as Permissions from 'expo-permissions';
 import Constants from 'expo-constants';
+import * as FileSystem from 'expo-file-system';
+import { 
+    addImage,
+    deleteImage,
+    deleteAllImages,
+} from './imageActions.js';
 
 tapTimer = null
 ignoreTap = false
@@ -72,7 +75,7 @@ export function importImage() {
   }
 }
 export function takePicture() {
-  return (dispatch) => {
+  return (dispatch, getState) => {
       Permissions.askAsync(Permissions.CAMERA, Permissions.CAMERA_ROLL)
         .then(function(response) {
         if(response.status === 'granted') {
@@ -84,11 +87,15 @@ export function takePicture() {
           throw "Error"
         }
       }).then(response => {
-        return CameraRoll.saveToCameraRoll(response.uri)
-      }).then(uri => {
-          if(uri) {
-              dispatch(add_image(uri))
-          }
+        console.log(response.uri);
+        const fileName = `${ FileSystem.documentDirectory }/images/image${ getState().images.nextId }.jpg`;
+          console.log(fileName)
+        return FileSystem.copyAsync({ from: response.uri, to: fileName })
+              .then(uri => {
+                  if(uri) {
+                      dispatch(add_image(uri))
+                  }
+              })
       }).catch(function(error) {
         console.log(error)
       })
@@ -102,7 +109,7 @@ export function deleteAllPhotos() {
       'Are you sure you want to delete all photos?',
       [{
         text: 'Yes',
-        onPress: () => dispatch(delete_all_images()),
+        onPress: () => dispatch(deleteAllImages()),
         style: 'cancel'
       }, {
         text: 'No',
@@ -133,7 +140,6 @@ function onPhotoSingleTap(dispatch, index) {
 
     waitingForDoubleTap = false;
     // Do the single click action
-    console.log("single click", index);
     dispatch(selectPhoto(index));
     Actions.chooseSaveOrNew({ index: index });
     dispatch(showDefaultSentence());
@@ -153,7 +159,7 @@ function onPhotoDoubleTap(dispatch, index) {
     'Are you sure you want to delete this image?',
     [{
       text: 'Yes',
-      onPress: () => dispatch(delete_image(index)),
+      onPress: () => dispatch(deleteImage(index)),
       style: 'cancel'
     }, {
       text: 'No',
