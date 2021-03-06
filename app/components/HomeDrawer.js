@@ -19,10 +19,14 @@ import { editWord, inputWord, setModal } from '../actions';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import {
+    createFolder,
+    deleteFolder,
+    renameFolder,
+    setFolder,
+} from '../actions/folderActions.js';
+
+import {
   deleteAllPhotos,
-  handleCreateFolder,
-  handleRenameFolder,
-  handleDeleteFolder,
 } from '../actions/homeActions';
 
 class HomeDrawer extends Component  {
@@ -47,7 +51,7 @@ class HomeDrawer extends Component  {
           ],
           { cancelable: false }
         );
-      } else if (this.props.folderList.slice().includes(this.state.folderName)) {
+      } else if (this.props.folders.slice().includes(this.state.folderName)) {
         Alert.alert(
           "Whoops!",
           "Remember to choose a name that is not already a folder!",
@@ -57,10 +61,10 @@ class HomeDrawer extends Component  {
           { cancelable: false }
         );
       } else if(this.state.creatingFolder){
-        this.props.handleCreateFolder(this.state.folderName)
+        this.props.createFolder(this.state.folderName)
         this.setState({creatingFolder: false, folderName: '', renamingFolder: false})
       } else if(this.state.renamingFolder){
-        this.props.handleRenameFolder(this.state.folderName)
+        this.props.renameFolder(this.state.folderName)
         this.setState({creatingFolder: false, folderName: '', renamingFolder: false})
         //repetitive...any other way?
       }
@@ -74,7 +78,7 @@ class HomeDrawer extends Component  {
         marginTop: 5}}></View>;
         
         var currentFolderOptions = <View></View>;
-        if (this.props.folder !== "Home Folder") {
+        if (this.props.currentFolder !== "Home Folder") {
           currentFolderOptions = (
             <View>
               <TouchableHighlight
@@ -84,7 +88,7 @@ class HomeDrawer extends Component  {
                   <Text style={styles.wordText}>Rename This Folder</Text>
               </TouchableHighlight>
               <TouchableHighlight
-                  onPress={ this.props.handleDeleteFolder }
+                  onPress={ this.props.deleteFolder }
                     style={styles.button}
                     accessibilityLabel="Delete This Folder">
                   <Text style={styles.wordText}>Delete This Folder</Text>
@@ -159,15 +163,15 @@ class HomeDrawer extends Component  {
 
 const mapDispatchToProps = {
   deleteAllPhotos,
-  handleCreateFolder,
-  handleRenameFolder,
-  handleDeleteFolder,
+  createFolder,
+  renameFolder,
+  deleteFolder,
 } 
 
 const mapStateToProps = (state) => {
   return {
-    "folder": state.images.folder,
-    "folderList": state.images.folder_list,
+    currentFolder: state.images.currentFolder,
+    folders: state.images.folders,
   }
 }
 

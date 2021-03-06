@@ -2,12 +2,14 @@
 
 import { combineReducers } from 'redux';
 
-import sentences from './sentences';
+import currentSentence from './currentSentence.js';
 import images from './images';
+import savedSentences from './savedSentences';
 
 const allReducers = combineReducers({
-  sentences,
+  currentSentence,
   images,
+  savedSentences,
 });
 
 export default allReducers

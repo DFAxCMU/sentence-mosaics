@@ -30,7 +30,7 @@ const NewSentence = ({ uri, wordPicker, clearSentenceClick, takeScreenshotClick 
     <View style={styles.topContainer}>
         <NewWordModal />
         <Image
-          source={{uri: uri.image}}
+          source={{uri: uri}}
           style={styles.image}
           resizeMode="contain" />
         <SentenceContainer />
@@ -89,10 +89,10 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state, props) => {
   var index = props.index;
-  var correct_image = state.images.image_list[index];
+  var image = state.images.byId[index];
   return {
-    uri: correct_image,
-    wordPicker: state.sentences.wordPicker
+    uri: image.uri,
+    wordPicker: state.currentSentence.wordPicker
   }
 }
 

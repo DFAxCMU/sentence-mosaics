@@ -20,7 +20,7 @@ class ChooseSaveOrNew extends Component {
       <View style={styles.lightContainer}>
         <View style={styles.container}>
           <Image
-            source={{uri: this.props.uri.image}}
+            source={{uri: this.props.uri }}
             style={styles.image}
             resizeMode="contain" />
 
@@ -70,9 +70,9 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state, props) => {
   var index = props.index;
-  var image = state.images.image_list[index];
+  var image = state.images.byId[index];
   return {
-    uri: image,
+    uri: image.uri,
   }
 }
 

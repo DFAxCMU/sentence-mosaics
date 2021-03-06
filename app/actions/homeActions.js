@@ -6,94 +6,20 @@ import {
   selectPhoto,
   showDefaultSentence,
   clearWordPicker,
-  add_image,
-  delete_image,
-  delete_all_images,
 } from './index';
 import { Actions } from 'react-native-router-flux';
 import { Alert, ImagePickerIOS, AlertIOS, CameraRoll } from 'react-native';
-import * as ImagePicker from 'expo-image-picker';
-//import { Alert } from 'expo';
-import * as Permissions from 'expo-permissions';
-import Constants from 'expo-constants';
+
+import { 
+    addImage,
+    deleteImage,
+    deleteAllImages,
+} from './imageActions.js';
 
 tapTimer = null
 ignoreTap = false
 waitingForDoubleTap = false
 
-export function handleSetFolder(folder) {
-  return (dispatch) => {
-    dispatch(setFolder(folder));
-  }
-}
-
-export function handleCreateFolder(name) {
-  return (dispatch) => {
-    dispatch(createFolder(name));
-    Actions.homeDrawer();
-  }
-}
-
-export function handleRenameFolder(name) {
-  return dispatch => {
-    dispatch(renameFolder(name));
-    Actions.homeDrawer();
-  }
-}
-
-export function handleDeleteFolder() {
-  return dispatch => {
-    dispatch(deleteFolder());
-    Actions.homeDrawer();
-  }
-}
-
-export function importImage() {
-  return (dispatch) => {
-    Permissions.askAsync(Permissions.CAMERA_ROLL) // ask permissions to change camera roll
-      .then(function(response) {
-        if(response.status === 'granted') {
-          //console.log(here)
-          return ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.Images,
-          })
-        }
-        else {
-          throw "Error"
-        }
-      }).then(response => {
-        if(response.uri) {
-          console.log(response.uri)
-          dispatch(add_image(response.uri))
-        }
-    }).catch(function(error) {
-      console.log(error)
-    })
-  }
-}
-export function takePicture() {
-  return (dispatch) => {
-      Permissions.askAsync(Permissions.CAMERA, Permissions.CAMERA_ROLL)
-        .then(function(response) {
-        if(response.status === 'granted') {
-          return ImagePicker.launchCameraAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.Images,
-          })
-        }
-        else {
-          throw "Error"
-        }
-      }).then(response => {
-        return CameraRoll.saveToCameraRoll(response.uri)
-      }).then(uri => {
-          if(uri) {
-              dispatch(add_image(uri))
-          }
-      }).catch(function(error) {
-        console.log(error)
-      })
-  }
-}
 
 export function deleteAllPhotos() {
   return(dispatch) => {
@@ -102,7 +28,7 @@ export function deleteAllPhotos() {
       'Are you sure you want to delete all photos?',
       [{
         text: 'Yes',
-        onPress: () => dispatch(delete_all_images()),
+        onPress: () => dispatch(deleteAllImages()),
         style: 'cancel'
       }, {
         text: 'No',
@@ -133,7 +59,6 @@ function onPhotoSingleTap(dispatch, index) {
 
     waitingForDoubleTap = false;
     // Do the single click action
-    console.log("single click", index);
     dispatch(selectPhoto(index));
     Actions.chooseSaveOrNew({ index: index });
     dispatch(showDefaultSentence());
@@ -153,7 +78,7 @@ function onPhotoDoubleTap(dispatch, index) {
     'Are you sure you want to delete this image?',
     [{
       text: 'Yes',
-      onPress: () => dispatch(delete_image(index)),
+      onPress: () => dispatch(deleteImage(index)),
       style: 'cancel'
     }, {
       text: 'No',

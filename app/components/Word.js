@@ -47,7 +47,7 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
   return {
-    sentence: state.sentences.activeSentence
+    sentence: state.currentSentence.activeSentence
   }
 }
 
