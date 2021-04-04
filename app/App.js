@@ -1,12 +1,13 @@
 'use strict';
 
 import React, { Component} from 'react';
-import {AsyncStorage} from 'react-native'
+import {AsyncStorage, View} from 'react-native'
 import { Actions, Drawer, Router, Scene } from 'react-native-router-flux';
 import { connect, Provider } from 'react-redux';
 import {compose, applyMiddleware, createStore} from 'redux'
 import {persistStore, autoRehydrate} from 'redux-persist'
 import thunk from 'redux-thunk';
+import * as ScreenOrientation from 'expo-screen-orientation';
 
 const RouterWithRedux = connect()(Router);
 import allReducers from './reducers';
@@ -31,6 +32,7 @@ import RecordSentence from './components/RecordSentence';
 import SavedSentences from './components/SavedSentences';
 import ChooseSaveOrNew from './components/ChooseSaveOrNew';
 import HomeDrawer from './components/HomeDrawer.js';
+import {checkEmptySentence} from './actions/homeActions.js';
 
 export default class App extends Component {
     render() {
@@ -66,14 +68,16 @@ export default class App extends Component {
                 key="newSentence"
                 component={NewSentence}
                 title="New Sentence"
-                onRight={() => Actions.recordSentence()}
+                onRight={() => {
+                  store.dispatch(checkEmptySentence());
+                }}
                 rightTitle="Submit" />
               <Scene
                 key="recordSentence"
                 component={RecordSentence}
                 title="Record Sentence"
                 onRight={() => Actions.homeDrawer()}
-                rightTitle="Done" />
+                rightTitle="Cancel" />
               <Scene
                 key="savedSentences"
                 component={SavedSentences}
@@ -90,3 +94,4 @@ export default class App extends Component {
       );
     }
 }
+

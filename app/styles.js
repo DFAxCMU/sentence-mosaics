@@ -269,11 +269,12 @@ export const styles = StyleSheet.create({
     backgroundColor: '#e4eeed',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 20,
+    padding: 10,
     marginBottom: 20,
     marginTop: 10,
     borderRadius: 8,
     minWidth: 200,
+    minHeight: 50
   },
   smallIconButton: {
     backgroundColor: '#e4eeed',

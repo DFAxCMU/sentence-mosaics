@@ -4,6 +4,7 @@ import { CameraRoll } from 'react-native';
 import { ActionConst } from 'react-native-router-flux';
 import { captureScreen } from "react-native-view-shot";
 import { words } from '../words';
+import {Router} from 'react-native-router-flux';
 import * as Actions from '../actions/index';
 
 const initialState = {

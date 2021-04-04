@@ -91,3 +91,31 @@ function resetTapIgnoreTime() {
   clearTimeout(tapTimer);
   tapTimer = setTimeout(() => {tapIgnore = false, 200});
 }
+
+export function sendAlert(id) {
+  return {
+    type: DELETE_IMAGE,
+    id,
+  }
+}
+
+export function checkEmptySentence() {
+  return function (dispatch, getState) {
+    //same as return (dispatch, getState) => {}
+    const state = getState();
+    console.log(state.currentSentence.activeSentence);
+    
+    const sentence = state.currentSentence.activeSentence;
+    var sentenceString = "";
+    const itemOrder = state.currentSentence.itemOrder;
+    for (var i = 0; i < itemOrder.length; i++){
+      curr = sentence[itemOrder[i]].word
+      sentenceString = sentenceString.concat(curr);
+    }
+    if(sentenceString == ""){
+      Alert.alert("This sentence is empty!");
+    } else {
+      Actions.recordSentence();
+    } 
+  }
+}

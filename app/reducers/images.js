@@ -63,6 +63,7 @@ export default function images(state=initialState, action) {
     case DELETE_FOLDER:
       return {
         ...state,
+        allIds: state.allIds.filter(id => state.byId[id].folder !== state.currentFolder),
         currentFolder: homeFolder,
         folders: state.folders.filter(folder => folder !== state.currentFolder)
       }
